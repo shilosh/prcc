@@ -1,0 +1,117 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "prccapp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "less",
+          "skipTests": true
+        }
+      },
+      "root": "projects/prccapp",
+      "sourceRoot": "projects/prccapp/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/prccapp",
+            "index": "projects/prccapp/src/index.html",
+            "main": "projects/prccapp/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/prccapp/tsconfig.app.json",
+            "inlineStyleLanguage": "less",
+            "assets": [
+              "projects/prccapp/src/favicon.ico",
+              "projects/prccapp/src/assets",
+              "projects/prccapp/src/api"
+            ],
+            "styles": [
+              "@angular/material/prebuilt-themes/purple-green.css",
+              "projects/prccapp/src/styles.less"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "2mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4mb",
+                  "maximumError": "4mb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "prccapp:build:production"
+            },
+            "development": {
+              "browserTarget": "prccapp:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "prccapp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/prccapp/tsconfig.spec.json",
+            "inlineStyleLanguage": "less",
+            "assets": [
+              "projects/prccapp/src/favicon.ico",
+              "projects/prccapp/src/assets"
+            ],
+            "styles": [
+              "@angular/material/prebuilt-themes/purple-green.css",
+              "projects/prccapp/src/styles.less"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": false
+  }
+}

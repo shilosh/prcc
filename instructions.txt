@@ -1,0 +1,15 @@
+on my work machine:
+
+cd /home/evyatar/work/prcc/angular/demo03
+nvm version  (should yield: v20.5.0)
+nvm use v20.5.0  
+npm install
+npm run build  (<== this is optional)
+ng serve
+
+then browse to
+http://localhost:4200/
+
+
+browse to this to see the Figma:
+https://www.figma.com/file/Ty4mQXA9tULeEIHd53Q7cC/Digital-Forest?type=design&node-id=845-18699&mode=design&t=UNnTzTZ5aGZeuXz8-0
