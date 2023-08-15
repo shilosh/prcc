@@ -93,15 +93,15 @@ export class State {
         if (this.processed) {
             return ret;
         }
-        if (this.sql.length) {
-            ret = forkJoin(this.sql.map(sql => api.query(sql))).pipe(
-                tap((data: any[][]) => {
-                    this.processed = true;
-                    this.data = data;
-                    this.handleData(data);
-                })
-            )
-        }
+        // if (this.sql.length) {
+        //     ret = forkJoin(this.sql.map(sql => api.query(sql))).pipe(
+        //         tap((data: any[][]) => {
+        //             this.processed = true;
+        //             this.data = data;
+        //             this.handleData(data);
+        //         })
+        //     )
+        // }
         return ret;
     }
 

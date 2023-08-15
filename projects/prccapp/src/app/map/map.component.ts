@@ -29,14 +29,14 @@ export class MapComponent implements AfterViewInit{
     // 'parcels-label',
     // 'parcels-border',
     // 'parcels-fill',
-    'roads-border',
+    // 'roads-border',
     // 'canopies',
     // 'trees',
     'prcc-settlements-data',
     //'prcc-statistical-areas'
   ];
   CLICKS = [
-    //['prcc-statistical-areas', 'stat-areas', 'YISHUV_STA']
+    //['prcc-statistical-areas', 'stat-areas', 'YISHUV_STA'],
     // ['trees', 'trees', 'tree-id'],
     ['prcc-settlements-data', 'munis', 'muni_code'],
     // ['stat-areas-fill', 'stat-areas', 'code'],
@@ -93,9 +93,11 @@ export class MapComponent implements AfterViewInit{
         });
       });
       console.log('LAYERS:');
-      console.log(this.map.getStyle().layers);
+      //console.log(this.map.getStyle().layers);
       this.OWN_LAYERS.forEach((layer) => {
         console.log(layer);
+        // This adds a Hover tooltip for each layer! for ALL layers in OWN_LAYERS!!
+        // the mechanism based on *state classes does this in a more general way!!
         this.map.on('mousemove', layer, (e: mapboxgl.MapLayerMouseEvent) => {
           if (e.defaultPrevented) {
             return;
@@ -103,7 +105,7 @@ export class MapComponent implements AfterViewInit{
           e.preventDefault();
           if (e.features && e.features.length > 0) {
             this.map.getCanvas().style.cursor = 'pointer';
-            this.addPopup(e.features[0], e.lngLat)
+            this.addPopup(e.features[0], e.lngLat, layer)
           }
         });
       });
@@ -113,6 +115,7 @@ export class MapComponent implements AfterViewInit{
         }
         e.preventDefault();
         this.map.getCanvas().style.cursor = '';
+        this.removePreviousPopup();
       });
       this.state.state.pipe(
         untilDestroyed(this),
@@ -125,24 +128,26 @@ export class MapComponent implements AfterViewInit{
           });
         }
         console.log('STATE', state, this.map.getStyle().layers);
-        // if (state.filters?.focus !== this.focus_) {
-        //   this.focus_ = state.filters?.focus;
-        //   if (state.focus) {
-        //     const QUERY = state.focus.boundsQuery();
-        //     if (QUERY) {
-        //       this.api.query(QUERY).subscribe((res) => {
-        //         this.map.fitBounds(
-        //           res[0].bounds,
-        //           // {padding: {top:0, bottom:0, left:0, right: 400}}
-        //         );
-        //       });
-        //     }
-        //   }
-        // }
-        // const extraFilters = state.focus?.mapFilters() || {};
+        if (state.filters?.focus !== this.focus_) {
+          this.focus_ = state.filters?.focus;
+          if (state.focus) {
+            const QUERY = state.focus.boundsQuery();
+            if (QUERY) {
+              this.api.query(QUERY).subscribe((res) => {
+                this.map.fitBounds(
+                  res[0].bounds,
+                  // {padding: {top:0, bottom:0, left:0, right: 400}}
+                );
+              });
+            }
+          }
+        }
+        const extraFilters = state.focus?.mapFilters() || {};
         
         this.map.getStyle().layers.forEach((layer) => {
-          console.log(layer);
+          if (layer.id.startsWith("prcc")) {
+            console.log(layer);
+          }
           if (this.ownLayer(layer)) {
             if (state.isLayerVisible(layer.id)) {
               this.map.setLayoutProperty(layer.id, 'visibility', 'visible');
@@ -152,21 +157,21 @@ export class MapComponent implements AfterViewInit{
             }
             const lc = state.getLayerConfig(layer.id);
             console.log('OWN LAYER', layer.id, lc);
-            // const filters: any[][] = [];
-            // if (lc?.filter) {
-            //   filters.push(lc.filter);
-            // } 
-            // if (extraFilters[layer.id]) {
-            //   filters.push(extraFilters[layer.id]);
-            // }
-            // console.log('FILTERS', extraFilters, lc.filter, filters.length, ['all', ...filters]);
-            // if (filters.length > 1) {
-            //   this.map.setFilter(layer.id, ['all', ...filters]);
-            // } else if (filters.length === 1) {
-            //   this.map.setFilter(layer.id, filters[0]);
-            // } else {
-            //   this.map.setFilter(layer.id, null);
-            // }
+            const filters: any[][] = [];
+            if (lc?.filter) {
+              filters.push(lc.filter);
+            } 
+            if (extraFilters[layer.id]) {
+              filters.push(extraFilters[layer.id]);
+            }
+            console.log('FILTERS', extraFilters, lc.filter, filters.length, ['all', ...filters]);
+            if (filters.length > 1) {
+              this.map.setFilter(layer.id, ['all', ...filters]);
+            } else if (filters.length === 1) {
+              this.map.setFilter(layer.id, filters[0]);
+            } else {
+              this.map.setFilter(layer.id, null);
+            }
             if (lc?.paint) {
               Object.keys(lc.paint).forEach((key) => {
                 this.map.setPaintProperty(layer.id, key, lc.paint[key]);
@@ -189,9 +194,15 @@ export class MapComponent implements AfterViewInit{
     return this.OWN_LAYERS.includes(layer.id);
   }
 
-  addPopup(feature: any, lngLat: mapboxgl.LngLatLike) {
+  addPopup(feature: any, lngLat: mapboxgl.LngLatLike, layer: string) {
     this.removePreviousPopup()
-    const htmlContent = this.createPopupHtmlContentSettlements(feature);
+    let htmlContent = '';
+    if (layer === 'prcc-settlements-data') {
+      htmlContent = this.createPopupHtmlContentSettlements(feature);
+    }
+    else if (layer === 'prcc-statistical-areas') {
+      htmlContent = this.createPopupHtmlContentStatistical(feature); 
+    }
     this.popup = new mapboxgl.Popup({ closeButton: false })
               .setLngLat(lngLat)
               .setHTML(htmlContent)
