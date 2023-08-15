@@ -1,0 +1,173 @@
+@import url(../../common.less);
+
+@selector-width: 96px;
+
+.filter {
+    width: 100%;
+    min-height: 80px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    background: @color-almost-white;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.30);
+    z-index: 2;
+
+    .selector {
+        flex: 0 0 auto;
+        height: 40px;
+        border-radius: 20px;
+        border: 1px solid @color-green;
+        background: @color-white;
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+
+        .selected {
+            position: absolute;
+            width: calc(@selector-width - 8px);
+            height: 32px;
+            right: 4px;
+            border-radius: 16px;
+            background: @color-green;
+            z-index: 0;
+            transition: right 0.2s ease-in-out;
+            transition-property: right, opacity;
+            opacity: 0;
+            &.munis {
+                right: 4px;
+                opacity: 1;
+            }
+            &.stat-areas {
+                right: calc(@selector-width + 4px);
+                opacity: 1;
+            }
+            &.trees {
+                right: calc(2*@selector-width + 4px);
+                opacity: 1;
+            }
+        }
+        
+        a {
+            display: flex;
+            flex-flow: row;
+            align-items: center;
+            justify-content: center;
+            width: @selector-width;
+            .font-regular;
+            font-size: 20px;
+            color: @color-grey;
+            z-index: 1;
+            text-decoration: none;
+
+            &:hover, &:focus {
+                text-decoration: underline;
+            }
+
+            &.active {
+                .font-semibold;
+                color: @color-white;
+                &, &:hover, &:focus {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    .controls {
+        flex: 1 1 auto;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 18px 30px;
+        .control {
+            flex: 0 0 auto;
+            .check {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 5px;
+                input {
+                    appearance: none;
+                    position: relative;
+                    width: 18px;
+                    height: 18px;
+                    border: 2px solid @color-midgrey;
+                    border-radius: 2px;
+                    vertical-align: -2px;
+
+                    &::before {
+                        content: "✔";
+                        position: absolute;
+                        font-size: 13px;
+                        right: 1px;
+                        top: -2px;
+                        visibility: hidden;
+                        color: @color-green;
+                        .font-regular;
+                    }
+
+                    &:checked {
+                        border-color: @color-green;
+                        &::before {
+                            visibility: visible;
+                        }
+                    }
+                }
+                label {
+                    margin: 0;
+                    color: @color-grey;
+                    .font-regular;
+                    font-size: 16px;
+                    line-height: 24px;
+                    white-space: nowrap;
+                }
+            }
+            .select {
+                display: flex;
+                flex-flow: column;
+                label {
+                    .font-semibold;
+                    font-size: 12px;
+                    line-height: 16px;
+                    margin: 0;
+                    color: @color-midgrey;
+                    margin-top: -16px;
+                    white-space: nowrap;
+                }
+                select {
+                    border-radius: 5px;
+                    border: 1px solid @color-green;
+                    background: @color-white;
+                    padding: 4px 12px;
+                    color: @color-grey;
+                    .font-regular;
+                    font-size: 16px;
+                    line-height: 24px;
+                }
+            }
+        }
+    }
+    .last {
+        flex: 0 0 auto;
+        margin-right: auto;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 12px;
+        .clear {
+            a, a:visited {
+                color: @color-midgrey;
+                &:hover, &:focus {
+                    color: @color-grey;
+                }
+                text-decoration: none;
+            }
+        }
+    }
+
+}

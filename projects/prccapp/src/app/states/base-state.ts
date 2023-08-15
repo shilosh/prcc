@@ -4,6 +4,9 @@ import { FocusMode } from "./focus-modes";
 
 export type StateMode = 'about' | 'trees' | 'tree' | 'stat-areas' | 'stat-area' | 'munis' | 'muni' | 'empty';
 
+export type PopupLayerItem = {label: string, content: (f: any) => string};
+export type PopupLayers = {[key: string]: PopupLayerItem[]};
+
 export class LayerConfig {
     constructor(public filter: any | null, public paint: any | null, public layout: any | null) {
     }
@@ -27,6 +30,7 @@ export class FilterOption {
 
 export class FilterItem {
     label: string;
+    placeholder: string = '';
     options: FilterOption[] = [];
 
     constructor(public id: string, public kind: string) {}
@@ -46,6 +50,14 @@ export class SelectFilterItem extends FilterItem {
         this.options = options;
     }
 }
+export class MultipleSelectFilterItem extends FilterItem {
+    constructor(id: string, label: string, placeholder: string, options: FilterOption[]) {
+        super(id, 'multi-select');
+        this.label = label;
+        this.options = options;
+        this.placeholder = placeholder;
+    }
+}
 
 export class State {
 
@@ -63,6 +75,8 @@ export class State {
     filterItems: FilterItem[] = [];
     focus: FocusMode|null = null;
     focusQuery: string;
+    clearFilters = false;
+    popupLayers: PopupLayers = {};
 
     constructor(public mode: StateMode, public id?: string, public filters: any = {}) {
         if (this.filters.focus) {
@@ -71,6 +85,7 @@ export class State {
             this.focus = null;
         }
         this.focusQuery = this.focus?.treesQuery() || 'TRUE';
+        this.clearFilters = this.filters && Object.keys(this.filters).length > 0;
     }
     
     process(api: ApiService): Observable<any> {

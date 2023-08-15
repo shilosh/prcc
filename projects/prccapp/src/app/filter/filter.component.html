@@ -1,0 +1,49 @@
+<div class='filter'>
+    <div class='selector'>
+        <span [class]='"selected " + mode'></span>
+        <a class='munis' [routerLink]='["/", "munis"]' [class.active]='mode === "munis"' queryParamsHandling='merge'>רשויות</a>
+        <a class='stat-areas' [routerLink]='["/", "stat-areas"]' [class.active]='mode === "stat-areas"' queryParamsHandling='merge'>אזורים</a>
+        <a class='trees' [routerLink]='["/", "trees"]' [class.active]='mode === "trees"' queryParamsHandling='merge'>עצים</a>
+    </div>
+    <div class='controls'>
+        <div class='control' *ngFor='let control of controls'>
+            <div class='check' *ngIf='control.kind === "check"'>
+                <input type='checkbox' [id]='control.id' [checked]='_checked[control.id]' (change)='updateCheck(control.id, $event.target)'>
+                <label [for]='control.id'>{{ control.label }}</label>
+            </div>
+            <div class='select' *ngIf='control.kind === "select"'>
+                <label [for]='control.id'>{{ control.label }}</label>
+                <select [id]='control.id' (change)='selectValue(control.id, $event)'>
+                    <option *ngFor='let option of control.options' [value]='option.value'
+                            [selected]='option.value===_selected[control.id]'
+                    >{{ option.label }}</option>
+                </select>
+            </div>
+            <div class='select' *ngIf='control.kind === "multi-select"'>
+                <label [for]='control.id'>{{ control.label }}</label>
+                <select [id]='control.id' (change)='toggleValue(control.id, $event)'>
+                    <option disabled selected *ngIf="_selected[control.id].length === 0" value=''>{{control.placeholder}}</option>
+                    <option disabled selected *ngIf="_selected[control.id].length > 0" value=''>{{_selected[control.id].length}} נבחר(ו)</option>
+                    <ng-container *ngFor='let option of control.options'>
+                        <option *ngIf='_selected[control.id] && _selected[control.id].includes(option.value)'
+                                [value]='option.value'
+                        ><strong>- {{ option.label }}</strong></option>
+                    </ng-container>
+                    <option disabled *ngIf="_selected[control.id]" value=''>---</option>
+                    <ng-container *ngFor='let option of control.options'>
+                        <option *ngIf='!_selected[control.id] || !_selected[control.id].includes(option.value)'
+                                [value]='option.value'
+                        >+ {{ option.label }}</option>
+                    </ng-container>                
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class='last'>
+        <div class='clear' *ngIf='_clear'>
+            <a [routerLink]='[]' [queryParams]='{}'>ניקוי המסננים</a>
+        </div>
+        <!-- <app-export *ngIf='!!downloadQuery' [query]='downloadQuery || ""'></app-export>
+        <app-share></app-share> -->
+    </div>
+</div>

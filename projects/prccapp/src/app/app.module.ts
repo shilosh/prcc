@@ -13,6 +13,7 @@ import { TreesComponent } from './trees/trees.component';
 import { StatAreasComponent } from './stat-areas/stat-areas.component';
 import { SummaryComponent } from './summary/summary.component';
 import { ContentComponent } from './content/content.component';
+import { FilterComponent } from './filter/filter.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { ContentComponent } from './content/content.component';
     MapComponent,
     ContentComponent,
     MunisComponent,
+    FilterComponent,
     TreesComponent,
     StatAreasComponent,
     SummaryComponent,
