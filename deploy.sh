@@ -3,7 +3,7 @@ git checkout master && \
 (git branch -D dist || true) && \
 git checkout -b dist && \
 rm .gitignore && \
-ng build --base-href='prcc' && \
+npm run build && \
 cp dist/prccapp/index.html dist/prccapp/404.html && \
 git add dist/prccapp && \
 git commit -m dist && \
