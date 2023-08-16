@@ -78,6 +78,7 @@ export class State {
     clearFilters = false;
     popupLayers: PopupLayers = {};
 
+    // the filters arg contains the URL part that represents the drop-down selection!
     constructor(public mode: StateMode, public id?: string, public filters: any = {}) {
         if (this.filters.focus) {
             this.focus = FocusMode.fromQueryParam(this.filters.focus) || null;

@@ -3,7 +3,7 @@
         <span [class]='"selected " + mode'></span>
         <a class='munis' [routerLink]='["/", "munis"]' [class.active]='mode === "munis"' queryParamsHandling='merge'>רשויות</a>
         <a class='stat-areas' [routerLink]='["/", "stat-areas"]' [class.active]='mode === "stat-areas"' queryParamsHandling='merge'>אזורים</a>
-        <a class='trees' [routerLink]='["/", "trees"]' [class.active]='mode === "trees"' queryParamsHandling='merge'>עצים</a>
+        <a class='trees' [routerLink]='["/", "trees"]' [class.active]='mode === "trees"' queryParamsHandling='merge'>לווין</a>
     </div>
     <div class='controls'>
         <div class='control' *ngFor='let control of controls'>

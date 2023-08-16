@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class FilterComponent {
   mode: string;
-  controls: FilterItem[] = [];
+  controls: FilterItem[] = [];  // represents all the drop-downs and radio-boxes in the filter area in the header of page
   filters: any = {};
   _selected: any = {};
   _checked: any = {};
@@ -37,7 +37,7 @@ export class FilterComponent {
     } else {
       this.mode = 'none';
     }
-    this.controls = state.filterItems || [];
+    this.controls = state.filterItems || [];  // populate drop-down controls from the state object
     this.filters = state.filters || {};
     this.controls.filter(control => control.kind === 'select').forEach(control => {
       this._selected[control.id] = this.filters[control.id] || control.options[0].value;

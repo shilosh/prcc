@@ -5,6 +5,7 @@ import { QP_REGION_COLORING, QP_REGION_COLORING_CAR, REGION_COLORING_LEGEND, REG
 
 export class StatAreasState extends State {
     constructor(filters: any) {
+        // the filters arg contains the URL part that represents the drop-down selection!
         super('stat-areas', undefined, filters);
         this.sql = [
             `SELECT round(canopy_area_ratio*20) * 5 as ratio, count(1) as count FROM stat_areas WHERE canopy_area_ratio > 0 GROUP BY 1 ORDER BY 1 `,
@@ -38,6 +39,14 @@ export class StatAreasState extends State {
                 {label: 'אחוז כיסוי צומח', content: (p: any) => (100 * p.canopy_area_ratio).toFixed(1) + '%'},
             ]
         }
+
+        // adding a LayerConfig to the layerConfig[] array, with key 'prcc-statistical-areas',
+        // assumes there is a layer with that exact name in the map, and will cause that layer
+        // to become visible when the current state (stat-areas-state) is initilized - which is
+        // when the display to which it is attached is selected in UI.
+        // current state object is created in StateService.initFromUrl(), which is called from the
+        // event handler of any router event (this is defined in AppComponent)
+        this.layerConfig['prcc-statistical-areas'] = new LayerConfig(null, null, null);
 
     }
 

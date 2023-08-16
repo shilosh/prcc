@@ -1,16 +1,35 @@
-import { SelectFilterItem, FilterOption, Legend, LegendItem } from "./base-state";
+import { SelectFilterItem, FilterOption, Legend, LegendItem, MultipleSelectFilterItem } from "./base-state";
 
 export const QP_REGION_COLORING = 'rc';
+export const QP_REGION_COLORING_TEMPERATURE = 'temperature';
+export const QP_REGION_COLORING_VEG_COVER = 'vegetation';
+export const QP_REGION_COLORING_CLUSTER = 'cluster';
+export const QP_REGION_COLORING_ALL = 'cluster';
+
 export const QP_REGION_COLORING_CAR = 'car';
 export const QP_REGION_COLORING_QUALITY = 'quality';
 export const QP_REGION_COLORING_CPC = 'cpc';
 
+const Label_for_munis_dropdown_1 = 'תצוגת מדדים שונים של המצב הקיים';
+const dropdown_1_option_1 = "לפי טמפ' פני השטח";
+const dropdown_1_option_2 = 'לפי כיסוי צומח';
+const dropdown_1_option_3 = 'לפי אשכול כלכלי חברתי';
+const dropdown_1_option_4 = 'כל המדדים יחדיו';
+const Label_for_munis_dropdown_2 = 'שכבות רקע';
+const dropdown_2_option_0 = 'בחר שכבות';
+const dropdown_2_option_1 = 'ציון הצללה משוקלל';
+const dropdown_2_option_2 = 'גוש חלקה';
+const dropdown_2_option_3 = 'פשטי הצפה';
+const dropdown_2_option_4 = 'עצי יעד';
+const dropdown_2_option_5 = 'תחנות אוטובוס';
 // Region Colorings
+// this defines the drop-down of display modes for the "munis" display
 export const MUNI_COLORING_OPTIONS = new SelectFilterItem(
-    QP_REGION_COLORING, 'הצגה:', [
-        new FilterOption(QP_REGION_COLORING_CAR, 'לפי כיסוי חופות העצים'),
-        new FilterOption(QP_REGION_COLORING_QUALITY, 'לפי איכות המידע'),
-        new FilterOption(QP_REGION_COLORING_CPC, 'לפי שטח חופות עצים לנפש'),
+    QP_REGION_COLORING, Label_for_munis_dropdown_1, [
+        new FilterOption(QP_REGION_COLORING_TEMPERATURE, dropdown_1_option_1),
+        new FilterOption(QP_REGION_COLORING_VEG_COVER, dropdown_1_option_2),
+        new FilterOption(QP_REGION_COLORING_CLUSTER, dropdown_1_option_3),
+        new FilterOption(QP_REGION_COLORING_ALL, dropdown_1_option_4)
     ]
 );
 export const STAT_AREA_COLORING_OPTIONS = new SelectFilterItem(
@@ -78,22 +97,16 @@ export const QP_MUNI_FILTER_PD_MID = 'mid';
 export const QP_MUNI_FILTER_PD_HIGH = 'high';
 export const QP_MUNI_FILTER_PD_ALL = 'all';
 
+// This defines the drop-downs controls in the filter area of header, in state "munis"
 export const MUNIS_FILTER_ITEMS = [
     MUNI_COLORING_OPTIONS,
-    new SelectFilterItem(
-        QP_MUNI_FILTER_SEI, 'לפי אשכול חברתי-כלכלי:', [
-            new FilterOption(QP_MUNI_FILTER_SEI_ALL, 'כל האשכולות'),
-            new FilterOption(QP_MUNI_FILTER_SEI_LOW, 'אשכולות 1-3'),
-            new FilterOption(QP_MUNI_FILTER_SEI_MID, 'אשכולות 4-7'),
-            new FilterOption(QP_MUNI_FILTER_SEI_HIGH, 'אשכולות 8-10'),
-        ]
-    ),
-    new SelectFilterItem(
-        QP_MUNI_FILTER_PD, 'לפי צפיפות אוכלוסיה:', [
-            new FilterOption(QP_MUNI_FILTER_PD_ALL, 'הכל'),
-            new FilterOption(QP_MUNI_FILTER_PD_LOW, '<1000 נפשות לקמ״ר'),
-            new FilterOption(QP_MUNI_FILTER_PD_MID, '1000-5000 נפשות לקמ״ר'),
-            new FilterOption(QP_MUNI_FILTER_PD_HIGH, '>5000 נפשות לקמ״ר'),
+    new MultipleSelectFilterItem(
+        QP_MUNI_FILTER_SEI, Label_for_munis_dropdown_2, dropdown_2_option_0, [
+            new FilterOption(QP_MUNI_FILTER_SEI_ALL, dropdown_2_option_1),
+            new FilterOption(QP_MUNI_FILTER_SEI_LOW, dropdown_2_option_2),
+            new FilterOption(QP_MUNI_FILTER_SEI_MID, dropdown_2_option_3),
+            new FilterOption(QP_MUNI_FILTER_SEI_HIGH, dropdown_2_option_4),
+            new FilterOption('bus', dropdown_2_option_5),
         ]
     )
 ];

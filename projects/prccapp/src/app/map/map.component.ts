@@ -33,7 +33,7 @@ export class MapComponent implements AfterViewInit{
     // 'canopies',
     // 'trees',
     'prcc-settlements-data',
-    //'prcc-statistical-areas'
+    'prcc-statistical-areas'
   ];
   CLICKS = [
     //['prcc-statistical-areas', 'stat-areas', 'YISHUV_STA'],
@@ -150,8 +150,10 @@ export class MapComponent implements AfterViewInit{
           }
           if (this.ownLayer(layer)) {
             if (state.isLayerVisible(layer.id)) {
+              console.log('set visibility of layer', layer.id, 'to visible');
               this.map.setLayoutProperty(layer.id, 'visibility', 'visible');
             } else {
+              console.log('set visibility of layer', layer.id, 'to none');
               this.map.setLayoutProperty(layer.id, 'visibility', 'none');
               return;
             }
@@ -216,7 +218,8 @@ export class MapComponent implements AfterViewInit{
   }
 
   createPopupHtmlContentStatistical(feature: any) {
-    const content = '<div dir="ltr">' + '<strong>' + feature.properties['SHEM_YISHU'] + '</strong><br/>' +
+    const content = '<div dir="ltr">' + '<strong>' + feature.properties['SHEM_YISHU'] + 
+    ' ' + 'איזור' + ' ' + feature.properties['STAT11'] + '</strong><br/>' +
     //'<strong>muni: </strong>' + feature.properties['SHEM_YIS_1'] + '<br/>' +
     '<strong>population: </strong>' + feature.properties['Pop_Total'] + '<br/>' +
     '<strong>city code: </strong>' + feature.properties['semel_yesu'] + '<br/>' +

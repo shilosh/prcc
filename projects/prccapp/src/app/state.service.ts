@@ -22,14 +22,22 @@ export class StateService {
   constructor(private api: ApiService) { }
   //constructor() { }
 
+  // create a state object when the URL is manually changed (and - when Angular app is first navigated to)
+  // for example, when navigating to URL "http://localhost:4200/munis", this method is called
+  // with segments[0]="munis". this segments[0] decides the "mode". 
+  // The State object is created according to the mode.
+  // queryParams usually holds info about the filters (drop-downs in the <filter> area in the <header>) -
+  // selecting a value in thedrop-downs causes a routing to a "new" URL which includes 
+  // a query param representing that drop-down selection!
   initFromUrl(segments: any[], queryParams: any) {
-    console.log('initFromUrl STARTED');
+    console.log('initFromUrl STARTED, segments=', segments);
     let mode = segments[0] as StateMode;
     const id = segments[1] ? decodeURIComponent(segments[1]) : undefined;
     let state: State | null = null;
     if (!mode) {
       mode = 'about';
     }
+    console.log('initFromUrl STARTED, mode=', mode);
     if (mode === 'trees') {
       if (id) {
         state = new TreeState(id, queryParams);

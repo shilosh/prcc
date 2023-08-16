@@ -1,5 +1,18 @@
 <div class='content' *ngIf='state'>
-    <h1 *ngIf='name'>{{name}}</h1>
+    <!-- <h1 *ngIf='name'>{{name}}</h1> -->
+    <div *ngIf='state.mode=="munis" || state.mode=="stat-areas"'>
+        <h1>תכנון דיגיטלי לקידום חוסן עירוני והערכות לשינויי אקלים</h1>
+        <strong>כדי לתעדף השקעה בתשתיות ירוקות,</strong><br/>
+        <span>לרשותכם המידע: טמפרטורת פני השטח,</span><br/>
+        <span>כיסוי צומח, אשכול חברתי כלכלי, מצב</span><br/>
+        <span>ההצללה הקיים סביב שירותי בריאות, חינוך</span><br/>
+        <span>ותחנות אוטובוס (ציון משוכלל), ופשטי הצפה.</span><br/>
+        <span></span><br/>
+        <strong style="color: green;">בואו לשנות את פני העיר לעתיד ירוק יותר</strong><br/>
+        <span>הזיזו את הסליידר וראו כיצד כיסוי העיר בעצים</span><br/>
+        <span>וצל משנה את העתיד</span><br/>
+        <span></span><br/>
+    </div>
     <ng-content></ng-content>
     <div class='charts'>
         <div class='chart' *ngFor='let chart of state.charts'>

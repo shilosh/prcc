@@ -13,6 +13,8 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 export class AppComponent {
   title = 'Evyatar';
 
+  // it seems that the constructor is called when navigating to any URL manually, but
+  // not when navigating further in the Angular app through its links
   constructor(private route: ActivatedRoute, private router: Router, private state: StateService) { 
     console.log('AppComponent constructor STARTED');
     this.router.events.pipe(
