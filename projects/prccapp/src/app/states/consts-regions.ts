@@ -33,9 +33,9 @@ export const MUNI_COLORING_OPTIONS = new SelectFilterItem(
     ]
 );
 export const STAT_AREA_COLORING_OPTIONS = new SelectFilterItem(
-    QP_REGION_COLORING, 'הצגה:', [
-        new FilterOption(QP_REGION_COLORING_CAR, 'לפי כיסוי חופות העצים'),
-        new FilterOption(QP_REGION_COLORING_QUALITY, 'לפי איכות המידע'),
+    QP_REGION_COLORING, 'פירוט מדדי ציון ההצללה:', [
+        new FilterOption(QP_REGION_COLORING_TEMPERATURE, dropdown_1_option_1),
+        new FilterOption(QP_REGION_COLORING_VEG_COVER, dropdown_1_option_2),
     ]
 );
 export const REGION_COLORING_INTERPOLATE: {[key: string]: any[]} = {};
@@ -83,7 +83,6 @@ REGION_COLORING_LEGEND[QP_REGION_COLORING_CPC] = new Legend('מקרא שטח ח�
     new LegendItem('#acecc2', 'כיסוי נמוך'),
     new LegendItem('#ccc', 'אין מידע', true),
 ], 'כיסוי הצומח מחושב לפי מיפוי חופות עצים של מפ״י, אוכלוסיה לפי נתוני למ״ס 2020');
-
 // Muni filtering
 export const QP_MUNI_FILTER_SEI = 'sei';
 export const QP_MUNI_FILTER_SEI_LOW = 'low';
@@ -97,18 +96,20 @@ export const QP_MUNI_FILTER_PD_MID = 'mid';
 export const QP_MUNI_FILTER_PD_HIGH = 'high';
 export const QP_MUNI_FILTER_PD_ALL = 'all';
 
+const LAYERS_SELECTION = new MultipleSelectFilterItem(
+    QP_MUNI_FILTER_SEI, Label_for_munis_dropdown_2, dropdown_2_option_0, [
+        new FilterOption(QP_MUNI_FILTER_SEI_ALL, dropdown_2_option_1),
+        new FilterOption(QP_MUNI_FILTER_SEI_LOW, dropdown_2_option_2),
+        new FilterOption(QP_MUNI_FILTER_SEI_MID, dropdown_2_option_3),
+        new FilterOption(QP_MUNI_FILTER_SEI_HIGH, dropdown_2_option_4),
+        new FilterOption('bus', dropdown_2_option_5),
+    ]
+)
+
 // This defines the drop-downs controls in the filter area of header, in state "munis"
 export const MUNIS_FILTER_ITEMS = [
     MUNI_COLORING_OPTIONS,
-    new MultipleSelectFilterItem(
-        QP_MUNI_FILTER_SEI, Label_for_munis_dropdown_2, dropdown_2_option_0, [
-            new FilterOption(QP_MUNI_FILTER_SEI_ALL, dropdown_2_option_1),
-            new FilterOption(QP_MUNI_FILTER_SEI_LOW, dropdown_2_option_2),
-            new FilterOption(QP_MUNI_FILTER_SEI_MID, dropdown_2_option_3),
-            new FilterOption(QP_MUNI_FILTER_SEI_HIGH, dropdown_2_option_4),
-            new FilterOption('bus', dropdown_2_option_5),
-        ]
-    )
+    LAYERS_SELECTION
 ];
 
 export const MUNI_FILTER_ITEMS = [
@@ -116,5 +117,6 @@ export const MUNI_FILTER_ITEMS = [
 ];
 
 export const STAT_AREA_FILTER_ITEMS = [
-    STAT_AREA_COLORING_OPTIONS
+    STAT_AREA_COLORING_OPTIONS,
+    LAYERS_SELECTION
 ];

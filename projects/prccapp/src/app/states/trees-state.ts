@@ -2,7 +2,7 @@ import * as Plot from '@observablehq/plot';
 
 import { State, LayerConfig, Chart, FilterOption, SelectFilterItem, MultipleSelectFilterItem } from "./base-state";
 import { TREE_COLOR_INTERPOLATE, QP_TREE_STATUS_CERTAIN, QP_TREE_STATUS_SUSPECTED, TREE_COLOR_LEGEND, TREE_FILTER_ITEMS, QP_CANOPIES, QP_CANOPIES_NONE, QP_CANOPIES_MATCHED, QP_CANOPIES_LIKELY, QP_CANOPIES_MATCHED_LIKELY, QP_TREE_STATUS, QP_TREE_STATUS_ALL, QP_TREE_STATUS_FILTER, QP_TREE_STATUS_UNREPORTED, QP_TREE_HEIGHT, QP_TREE_HEIGHT_ALL, QP_TREE_HEIGHT_WHERE, QP_TREE_HEIGHT_FILTERS, QP_BARK_DIAMETER, QP_BARK_DIAMETER_ALL, QP_BARK_DIAMETER_WHERE, QP_BARK_DIAMETER_FILTERS, QP_CANOPY_AREA, QP_CANOPY_AREA_ALL, QP_CANOPY_AREA_WHERE, QP_CANOPY_AREA_FILTERS } from './consts-trees';
-//import {  STAT_AREA_FILTER_ITEMS } from './consts-regions'; // temporary!!
+import {  STAT_AREA_FILTER_ITEMS } from './consts-regions'; // temporary!!
 
 
 export class TreesState extends State {
@@ -98,8 +98,8 @@ export class TreesState extends State {
             `SELECT "attributes-species-clean-he" AS species_he, "attributes-species-clean-en" AS species_en FROM trees_compact WHERE "attributes-species-clean-he" is not NULL AND ${this.focusQuery} AND ${treeStatusCondition} GROUP BY 1, 2 ORDER BY 1`,
         ];
         this.legend = TREE_COLOR_LEGEND;
-        this.filterItems = TREE_FILTER_ITEMS;
-        //this.filterItems = STAT_AREA_FILTER_ITEMS;
+        //this.filterItems = TREE_FILTER_ITEMS;
+        this.filterItems = STAT_AREA_FILTER_ITEMS;
         this.downloadQuery = `SELECT __fields__ FROM trees_processed WHERE "meta-tree-id" in (
             SELECT "meta-tree-id" FROM trees_compact WHERE ${this.focusQuery} AND ${treeStatusCondition}) AND ${speciesQuery} AND ${treePropsQuery} AND __geo__ ORDER BY "meta-tree-id" LIMIT 5000`;
         if (this.layerConfig['trees'].filter.length > 1) {
