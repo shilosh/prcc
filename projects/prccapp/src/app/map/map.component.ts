@@ -36,9 +36,9 @@ export class MapComponent implements AfterViewInit{
     'prcc-statistical-areas'
   ];
   CLICKS = [
-    //['prcc-statistical-areas', 'stat-areas', 'YISHUV_STA'],
+    ['prcc-statistical-areas', 'stat-areas', 'semel_new'],
     // ['trees', 'trees', 'tree-id'],
-    ['prcc-settlements-data', 'munis', 'muni_code'],
+    ['prcc-settlements-data', 'munis', 'CODE'],
     // ['stat-areas-fill', 'stat-areas', 'code'],
   ];
   
