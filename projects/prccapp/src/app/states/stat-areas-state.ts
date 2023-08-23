@@ -40,13 +40,72 @@ export class StatAreasState extends State {
             ]
         }
 
+        const color_interpolation_for_vegetation = [
+            'interpolate', ['exponential', 0.01], ['get', 'VegFrac'],
+            0, ['to-color', '#ccc'],
+            0.5, ['to-color', '#acecc2'],
+            0.6, ['to-color', '#155b2e'],
+        ];
+
+        const color_interpolation_for_temperature = [
+            'interpolate', ['exponential', 0.01], ['get', 'median_tem'],
+            30, ['to-color', '#FFFF00'],
+            35, ['to-color', '#FFA500'],
+            40, ['to-color', '#FF0000'],
+        ];
+
+        const color_interpolation_for_cluster = [
+                    'match', ['coalesce', ['get', 'cluster'], 0],
+                    0, ['to-color', '#9BD7F5'],
+                    1, ['to-color', '#9BD7F5'],
+                    2, ['to-color', '#89C8EE'],
+                    3, ['to-color', '#78BBE7'],
+                    4, ['to-color', '#66AFE1'],
+                    5, ['to-color', '#54A4DB'],
+                    6, ['to-color', '#497DB0'],
+                    7, ['to-color', '#3C5E91'],
+                    8, ['to-color', '#314177'],
+                    9, ['to-color', '#272361'],
+                    ['to-color', '#1E1E4D'],
+                ];
+
+        const paint_definitions_for_temperature = {
+            'fill-color': color_interpolation_for_temperature,
+            'fill-opacity': 0.3
+        };
+        const paint_definitions_for_vegetation = {
+            'fill-color': color_interpolation_for_vegetation,
+            'fill-opacity': 0.3
+        };
+        const paint_definitions_for_cluster = {
+            'fill-color': color_interpolation_for_cluster,
+            'fill-opacity': 0.3
+        };
+        let paint_definition = null;
+        if (coloring==='vegetation') { 
+            paint_definition = paint_definitions_for_vegetation;
+        }
+        else if (coloring==='temperature') {
+            paint_definition = paint_definitions_for_temperature;
+        }
+        else if (coloring==='cluster') {
+            paint_definition = paint_definitions_for_cluster;
+        }
+        /**
+         * This is the layer of the Settlements Data
+         * Its paint_definition defines the colors of the different polygons based on the
+         * value of a property from the json data. The property names in the json are:
+         * "Temperatur", "VegFrac", "cluster17"
+         * for each of them we created a suitable formula/expression: 
+         * paint_definitions_for_temperature, paint_definitions_for_vegetation, etc
+         */
         // adding a LayerConfig to the layerConfig[] array, with key 'prcc-statistical-areas',
         // assumes there is a layer with that exact name in the map, and will cause that layer
         // to become visible when the current state (stat-areas-state) is initilized - which is
         // when the display to which it is attached is selected in UI.
         // current state object is created in StateService.initFromUrl(), which is called from the
         // event handler of any router event (this is defined in AppComponent)
-        this.layerConfig['prcc-statistical-areas'] = new LayerConfig(null, null, null);
+        this.layerConfig['prcc-statistical-areas'] = new LayerConfig(null, paint_definition, null);
 
     }
 

@@ -225,7 +225,8 @@ export class MapComponent implements AfterViewInit{
     '<strong>city code: </strong>' + feature.properties['semel_yesu'] + '<br/>' +
     '<strong>area code: </strong>' + feature.properties['STAT11'] + '<br/>' +
     '<strong>temperature: </strong>' + this.round(feature.properties['median_tem']) + '<br/>' +
-    '<strong>VegFrac: </strong>' + this.round(feature.properties['VegFrac'], 4) +
+    '<strong>VegFrac: </strong>' + this.round(feature.properties['VegFrac'], 4) + '<br/>' +
+    '<strong>cluster: </strong>' + feature.properties['cluster'] + 
     '</div>';
     return content;
   }

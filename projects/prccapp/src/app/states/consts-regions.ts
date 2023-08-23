@@ -4,7 +4,7 @@ export const QP_REGION_COLORING = 'rc';
 export const QP_REGION_COLORING_TEMPERATURE = 'temperature';
 export const QP_REGION_COLORING_VEG_COVER = 'vegetation';
 export const QP_REGION_COLORING_CLUSTER = 'cluster';
-export const QP_REGION_COLORING_ALL = 'cluster';
+export const QP_REGION_COLORING_ALL = 'all';
 
 export const QP_REGION_COLORING_CAR = 'car';
 export const QP_REGION_COLORING_QUALITY = 'quality';
@@ -32,10 +32,13 @@ export const MUNI_COLORING_OPTIONS = new SelectFilterItem(
         new FilterOption(QP_REGION_COLORING_ALL, dropdown_1_option_4)
     ]
 );
+// this defines the drop-down of display modes for the "stat-areas" display
 export const STAT_AREA_COLORING_OPTIONS = new SelectFilterItem(
     QP_REGION_COLORING, 'פירוט מדדי ציון ההצללה:', [
         new FilterOption(QP_REGION_COLORING_TEMPERATURE, dropdown_1_option_1),
         new FilterOption(QP_REGION_COLORING_VEG_COVER, dropdown_1_option_2),
+        new FilterOption(QP_REGION_COLORING_CLUSTER, dropdown_1_option_3),
+        new FilterOption(QP_REGION_COLORING_ALL, dropdown_1_option_4)
     ]
 );
 export const REGION_COLORING_INTERPOLATE: {[key: string]: any[]} = {};
