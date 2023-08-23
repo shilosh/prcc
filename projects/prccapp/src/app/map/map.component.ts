@@ -39,7 +39,6 @@ export class MapComponent implements AfterViewInit{
     ['prcc-statistical-areas', 'stat-areas', 'semel_new'],
     // ['trees', 'trees', 'tree-id'],
     ['prcc-settlements-data', 'munis', 'CODE'],
-    // ['stat-areas-fill', 'stat-areas', 'code'],
   ];
   
   @ViewChild('map') mapEl: ElementRef;

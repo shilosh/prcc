@@ -65,6 +65,21 @@ export class MunisState extends State {
             ]//stat-areas-fill
         }
 
+
+        const paint_definition = this.calculate_paint_definition(coloring);
+        /**
+         * This is the layer of the Settlements Data
+         * Its paint_definition defines the colors of the different polygons based on the
+         * value of a property from the json data. The property names in the json are:
+         * "Temperatur", "VegFrac", "cluster17"
+         * for each of them we created a suitable formula/expression: 
+         * paint_definitions_for_temperature, paint_definitions_for_vegetation, etc
+         */
+        this.layerConfig['prcc-settlements-data'] = new LayerConfig(null, paint_definition, null);
+
+    }
+
+    calculate_paint_definition(coloring: string) {
         const color_interpolation_for_vegetation = [
             'interpolate', ['exponential', 0.01], ['get', 'VegFrac'],
             0, ['to-color', '#ccc'],
@@ -117,16 +132,6 @@ export class MunisState extends State {
         else if (coloring==='cluster') {
             paint_definition = paint_definitions_for_cluster;
         }
-        /**
-         * This is the layer of the Settlements Data
-         * Its paint_definition defines the colors of the different polygons based on the
-         * value of a property from the json data. The property names in the json are:
-         * "Temperatur", "VegFrac", "cluster17"
-         * for each of them we created a suitable formula/expression: 
-         * paint_definitions_for_temperature, paint_definitions_for_vegetation, etc
-         */
-        this.layerConfig['prcc-settlements-data'] = new LayerConfig(null, paint_definition, null);
-
     }
 
     override handleData(data: any[][]) {

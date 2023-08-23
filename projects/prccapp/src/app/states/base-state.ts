@@ -61,7 +61,7 @@ export class MultipleSelectFilterItem extends FilterItem {
 
 export class State {
 
-    data: any[][];
+    // data: any[][];
     sql: string[] = [];
     downloadQuery: string | null = null;
     geo: {
