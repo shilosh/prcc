@@ -42,14 +42,15 @@ const ICON_INFOS2: IconInfo[] = [
     icon: 'current-cover',
     tooltip: 'לפי נתוני למ״ס 2020',
     units: '',
-    value: "2%",
+    field: 'VegFrac',
+    //value: "2%",
   },
   {
     text: 'כיסוי לאחר התערבות',
     icon: 'expected-cover',
     tooltip: 'לפי נתוני למ״ס 2020',
     units: '',
-    value: '?',
+    value: (row) => '?',
   },
 ];
 
@@ -97,7 +98,7 @@ export class RegionComponent implements OnChanges {
   @Input() focusLink: string = '';
 
   iconInfos: IconInfo[] = [];
-  iconInfos2: IconInfo[] = ICON_INFOS2;
+  iconInfos2: IconInfo[] = [];
   iconInfos3: IconInfo[] = ICON_INFOS3;
   focusParams: any = {};
   nameOfMuni: String = 'unknown';
@@ -116,33 +117,42 @@ export class RegionComponent implements OnChanges {
       }
       this.iconInfos = [];
       ICON_INFOS.forEach((iconInfo) => {
-        let value: any | null = null;
-        if (iconInfo.field) {
-          value = this.record[iconInfo.field];
-        } else if (typeof iconInfo.value === 'function') {
-          value = iconInfo.value(this.record);
-        }
-        let units = iconInfo.units;
-        if (typeof units === 'function') {
-          units = units(this.record);
-        }
-        if (value !== null && value !== undefined && units !== null && units !== undefined) {
-          if (typeof value === 'number') {
-            value = value.toLocaleString();
-          }
-          this.iconInfos.push({
-            text: iconInfo.text,
-            icon: iconInfo.icon,
-            tooltip: iconInfo.tooltip,
-            value, units,
-          });
-        }
+        this.populateIconInfo(iconInfo, this.iconInfos);
+      });
+      ICON_INFOS2.forEach((iconInfo) => {
+        this.populateIconInfo(iconInfo, this.iconInfos2);
       });
       console.log('REGION ICON_INFOS', this.iconInfos);
+      console.log('REGION ICON_INFOS2', this.iconInfos2);
       this.focusParams = {
         focus: this.focus,
       };
     }
       
+  }
+
+  populateIconInfo(iconInfo: any, theArray: any[]) {
+    let value: any | null = null;
+    if (iconInfo.field) {
+      value = this.record[iconInfo.field];
+    } else if (typeof iconInfo.value === 'function') {
+      value = iconInfo.value(this.record);
+    }
+    let units = iconInfo.units;
+    if (typeof units === 'function') {
+      units = units(this.record);
+    }
+    if (value !== null && value !== undefined && units !== null && units !== undefined) {
+      if (typeof value === 'number') {
+        value = value.toLocaleString();
+      }
+      //this.iconInfos.push({
+      theArray.push({
+        text: iconInfo.text,
+        icon: iconInfo.icon,
+        tooltip: iconInfo.tooltip,
+        value, units,
+      });
+    }
   }
 }
