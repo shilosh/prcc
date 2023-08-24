@@ -105,6 +105,7 @@ export class MapComponent implements AfterViewInit{
           if (e.features && e.features.length > 0) {
             this.map.getCanvas().style.cursor = 'pointer';
             this.addPopup(e.features[0], e.lngLat, layer)
+            this.saveLastFeature(e.features[0]);
           }
         });
       });
@@ -244,7 +245,12 @@ export class MapComponent implements AfterViewInit{
   round(value: number, decimalPlaces = 2) {
     return Math.round(10**decimalPlaces * value) / (10**decimalPlaces);
   }
+
+  saveLastFeature(feature: any) {
+    this.state.saveLastFeature(feature);
+  }
 }
+
 
 
 // use this.map.setPaintProperty() to decide which propery defines the colors.

@@ -19,8 +19,17 @@ export class StateService {
 
   public sidebarOpened = true;
 
+  lastFeature : any = null;
+
   constructor(private api: ApiService) { }
   //constructor() { }
+
+  saveLastFeature(feature: any) {
+    this.lastFeature = feature;
+  }
+  getLastFeature() {
+    return this.lastFeature;
+  }
 
   // create a state object when the URL is manually changed (and - when Angular app is first navigated to)
   // for example, when navigating to URL "http://localhost:4200/munis", this method is called

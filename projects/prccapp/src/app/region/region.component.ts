@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { StateService } from '../state.service';
 
 type IconInfo = {
   field?: string;
@@ -15,77 +16,71 @@ const ICON_INFOS: IconInfo[] = [
     icon: 'temperature',
     tooltip: 'לפי נתוני למ״ס 2020',
     units: 'מעלות',
-    value: (row) => "45",
+    field: 'Temperatur',
+    //value: (row) => "45",
   },
   {
     text: 'מדד סוציואקונומי',
     icon: 'madad',
     tooltip: 'לפי נתוני למ״ס 2020',
     units: '',
-    value: (row) => "8",
+    field: 'cluster17',
+    //value: (row) => "8",
   },
   {
     text: 'ציון הצללה משוקלל',
     icon: 'shadowing-score',
-    tooltip: 'לפי נתוני למ״ס 2020',
+    tooltip: 'כיצד מחשבים ציון הצללה משוקלל???',
     units: '',
-    value: (row) => "2",
+    value: (row) => "??",
   },
-  {
-    text: 'התערבות: שינוי שיעור כיסוי הצומח',
-    icon: 'socioeconomic-index',
-    tooltip: 'לפי נתוני למ״ס 2020',
-    units: 'מעלות',
-    value: (row) => "45",
-  },
+];
+
+const ICON_INFOS2: IconInfo[] = [
   {
     text: 'כיסוי נוכחי',
     icon: 'current-cover',
     tooltip: 'לפי נתוני למ״ס 2020',
     units: '',
-    value: (row) => "2%",
+    value: "2%",
   },
   {
     text: 'כיסוי לאחר התערבות',
     icon: 'expected-cover',
     tooltip: 'לפי נתוני למ״ס 2020',
     units: '',
-    value: (row) => '?',
+    value: '?',
   },
-  {
-    text: 'סליידר',
-    icon: 'socioeconomic-index',
-    tooltip: 'לפי נתוני למ״ס 2020',
-    units: '',
-    value: (row) => '2',
-  },
+];
+
+const ICON_INFOS3: IconInfo[] = [
   {
     text: 'שינוי בטמפרטורה',
     icon: 'temperature-change',
     tooltip: 'הזז את הסקרול לתוצאות',
     units: 'הזז את הסקרול לתוצאות',
-    value: (row) => '2',
+    value: '2',
   },
   {
     text: 'חיסכון',
     icon: 'savings',
     tooltip: 'לפי נתוני למ״ס 2020',
     units: 'שקלים',
-    value: (row) => '2',
+    value: '2',
   },
   {
     text: 'מניעת תחלואה',
     icon: 'prevent-sickness',
     tooltip: 'לפי נתוני למ״ס 2020',
     units: 'ימי אישפוז בשנה',
-    value: (row) => '2',
+    value: '2',
   },
   {
     text: 'מניעת תמותה מוקדמת',
     icon: 'prevent-death',
     tooltip: 'לפי נתוני למ״ס 2020',
     units: 'בשנה',
-    value: (row) => '2',
+    value: '2',
   },
 ];
 
@@ -102,11 +97,23 @@ export class RegionComponent implements OnChanges {
   @Input() focusLink: string = '';
 
   iconInfos: IconInfo[] = [];
+  iconInfos2: IconInfo[] = ICON_INFOS2;
+  iconInfos3: IconInfo[] = ICON_INFOS3;
   focusParams: any = {};
+  nameOfMuni: String = 'unknown';
+
+  constructor(public state: StateService) {}
 
   ngOnChanges(): void {
     if (this.record) {
-        console.log('REGION RECORD', this.record);
+      console.log('REGION RECORD', this.record);
+      const lastFeature = this.state.getLastFeature();
+      console.log('LAST FEATURE', lastFeature);
+      if (lastFeature) {
+        this.nameOfMuni = lastFeature.properties['Muni_Heb'];
+        // Hack here: I use data from lastFeature instead of record!!
+        this.record = lastFeature.properties;
+      }
       this.iconInfos = [];
       ICON_INFOS.forEach((iconInfo) => {
         let value: any | null = null;
