@@ -5,6 +5,12 @@ import { QP_REGION_COLORING, QP_REGION_COLORING_CAR, REGION_COLORING_LEGEND, REG
 
 export class StatAreasState extends State {
     constructor(filters: any) {
+        //console.log('StatAreasState constructor, filters=', filters);
+        // following if statement is a hack to make sure the view filter is "by temperature" unless selected otherwise!
+        // (for some reason this is not needed in Munis view, only in StatAreas view)
+        if (!filters["rc"]) {
+            filters["rc"] = 'temperature';
+        }
         // the filters arg contains the URL part that represents the drop-down selection!
         super('stat-areas', undefined, filters);
         this.sql = [
@@ -17,9 +23,6 @@ export class StatAreasState extends State {
         }
         this.layerConfig['munis-label'] = new LayerConfig(null, null, null);
         let coloring = this.filters[QP_REGION_COLORING] || QP_REGION_COLORING_CAR;
-        if (coloring === QP_REGION_COLORING_CPC) {
-            coloring = QP_REGION_COLORING_CAR;
-        }
         this.legend = REGION_COLORING_LEGEND[coloring];
         this.layerConfig['stat-areas-fill'].paint = {
             'fill-color': REGION_COLORING_INTERPOLATE[coloring],

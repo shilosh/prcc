@@ -5,6 +5,7 @@ import { MUNIS_FILTER_ITEMS, QP_MUNI_FILTER_PD, QP_MUNI_FILTER_PD_HIGH, QP_MUNI_
 
 export class MunisState extends State {
     constructor(filters: any) {
+        console.log('MunisState constructor, filters=', filters);
         // the filters arg contains the URL part that represents the drop-down selection!
         super('munis', undefined, filters);
         let layerFilters: any[][] = [];

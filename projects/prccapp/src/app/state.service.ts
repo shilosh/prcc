@@ -39,7 +39,7 @@ export class StateService {
   // selecting a value in thedrop-downs causes a routing to a "new" URL which includes 
   // a query param representing that drop-down selection!
   initFromUrl(segments: any[], queryParams: any) {
-    console.log('initFromUrl STARTED, segments=', segments);
+    console.log('initFromUrl STARTED, segments=', segments, 'queryParams=', queryParams);
     let mode = segments[0] as StateMode;
     const id = segments[1] ? decodeURIComponent(segments[1]) : undefined;
     let state: State | null = null;
