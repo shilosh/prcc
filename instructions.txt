@@ -13,3 +13,27 @@ http://localhost:4200/
 
 browse to this to see the Figma:
 https://www.figma.com/file/Ty4mQXA9tULeEIHd53Q7cC/Digital-Forest?type=design&node-id=845-18699&mode=design&t=UNnTzTZ5aGZeuXz8-0
+
+to deploy
+---------
+First, MAKE SURE everything is committed and pushed to git (otherwise you will loose your work!!!)
+
+in console run:
+./deploy.sh
+(currently it deploys to github of evyatark, so all links are to that project)
+- it will ask for the username and password (token) for github, which you MUST enter manually.
+- if completed correctly, github will now deploy to gh-pages, you can see this task progress in https://github.com/evyatark/prcc/actions
+- when action is completed, access https://evyatark.github.io/prcc/ (anyone can access from anywhere!)
+
+
+ToDo
+----
+1. implement layers for selecting the "בחר שכבות" - Gush-Chelka, Yaad trees, Bus stations, Pishtey-Hazafa
+2. implement display view of "לווין" (sattelite raster tiles)
+3. HILA? - Fix formulas of view displays (temperature, vegetation, maybe also clusters)
+4. add slider display in the "region" area
+5. add slider functionality!! calculate and change values in the region display
+6. add pages of "external" links ("מתודולוגיה", "צור קשר", "אודות")
+7. add flyTo efect when selecting a region
+8. improve display of values in drop-down of filters
+9. in layers selection, implement selecting multiple layers
