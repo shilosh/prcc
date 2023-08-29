@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { StateService } from '../state.service';
+import { MatSliderModule } from '@angular/material/slider';
 
 type IconInfo = {
   field?: string;
@@ -79,7 +80,7 @@ const ICON_INFOS3: IconInfo[] = [
     text: 'שינוי בטמפרטורה',
     icon: 'temperature-change',
     tooltip: 'הזז את הסקרול לתוצאות',
-    units: 'הזז את הסקרול לתוצאות',
+    units: '',
     value: '2',
   },
   {
@@ -108,7 +109,9 @@ const ICON_INFOS3: IconInfo[] = [
 @Component({
   selector: 'app-region',
   templateUrl: './region.component.html',
-  styleUrls: ['./region.component.less']
+  styleUrls: ['./region.component.less'],
+  // standalone: true,
+  // imports: [MatSliderModule],
 })
 export class RegionComponent implements OnChanges {
   @Input() record: any = null;
@@ -126,6 +129,7 @@ export class RegionComponent implements OnChanges {
   constructor(public state: StateService) {}
 
   ngOnChanges(): void {
+    console.log('ngOnChange started');
     if (this.record) {
       console.log('REGION RECORD', this.record);
       const lastFeature = this.state.getLastFeature();
@@ -181,5 +185,26 @@ export class RegionComponent implements OnChanges {
         value, units,
       });
     }
+  }
+
+  // This is for the slider, see https://material.angular.io/components/slider/examples#slider-formatting
+  formatLabel(value: number): string {
+    if (value >= -1) {
+      return Math.round(value) + '%';
+    }
+
+    return `${value}`;
+  }
+
+  // this method is called every time the slider value changes (only when draging with the mouse, not when using keyboard!)
+  onDragEnd(event: any) {
+    console.log('event dragEnd', event);
+    console.log('slider value is now', event.value);
+    // hack - access iconInfos2 by index, assuming a known structure!!
+    this.iconInfos2[1].value = event.value + '%';
+    this.iconInfos3[0].value = String(event.value * 3);
+    this.iconInfos3[1].value = String(event.value * 1000);
+    this.iconInfos3[2].value = String(event.value * 20);
+    this.iconInfos3[3].value = String(event.value * 2);
   }
 }

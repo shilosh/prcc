@@ -32,7 +32,9 @@
     </div>
 
     <div class="slider" dir="ltr">
-        0% - 50%
+        <mat-slider min="0" max="50" step="5" showTickMarks discrete [displayWith]="formatLabel">
+            <input matSliderThumb  (dragEnd)="onDragEnd($event)">
+        </mat-slider>
     </div>
     <hr/>
 
