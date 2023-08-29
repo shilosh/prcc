@@ -35,6 +35,7 @@ export class MuniState extends State {
         const muni_filter_def = this.calc_filter(); // <== this filter causes map to display only the polygon of the city (whose id is in the URL)
         this.layerConfig['prcc-settlements-data'] = new LayerConfig(muni_filter_def, paint_definition, null);
     }
+    
     calc_filter() {
         const filter = [
             '==', ['get', 'CODE'], Number(this.id)

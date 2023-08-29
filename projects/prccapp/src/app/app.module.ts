@@ -12,6 +12,7 @@ import { MunisComponent } from './munis/munis.component';
 import { MuniComponent } from './muni/muni.component';
 import { AboutComponent } from './about/about.component';
 import { TreesComponent } from './trees/trees.component';
+import { StatAreaComponent } from './stat-area/stat-area.component';
 import { StatAreasComponent } from './stat-areas/stat-areas.component';
 import { RegionComponent } from './region/region.component';
 import { SummaryComponent } from './summary/summary.component';
@@ -31,6 +32,7 @@ import { FilterComponent } from './filter/filter.component';
     FilterComponent,
     TreesComponent,
     StatAreasComponent,
+    StatAreaComponent,
     RegionComponent,
     SummaryComponent,
     LayoutComponent

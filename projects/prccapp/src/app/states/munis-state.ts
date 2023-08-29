@@ -132,6 +132,8 @@ export class MunisState extends State {
         else if (coloring==='cluster') {
             paint_definition = paint_definitions_for_cluster;
         }
+
+        return paint_definition;
     }
 
     override handleData(data: any[][]) {

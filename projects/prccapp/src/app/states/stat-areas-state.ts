@@ -40,6 +40,26 @@ export class StatAreasState extends State {
             ]
         }
 
+        const paint_definition = this.calculate_paint_definition(coloring);
+        /**
+         * This is the layer of the Settlements Data
+         * Its paint_definition defines the colors of the different polygons based on the
+         * value of a property from the json data. The property names in the json are:
+         * "Temperatur", "VegFrac", "cluster17"
+         * for each of them we created a suitable formula/expression: 
+         * paint_definitions_for_temperature, paint_definitions_for_vegetation, etc
+         */
+        // adding a LayerConfig to the layerConfig[] array, with key 'prcc-statistical-areas',
+        // assumes there is a layer with that exact name in the map, and will cause that layer
+        // to become visible when the current state (stat-areas-state) is initilized - which is
+        // when the display to which it is attached is selected in UI.
+        // current state object is created in StateService.initFromUrl(), which is called from the
+        // event handler of any router event (this is defined in AppComponent)
+        this.layerConfig['prcc-statistical-areas'] = new LayerConfig(null, paint_definition, null);
+
+    }
+
+    calculate_paint_definition(coloring: string) {
         const color_interpolation_for_vegetation = [
             'interpolate', ['exponential', 0.01], ['get', 'VegFrac'],
             0, ['to-color', '#ccc'],
@@ -91,22 +111,7 @@ export class StatAreasState extends State {
         else if (coloring==='cluster') {
             paint_definition = paint_definitions_for_cluster;
         }
-        /**
-         * This is the layer of the Settlements Data
-         * Its paint_definition defines the colors of the different polygons based on the
-         * value of a property from the json data. The property names in the json are:
-         * "Temperatur", "VegFrac", "cluster17"
-         * for each of them we created a suitable formula/expression: 
-         * paint_definitions_for_temperature, paint_definitions_for_vegetation, etc
-         */
-        // adding a LayerConfig to the layerConfig[] array, with key 'prcc-statistical-areas',
-        // assumes there is a layer with that exact name in the map, and will cause that layer
-        // to become visible when the current state (stat-areas-state) is initilized - which is
-        // when the display to which it is attached is selected in UI.
-        // current state object is created in StateService.initFromUrl(), which is called from the
-        // event handler of any router event (this is defined in AppComponent)
-        this.layerConfig['prcc-statistical-areas'] = new LayerConfig(null, paint_definition, null);
-
+        return paint_definition;
     }
 
     override handleData(data: any[][]) {

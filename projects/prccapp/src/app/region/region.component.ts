@@ -11,6 +11,7 @@ type IconInfo = {
 };
 
 const ICON_INFOS: IconInfo[] = [
+  // these 2 icons use fields in the muni record
   {
     text: 'טמפרטורת פני השטח',
     icon: 'temperature',
@@ -27,6 +28,25 @@ const ICON_INFOS: IconInfo[] = [
     field: 'cluster17',
     //value: (row) => "8",
   },
+  // these 2 icons use fields in the stat-area record
+  {
+    text: 'טמפרטורת פני השטח',
+    icon: 'temperature',
+    tooltip: 'לפי נתוני למ״ס 2020',
+    units: 'מעלות',
+    field: 'median_tem',
+    //value: (row) => "45",
+  },
+  {
+    text: 'מדד סוציואקונומי',
+    icon: 'madad',
+    tooltip: 'לפי נתוני למ״ס 2020',
+    units: '',
+    field: 'cluster',
+    //value: (row) => "8",
+  },
+  // shadowing score currently not calculated 
+  // TODO: when it will be, you may need to calculate differently for muni and for stat-area!!
   {
     text: 'ציון הצללה משוקלל',
     icon: 'shadowing-score',
@@ -101,7 +121,7 @@ export class RegionComponent implements OnChanges {
   iconInfos2: IconInfo[] = [];
   iconInfos3: IconInfo[] = ICON_INFOS3;
   focusParams: any = {};
-  nameOfMuni: String = 'unknown';
+  nameOfRegion: String = 'unknown'; // region could be Muni or Stat-Area - depending on which view we are in!!
 
   constructor(public state: StateService) {}
 
@@ -110,8 +130,15 @@ export class RegionComponent implements OnChanges {
       console.log('REGION RECORD', this.record);
       const lastFeature = this.state.getLastFeature();
       console.log('LAST FEATURE', lastFeature);
+      
       if (lastFeature) {
-        this.nameOfMuni = lastFeature.properties['Muni_Heb'];
+        // according to feature.layer.id we know if we are in stat-area or in muni
+        if (lastFeature.layer.id === "prcc-settlements-data") {
+          this.nameOfRegion = lastFeature.properties['Muni_Heb'];
+        }
+        else if (lastFeature.layer.id === "prcc-statistical-areas") {
+          this.nameOfRegion = lastFeature.properties['name'] + " " + "איזור" + " " + lastFeature.properties['stat_area'];
+        }
         // Hack here: I use data from lastFeature instead of record!!
         this.record = lastFeature.properties;
       }
