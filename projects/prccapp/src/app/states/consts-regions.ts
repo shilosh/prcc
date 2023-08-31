@@ -41,6 +41,14 @@ export const STAT_AREA_COLORING_OPTIONS = new SelectFilterItem(
         new FilterOption(QP_REGION_COLORING_ALL, dropdown_1_option_4)
     ]
 );
+// this defines the drop-down of display modes for the "munis" display
+export const SATELLITE_COLORING_OPTIONS = new SelectFilterItem(
+    QP_REGION_COLORING, 'פירוט מדדי ציון ההצללה:', [
+        new FilterOption(QP_REGION_COLORING_TEMPERATURE, dropdown_1_option_1),
+        new FilterOption(QP_REGION_COLORING_VEG_COVER, dropdown_1_option_2)
+    ]
+);
+
 export const REGION_COLORING_INTERPOLATE: {[key: string]: any[]} = {};
 REGION_COLORING_INTERPOLATE[QP_REGION_COLORING_QUALITY] = [
     'match', ['coalesce', ['get', 'quality_score'], 0],
@@ -122,4 +130,8 @@ export const MUNI_FILTER_ITEMS = [
 export const STAT_AREA_FILTER_ITEMS = [
     STAT_AREA_COLORING_OPTIONS,
     LAYERS_SELECTION
+];
+
+export const SATELLITE_FILTER_ITEMS = [
+    SATELLITE_COLORING_OPTIONS
 ];

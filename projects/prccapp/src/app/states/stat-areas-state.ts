@@ -6,8 +6,8 @@ import { QP_REGION_COLORING, QP_REGION_COLORING_CAR, REGION_COLORING_LEGEND, REG
 export class StatAreasState extends State {
     constructor(filters: any) {
         //console.log('StatAreasState constructor, filters=', filters);
+
         // following if statement is a hack to make sure the view filter is "by temperature" unless selected otherwise!
-        // (for some reason this is not needed in Munis view, only in StatAreas view)
         if (!filters["rc"]) {
             filters["rc"] = 'temperature';
         }
@@ -32,7 +32,7 @@ export class StatAreasState extends State {
             'line-color': '#155b2e',
             'line-opacity': 0.4
         };
-        this.layerConfig['trees'] = new LayerConfig(null, null, null);
+        //this.layerConfig['trees'] = new LayerConfig(null, null, null);
         this.filterItems = STAT_AREA_FILTER_ITEMS;
 
         this.popupLayers = {

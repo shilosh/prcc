@@ -51,9 +51,9 @@ const ICON_INFOS: IconInfo[] = [
   {
     text: 'ציון הצללה משוקלל',
     icon: 'shadowing-score',
-    tooltip: 'כיצד מחשבים ציון הצללה משוקלל???',
+    tooltip: 'בקרוב...',
     units: '',
-    value: (row) => "??",
+    value: (row) => "--",
   },
 ];
 

@@ -37,3 +37,99 @@ ToDo
 7. add flyTo efect when selecting a region
 8. improve display of values in drop-down of filters (colored circles)
 9. in layers selection, implement selecting multiple layers
+10. add legend floating pane/panes
+combined RGB - use formula from Shilo
+
+Hila says
+header looks bigger, should be 90%
+
+add gray color for out of polygons!! - how to do it
+map with labels in Hebrew
+when entering first time, zoom should be on Israel
+gaps between the text line in the right panel
+color of header should be gray not green
+add favicon
+
+gushChelka layer should be only in stat-areas and Sattelite display (not in Munis!!)
+
+colors and layers of map behind our polygons
+
+
+upload via Uploads API to mapbox:
+https://docs.mapbox.com/help/tutorials/upload-curl/#stage-your-file-on-amazon-s3
+
+(create an access token in the mapbox studio, with permission upload:write)
+
+curl -X POST "https://api.mapbox.com/uploads/v1/evyatark/credentials?access_token=sk.eyJ1I..."
+
+{
+    "bucket":"tilestream-tilesets-production",
+    "key":"6f/_pending/l8x3yv3ujmo2bxq06iad0zllc/evyatark",
+    "accessKeyId":"ASIATNLV",
+    "secretAccessKey":"zmKR",
+    "sessionToken":"FwoGZXI ",
+    "url":"https://tilestream-tilesets-production.s3.amazonaws.com/6f/_pending/l8x3yv3ujmo2bxq06iad0zllc/evyatark"
+}
+
+export AWS_ACCESS_KEY_ID=...
+export AWS_SECRET_ACCESS_KEY=...
+export AWS_SESSION_TOKEN=...
+
+aws s3 cp /home/evyatar/work/prcc/LST8bit.tif s3://tilestream-tilesets-production/{key} --region us-east-1
+
+upload: ./LST8bit.tif to s3://tilestream-tilesets-production/{key}
+
+curl -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{  "url": "http://tilestream-tilesets-production.s3.amazonaws.com/20/_pending/muv8fzfj9so24yn5i7eb1zllc/evyatark",  "tileset": "evyatark.lst-image-30",  "name": "LST 30"}' 'https://api.mapbox.com/uploads/v1/evyatark?access_token=sk.eyJ1Ijo...'
+
+This endpoint requires a token with uploads:write scope.
+
+{
+    "id":"cllz1hk220y4f2bo48gnr6dcg",
+    "name":"LST 30",
+    "complete":false,
+    "error":null,
+    "created":"2023-08-31T10:44:50.012Z",
+    "modified":"2023-08-31T10:44:50.012Z",
+    "tileset":"evyatark.lst-image-30",
+    "owner":"evyatark",
+    "progress":0
+}
+
+
+curl "https://api.mapbox.com/uploads/v1/evyatark/cllz1hk220y4f2bo48gnr6dcg?access_token=sk.eyJ1I..."
+
+
+{"bucket":"tilestream-tilesets-production",
+"key":"64/_pending/slnkn4vd0op2rae2ujkw2zllc/evyatark",
+"accessKeyId":"ASIATNL...",
+"secretAccessKey":"KkVRbo6..",
+"sessionToken":"FwoGZXIvYXd...",
+"url":"https://tilestream-tilesets-production.s3.amazonaws.com/64/_pending/slnkn4vd0op2rae2ujkw2zllc/evyatark"}
+
+export AWS_ACCESS_KEY_ID=ASIATNLV...
+export AWS_SECRET_ACCESS_KEY=KkVRbo6...
+export AWS_SESSION_TOKEN=FwoGZXIvYXdzEB...
+aws s3 cp /home/evyatar/work/prcc/NDV8bit.tif s3://tilestream-tilesets-production/64/_pending/slnkn4vd0op2rae2ujkw2zllc/evyatark --region us-east-1
+
+upload: ./NDV8bit.tif to s3://tilestream-tilesets-production/64/_pending/slnkn4vd0op2rae2ujkw2zllc/evyatark
+
+curl -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{  "url": "http://tilestream-tilesets-production.s3.amazonaws.com/64/_pending/slnkn4vd0op2rae2ujkw2zllc/evyatark",    "tileset": "evyatark.ndv-image-30",  "name": "NDV 30"}' 'https://api.mapbox.com/uploads/v1/evyatark?access_token=sk.eyJ1I...'
+
+{
+    "id":"cllz33r9x0r5a2as3re4bwtd1",
+    "name":"NDV 30",
+    "complete":false,
+    "error":null,
+    "created":"2023-08-31T11:30:05.410Z",
+    "modified":"2023-08-31T11:30:05.410Z",
+    "tileset":"evyatark.ndv-image-30",
+    "owner":"evyatark",
+    "progress":0}
+
+check status with this request:
+curl "https://api.mapbox.com/uploads/v1/evyatark/cllz33r9x0r5a2as3re4bwtd1?access_token=sk.eyJ1I..."
+
+{
+    "id":"cllz33r9x0r5a2as3re4bwtd1","name":"NDV 30",
+    "complete":true,
+    "error":null,"created":"2023-08-31T11:30:05.410Z","modified":"2023-08-31T11:30:05.410Z","tileset":"evyatark.ndv-image-30","owner":"evyatark","progress":1}

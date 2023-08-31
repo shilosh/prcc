@@ -6,6 +6,10 @@ import { MUNIS_FILTER_ITEMS, QP_MUNI_FILTER_PD, QP_MUNI_FILTER_PD_HIGH, QP_MUNI_
 export class MunisState extends State {
     constructor(filters: any) {
         console.log('MunisState constructor, filters=', filters);
+        // following if statement is a hack to make sure the view filter is "by temperature" unless selected otherwise!
+        if (!filters["rc"]) {
+            filters["rc"] = 'temperature';
+        }
         // the filters arg contains the URL part that represents the drop-down selection!
         super('munis', undefined, filters);
         let layerFilters: any[][] = [];
@@ -77,7 +81,8 @@ export class MunisState extends State {
          * paint_definitions_for_temperature, paint_definitions_for_vegetation, etc
          */
         this.layerConfig['prcc-settlements-data'] = new LayerConfig(null, paint_definition, null);
-
+        // this causes the layer of raster lst-30 to be visible in munis view:
+        //this.layerConfig['evyatark-lst-image-30'] = new LayerConfig(null, null, null);
     }
 
     calculate_paint_definition(coloring: string) {

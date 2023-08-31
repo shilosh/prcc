@@ -2,13 +2,28 @@ import * as Plot from '@observablehq/plot';
 
 import { State, LayerConfig, Chart, FilterOption, SelectFilterItem, MultipleSelectFilterItem } from "./base-state";
 import { TREE_COLOR_INTERPOLATE, QP_TREE_STATUS_CERTAIN, QP_TREE_STATUS_SUSPECTED, TREE_COLOR_LEGEND, TREE_FILTER_ITEMS, QP_CANOPIES, QP_CANOPIES_NONE, QP_CANOPIES_MATCHED, QP_CANOPIES_LIKELY, QP_CANOPIES_MATCHED_LIKELY, QP_TREE_STATUS, QP_TREE_STATUS_ALL, QP_TREE_STATUS_FILTER, QP_TREE_STATUS_UNREPORTED, QP_TREE_HEIGHT, QP_TREE_HEIGHT_ALL, QP_TREE_HEIGHT_WHERE, QP_TREE_HEIGHT_FILTERS, QP_BARK_DIAMETER, QP_BARK_DIAMETER_ALL, QP_BARK_DIAMETER_WHERE, QP_BARK_DIAMETER_FILTERS, QP_CANOPY_AREA, QP_CANOPY_AREA_ALL, QP_CANOPY_AREA_WHERE, QP_CANOPY_AREA_FILTERS } from './consts-trees';
-import {  STAT_AREA_FILTER_ITEMS } from './consts-regions'; // temporary!!
+import {  SATELLITE_FILTER_ITEMS, STAT_AREA_FILTER_ITEMS } from './consts-regions'; // temporary!!
 
 
 export class TreesState extends State {
     constructor(filters: any) {
+        console.log('TreesState constructor, filters=', filters);
+        // following if statement is a hack to make sure the view filter is "by temperature" unless selected otherwise!
+        if (!filters["rc"]) {
+            filters["rc"] = 'temperature';
+        }
         super('trees', undefined, filters);    
+        //const layers = ['trees'];
         const layers = ['trees'];
+
+        // decide according to filter selection (2nd drop-down, reflects in the URL queryParams)
+        // which of the 2 satellite images will be displayed
+        if (this.filters.rc === 'temperature') {
+            layers.push('evyatark-lst-image-30');
+        }
+        else if (this.filters.rc === 'vegetation') {
+            layers.push('evyatark-ndv-image-30');
+        }
         let canopiesFilter: any[] | null = null;
         if (this.filters[QP_CANOPIES] !== QP_CANOPIES_NONE) {
             layers.push('canopies');
@@ -26,6 +41,8 @@ export class TreesState extends State {
         if (this.focus?.kind === 'road') {
             layers.push('roads-border');
         }
+
+        // this causes the layers in array 'layers' to be available/visible in trees view:
         for (const id of layers) {
             this.layerConfig[id] = new LayerConfig(null, null, null);
         }
@@ -99,7 +116,7 @@ export class TreesState extends State {
         ];
         this.legend = TREE_COLOR_LEGEND;
         //this.filterItems = TREE_FILTER_ITEMS;
-        this.filterItems = STAT_AREA_FILTER_ITEMS;
+        this.filterItems = SATELLITE_FILTER_ITEMS;
         this.downloadQuery = `SELECT __fields__ FROM trees_processed WHERE "meta-tree-id" in (
             SELECT "meta-tree-id" FROM trees_compact WHERE ${this.focusQuery} AND ${treeStatusCondition}) AND ${speciesQuery} AND ${treePropsQuery} AND __geo__ ORDER BY "meta-tree-id" LIMIT 5000`;
         if (this.layerConfig['trees'].filter.length > 1) {
@@ -109,6 +126,10 @@ export class TreesState extends State {
         } else {
             this.layerConfig['trees'].filter = null;
         }
+
+        // this causes the layer of raster lst-30 to be visible in trees view:
+        //this.layerConfig['evyatark-lst-image-30'] = new LayerConfig(null, null, null);
+
     }
 
     override handleData(data: any[][]) {

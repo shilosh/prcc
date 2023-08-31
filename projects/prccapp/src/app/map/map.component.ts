@@ -32,8 +32,12 @@ export class MapComponent implements AfterViewInit{
     // 'roads-border',
     // 'canopies',
     // 'trees',
+    //'evyatark-ndv-image-30',
+    //'evyatark-lst-image-30',
     'prcc-settlements-data',
-    'prcc-statistical-areas'
+    'prcc-statistical-areas',
+    'evyatark-lst-image-30',
+    'evyatark-ndv-image-30',
   ];
   CLICKS = [
     ['prcc-statistical-areas', 'stat-areas', 'semel_new'],
@@ -145,7 +149,7 @@ export class MapComponent implements AfterViewInit{
         const extraFilters = state.focus?.mapFilters() || {};
         
         this.map.getStyle().layers.forEach((layer) => {
-          if (layer.id.startsWith("prcc")) {
+          if (layer.id.startsWith("prcc") || layer.id.startsWith("evyatark")) {
             console.log(layer);
           }
           if (this.ownLayer(layer)) {
