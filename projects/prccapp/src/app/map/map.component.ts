@@ -69,8 +69,9 @@ export class MapComponent implements AfterViewInit{
       container: this.mapEl.nativeElement,
       style: this.STYLE,
       minZoom: 6.4,
+      //zoom: 7,
       attributionControl: false,
-      bounds: [[34.578046, 32.162327], [35.356111, 31.690073]],
+      bounds: [[34.578046, 33.2], [35.356111, 30.8]],
       maxBounds: [[30, 27], [40, 38]],
       preserveDrawingBuffer: true,
     };
