@@ -45,7 +45,7 @@ header looks bigger, should be 90%
 
 add gray color for out of polygons!! - how to do it
 map with labels in Hebrew
-when entering first time, zoom should be on Israel
+V when entering first time, zoom should be on Israel
 gaps between the text line in the right panel
 color of header should be gray not green
 add favicon
