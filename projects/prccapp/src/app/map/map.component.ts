@@ -15,7 +15,8 @@ import { ApiService } from '../api.service';
 export class MapComponent implements AfterViewInit{
 
   //STYLE = 'mapbox://styles/treebase/clck61858001514mfunfann6j/draft';
-  STYLE = 'mapbox://styles/evyatark/cllai1mb000pr01pbcvs21vzr/draft';
+  //STYLE = 'mapbox://styles/evyatark/cllai1mb000pr01pbcvs21vzr/draft';
+  STYLE = 'mapbox://styles/evyatark/clm3398rd00ry01pjfnbo10lx/draft';
 
   OWN_LAYERS = [
     // 'cadaster-label',
@@ -36,6 +37,8 @@ export class MapComponent implements AfterViewInit{
     //'evyatark-lst-image-30',
     'prcc-settlements-data',
     'prcc-statistical-areas',
+    'prcc-settlements-data-borders',
+    'prcc-statistical-areas-borders',
     'evyatark-lst-image-30',
     'evyatark-ndv-image-30',
   ];
@@ -46,7 +49,6 @@ export class MapComponent implements AfterViewInit{
   ];
   
   @ViewChild('map') mapEl: ElementRef;
-  // @ViewChild('hoverPopup') hoverPopupEl: ElementRef;
 
   map: mapboxgl.Map;
 

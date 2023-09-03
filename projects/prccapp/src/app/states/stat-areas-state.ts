@@ -28,10 +28,7 @@ export class StatAreasState extends State {
             'fill-color': REGION_COLORING_INTERPOLATE[coloring],
             'fill-opacity': 0.8
         };
-        this.layerConfig['stat-areas-border'].paint = {
-            'line-color': '#155b2e',
-            'line-opacity': 0.4
-        };
+        //this.layerConfig['stat-areas-border'].paint = {
         //this.layerConfig['trees'] = new LayerConfig(null, null, null);
         this.filterItems = STAT_AREA_FILTER_ITEMS;
 
@@ -59,7 +56,12 @@ export class StatAreasState extends State {
         // current state object is created in StateService.initFromUrl(), which is called from the
         // event handler of any router event (this is defined in AppComponent)
         this.layerConfig['prcc-statistical-areas'] = new LayerConfig(null, paint_definition, null);
-
+        this.layerConfig['prcc-statistical-areas-borders'] = new LayerConfig(null, null, null);
+        this.layerConfig['prcc-statistical-areas-borders'].paint = {
+            //'line-color': '#155b2e',
+            'line-width': ["step",["zoom"],0,11,1,14,2],    // <== this causes area borders to be revealed only in zoom level 11, and become double width only at zoom 14
+            'line-opacity': 1
+        };
     }
 
     calculate_paint_definition(coloring: string) {

@@ -83,6 +83,14 @@ export class MunisState extends State {
         this.layerConfig['prcc-settlements-data'] = new LayerConfig(null, paint_definition, null);
         // this causes the layer of raster lst-30 to be visible in munis view:
         //this.layerConfig['evyatark-lst-image-30'] = new LayerConfig(null, null, null);
+
+        this.layerConfig['prcc-settlements-data-borders'] = new LayerConfig(null, null, null);
+        this.layerConfig['prcc-settlements-data-borders'].paint = {
+            //'line-color': '#155b2e',
+            'line-width': ["step",["zoom"],0,10,1],    // <== this causes area borders to be revealed only in zoom level 10
+            'line-opacity': 1
+        };
+
     }
 
     calculate_paint_definition(coloring: string) {
