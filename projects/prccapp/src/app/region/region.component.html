@@ -32,7 +32,7 @@
     </div>
 
     <div class="slider" dir="ltr">
-        <mat-slider min="0" max="50" step="5" showTickMarks discrete [displayWith]="formatLabel">
+        <mat-slider min={{record.VegFrac*100}} max="100" step="1" showTickMarks discrete [displayWith]="formatLabel">
             <input matSliderThumb  (dragEnd)="onDragEnd($event)">
         </mat-slider>
     </div>

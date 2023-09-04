@@ -7,8 +7,8 @@ import { ReplaySubject } from 'rxjs';
 })
 export class MapboxService {
 
-  //ACCESS_TOKEN = 'pk.eyJ1IjoidHJlZWJhc2UiLCJhIjoiY2xjazVueWFnMHBscDN2bXRkdjh1dHd1cyJ9.zcn36ZZJ9b0RJlYJTSZYOA';
   ACCESS_TOKEN = 'pk.eyJ1IjoiZXZ5YXRhcmsiLCJhIjoiY2xpdTM5NjlhMWtvNjNlbnhnYjM5bzFjcyJ9.sbPN3nwHUem6QtmtJpnXXw';
+
   public init = new ReplaySubject<void>(1);
   public map: mapboxgl.Map;
 

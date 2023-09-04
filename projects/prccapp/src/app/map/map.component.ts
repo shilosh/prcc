@@ -14,9 +14,7 @@ import { ApiService } from '../api.service';
 })
 export class MapComponent implements AfterViewInit{
 
-  //STYLE = 'mapbox://styles/treebase/clck61858001514mfunfann6j/draft';
-  //STYLE = 'mapbox://styles/evyatark/cllai1mb000pr01pbcvs21vzr/draft';
-  STYLE = 'mapbox://styles/evyatark/clm3398rd00ry01pjfnbo10lx/draft';
+  STYLE = 'mapbox://styles/evyatark/clm4sf5oo00uy01nz1tm04qex/draft';
 
   OWN_LAYERS = [
     // 'cadaster-label',

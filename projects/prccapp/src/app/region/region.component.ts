@@ -63,13 +63,14 @@ const ICON_INFOS2: IconInfo[] = [
     icon: 'current-cover',
     tooltip: 'לפי נתוני למ״ס 2020',
     units: '',
-    field: 'VegFrac',
+    //field: 'VegFrac',
+    value: (row) => (row.VegFrac * 100).toFixed(0) + '%',
     //value: "2%",
   },
   {
     text: 'כיסוי לאחר התערבות',
     icon: 'expected-cover',
-    tooltip: 'לפי נתוני למ״ס 2020',
+    tooltip: 'הזז את הסקרול לתוצאות',
     units: '',
     value: (row) => '?',
   },
@@ -80,29 +81,29 @@ const ICON_INFOS3: IconInfo[] = [
     text: 'שינוי בטמפרטורה',
     icon: 'temperature-change',
     tooltip: 'הזז את הסקרול לתוצאות',
-    units: '',
-    value: '2',
+    units: 'מעלות',
+    value: '0',
   },
   {
     text: 'חיסכון',
     icon: 'savings',
-    tooltip: 'לפי נתוני למ״ס 2020',
-    units: 'שקלים',
-    value: '2',
+    tooltip: 'בקרוב...',
+    units: '',
+    value: '--',
   },
   {
     text: 'מניעת תחלואה',
     icon: 'prevent-sickness',
-    tooltip: 'לפי נתוני למ״ס 2020',
-    units: 'ימי אישפוז בשנה',
-    value: '2',
+    tooltip: 'בקרוב...',
+    units: '',
+    value: '--',
   },
   {
     text: 'מניעת תמותה מוקדמת',
     icon: 'prevent-death',
-    tooltip: 'לפי נתוני למ״ס 2020',
+    tooltip: 'הזז את הסקרול לתוצאות',
     units: 'בשנה',
-    value: '2',
+    value: '0',
   },
 ];
 
@@ -141,7 +142,7 @@ export class RegionComponent implements OnChanges {
           this.nameOfRegion = lastFeature.properties['Muni_Heb'];
         }
         else if (lastFeature.layer.id === "prcc-statistical-areas") {
-          this.nameOfRegion = lastFeature.properties['name'] + " " + "איזור" + " " + lastFeature.properties['stat_area'];
+          this.nameOfRegion = lastFeature.properties['SHEM_YISHU'] + " " + "איזור" + " " + lastFeature.properties['stat_area'];
         }
         // Hack here: I use data from lastFeature instead of record!!
         this.record = lastFeature.properties;
@@ -155,6 +156,13 @@ export class RegionComponent implements OnChanges {
       });
       console.log('REGION ICON_INFOS', this.iconInfos);
       console.log('REGION ICON_INFOS2', this.iconInfos2);
+      // iconInfo3
+      this.iconInfos3[0].value = '--';
+      this.iconInfos3[1].value = '--';
+      this.iconInfos3[2].value = '--';
+      this.iconInfos3[3].value = '--';
+  
+
       this.focusParams = {
         focus: this.focus,
       };
@@ -201,10 +209,46 @@ export class RegionComponent implements OnChanges {
     console.log('event dragEnd', event);
     console.log('slider value is now', event.value);
     // hack - access iconInfos2 by index, assuming a known structure!!
-    this.iconInfos2[1].value = event.value + '%';
-    this.iconInfos3[0].value = String(event.value * 3);
-    this.iconInfos3[1].value = String(event.value * 1000);
-    this.iconInfos3[2].value = String(event.value * 20);
-    this.iconInfos3[3].value = String(event.value * 2);
+    //this.iconInfos2[1].value = this.record.VegFrac;
+    const aoc = this.calculate_aoc(event.value);
+    const sqm = this.record.SqM_Costs;
+    const temperature_change = this.calculate_Temperature_change(event.value);
+    this.iconInfos2[1].value = event.value.toFixed(0) + '%';
+    this.iconInfos3[0].value = String(temperature_change);
+    this.iconInfos3[1].value = '--';
+    this.iconInfos3[2].value = '--';
+    this.iconInfos3[3].value = String(aoc);
+  }
+  calculate_Temperature_change(slider_val_percents: number) {
+    const current_ndvi = this.record.VegFrac;
+    const slider_val = slider_val_percents * 0.01 ;
+    const delta = slider_val - current_ndvi;
+    const slopet = this.record.SlopeT;
+    const temperature_change = (-1 * slopet * delta).toFixed(2);
+    console.log('temperature_change=', temperature_change);
+    return temperature_change;
+  }
+
+  calculate_aoc(slider_val_percents: number) {
+    const current_ndvi = this.record.VegFrac;
+    const slider_val = slider_val_percents * 0.01 ;
+    const delta = slider_val - current_ndvi;
+    const rri = Math.exp(-0.4082 * delta);
+    const pafi = (rri - 1) / rri ;
+    const em = this.record.EM ;
+    const aoc = (-1 * pafi * em).toFixed(2) ;
+    console.log("calculate_aoc, slider_val_percents=", slider_val_percents );
+    console.log('current_ndvi=', current_ndvi);
+    console.log('slider_val=', slider_val);
+    console.log('delta=', delta);
+    console.log('rri=', rri);
+    console.log('pafi=', pafi);
+    console.log('em=', em);
+    console.log('aoc=', aoc);
+    return aoc;
   }
 }
+function Exp(arg0: number) {
+  throw new Error('Function not implemented.');
+}
+
