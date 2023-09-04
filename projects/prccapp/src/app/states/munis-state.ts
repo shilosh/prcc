@@ -101,12 +101,44 @@ export class MunisState extends State {
             0.6, ['to-color', '#155b2e'],
         ];
 
+        const color_step_for_vegetation = [
+            'step',
+            ['get', 'VegFrac'],
+            ['to-color', '#D9D9D9'],
+            0.001,
+            ['to-color', '#BBDFC3'],
+            0.40,
+            ['to-color', '#90B192'],
+            0.50,
+            ['to-color', '#6D8F6E'],
+            0.60,
+            ['to-color', '#4D734E'],
+            0.80,
+            ['to-color', '#2B5B34']
+        ];
+
         const color_interpolation_for_temperature = [
             'interpolate', ['exponential', 0.01], ['get', 'Temperatur'],
             //'interpolate', ['exponential', 0.99], ['get', 'Temperatur'],
             30, ['to-color', '#FFFF00'],
             35, ['to-color', '#FFA500'],
             40, ['to-color', '#FF0000'],
+        ];
+
+        const color_step_for_temperature = [
+            'step',
+            ['get', 'Temperatur'],
+            ['to-color', '#D9D9D9'],
+            30,
+            ['to-color', '#F7DEDF'],
+            33,
+            ['to-color', '#EDB1B2'],
+            34,
+            ['to-color', '#E58586'],
+            35,
+            ['to-color', '#DE5959'],
+            37,
+            ['to-color', '#EC1E26']
         ];
 
         const color_interpolation_for_cluster = [
@@ -125,11 +157,13 @@ export class MunisState extends State {
                 ];
 
         const paint_definitions_for_temperature = {
-            'fill-color': color_interpolation_for_temperature,
-            'fill-opacity': 0.3
+            'fill-color': color_step_for_temperature,
+            //'fill-color': color_interpolation_for_temperature,
+            'fill-opacity': 0.9
         };
         const paint_definitions_for_vegetation = {
-            'fill-color': color_interpolation_for_vegetation,
+            'fill-color': color_step_for_vegetation,
+            //'fill-color': color_interpolation_for_vegetation,
             'fill-opacity': 0.3
         };
         const paint_definitions_for_cluster = {

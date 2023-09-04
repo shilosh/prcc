@@ -209,7 +209,6 @@ export class RegionComponent implements OnChanges {
     console.log('event dragEnd', event);
     console.log('slider value is now', event.value);
     // hack - access iconInfos2 by index, assuming a known structure!!
-    //this.iconInfos2[1].value = this.record.VegFrac;
     const aoc = this.calculate_aoc(event.value);
     const sqm = this.record.SqM_Costs;
     const temperature_change = this.calculate_Temperature_change(event.value);
