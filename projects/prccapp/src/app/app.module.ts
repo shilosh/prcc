@@ -17,6 +17,7 @@ import { StatAreaComponent } from './stat-area/stat-area.component';
 import { StatAreasComponent } from './stat-areas/stat-areas.component';
 import { RegionComponent } from './region/region.component';
 import { SummaryComponent } from './summary/summary.component';
+import { LegendComponent } from './legend/legend.component';
 import { ContentComponent } from './content/content.component';
 import { FilterComponent } from './filter/filter.component';
 
@@ -36,6 +37,7 @@ import { FilterComponent } from './filter/filter.component';
     StatAreaComponent,
     RegionComponent,
     SummaryComponent,
+    LegendComponent,
     LayoutComponent
   ],
   imports: [

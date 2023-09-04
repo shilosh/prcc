@@ -43,7 +43,7 @@ export const STAT_AREA_COLORING_OPTIONS = new SelectFilterItem(
 );
 // this defines the drop-down of display modes for the "munis" display
 export const SATELLITE_COLORING_OPTIONS = new SelectFilterItem(
-    QP_REGION_COLORING, 'פירוט מדדי ציון ההצללה:', [
+    QP_REGION_COLORING, 'סוג לווין:', [
         new FilterOption(QP_REGION_COLORING_TEMPERATURE, dropdown_1_option_1),
         new FilterOption(QP_REGION_COLORING_VEG_COVER, dropdown_1_option_2),
         new FilterOption("satellite", "תצלום אויר")
@@ -73,27 +73,34 @@ REGION_COLORING_INTERPOLATE[QP_REGION_COLORING_CPC] = [
 ];
 
 export const REGION_COLORING_LEGEND: {[key: string]: Legend} = {};
-REGION_COLORING_LEGEND[QP_REGION_COLORING_QUALITY] = new Legend('מקרא איכות המידע', [
-    new LegendItem('#00D315', '3 מקורות מידע ומעלה'),
-    new LegendItem('#FF7F00', '2 מקורות מידע'),
-    new LegendItem('#FFC700', 'מקור מידע אחד'),
-    new LegendItem('#cccccc', 'אין מידע כלל'),
-], 'ככל שיש יותר מקורות מידע ניתן להצליב ולטייב נתונים ולשפר את איכות המידע');
-REGION_COLORING_LEGEND[QP_REGION_COLORING_CAR] = new Legend('מקרא כיסוי חופות העצים', [
-    new LegendItem('#155b2e', 'כיסוי גבוה'),
-    new LegendItem('#3b7f53', ''),
-    new LegendItem('#60a478', '↑', false, true),
-    new LegendItem('#86c89d', ''),
-    new LegendItem('#acecc2', 'כיסוי נמוך'),
-    new LegendItem('#ccc', 'אין מידע', true),
+REGION_COLORING_LEGEND["cluster"] = new Legend('מקרא אשכול כלכלי חברתי', [
+    new LegendItem('#1E1E4D', '10'),
+    new LegendItem('#272361', '9'),
+    new LegendItem('#314177', '8'),
+    new LegendItem('#3C5E91', '7'),
+    new LegendItem('#497DB0', '6'),
+    new LegendItem('#54A4DB', '5'),
+    new LegendItem('#66AFE1', '4'),
+    new LegendItem('#78BBE7', '3'),
+    new LegendItem('#89C8EE', '2'),
+    new LegendItem('#9BD7F5', '1'),
+    new LegendItem('#D9D9D9', 'אין מידע כלל', true),
+], 'אשכול כלכלי חברתי');
+REGION_COLORING_LEGEND['vegetation'] = new Legend('מקרא כיסוי צומח', [
+    new LegendItem('#2B5B34', 'כיסוי גבוה'),
+    new LegendItem('#4D734E', ''),
+    new LegendItem('#6D8F6E', ''),
+    new LegendItem('#90B192', ''),
+    new LegendItem('#BBDFC3', 'כיסוי נמוך'),
+    new LegendItem('#D9D9D9', 'אין מידע', true),
 ], 'לפי מיפוי חופות עצים של מפ״י');
-REGION_COLORING_LEGEND[QP_REGION_COLORING_CPC] = new Legend('מקרא שטח חופות עצים לנפש', [
-    new LegendItem('#155b2e', 'כיסוי גבוה'),
-    new LegendItem('#3b7f53', ''),
-    new LegendItem('#60a478', '↑', false, true),
-    new LegendItem('#86c89d', ''),
-    new LegendItem('#acecc2', 'כיסוי נמוך'),
-    new LegendItem('#ccc', 'אין מידע', true),
+REGION_COLORING_LEGEND['temperature'] = new Legend('מקרא טמפרטורה', [
+    new LegendItem('#EC1E26', 'טמפרטורה גבוהה'),
+    new LegendItem('#DE5959', ''),
+    new LegendItem('#E58586', ''),
+    new LegendItem('#EDB1B2', ''),
+    new LegendItem('#F7DEDF', 'טמפרטורה נמוכה'),
+    new LegendItem('#D9D9D9', 'אין מידע', true),
 ], 'כיסוי הצומח מחושב לפי מיפוי חופות עצים של מפ״י, אוכלוסיה לפי נתוני למ״ס 2020');
 // Muni filtering
 export const QP_MUNI_FILTER_SEI = 'sei';
