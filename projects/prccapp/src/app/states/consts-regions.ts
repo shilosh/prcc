@@ -45,7 +45,8 @@ export const STAT_AREA_COLORING_OPTIONS = new SelectFilterItem(
 export const SATELLITE_COLORING_OPTIONS = new SelectFilterItem(
     QP_REGION_COLORING, 'פירוט מדדי ציון ההצללה:', [
         new FilterOption(QP_REGION_COLORING_TEMPERATURE, dropdown_1_option_1),
-        new FilterOption(QP_REGION_COLORING_VEG_COVER, dropdown_1_option_2)
+        new FilterOption(QP_REGION_COLORING_VEG_COVER, dropdown_1_option_2),
+        new FilterOption("satellite", "תצלום אויר")
     ]
 );
 

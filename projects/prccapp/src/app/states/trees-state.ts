@@ -24,6 +24,9 @@ export class TreesState extends State {
         else if (this.filters.rc === 'vegetation') {
             layers.push('evyatark-ndv-image-30');
         }
+        else if (this.filters.rc === 'satellite') {
+            layers.push('satellite');
+        }
         let canopiesFilter: any[] | null = null;
         if (this.filters[QP_CANOPIES] !== QP_CANOPIES_NONE) {
             layers.push('canopies');
@@ -49,6 +52,14 @@ export class TreesState extends State {
         if (canopiesFilter) {
             this.layerConfig['canopies'].filter = canopiesFilter;
         }
+
+        if (this.layerConfig['evyatark-lst-image-30']) {
+            this.layerConfig['evyatark-lst-image-30'].paint = {'raster-opacity': 0.9};
+        }
+        if (this.layerConfig['evyatark-ndv-image-30']) {
+            this.layerConfig['evyatark-ndv-image-30'].paint = {'raster-opacity': 0.9};
+        }
+
         this.layerConfig['trees'].paint = {
             'circle-color': TREE_COLOR_INTERPOLATE,
             'circle-stroke-width': [
@@ -116,7 +127,9 @@ export class TreesState extends State {
         ];
         this.legend = TREE_COLOR_LEGEND;
         //this.filterItems = TREE_FILTER_ITEMS;
+
         this.filterItems = SATELLITE_FILTER_ITEMS;
+        
         this.downloadQuery = `SELECT __fields__ FROM trees_processed WHERE "meta-tree-id" in (
             SELECT "meta-tree-id" FROM trees_compact WHERE ${this.focusQuery} AND ${treeStatusCondition}) AND ${speciesQuery} AND ${treePropsQuery} AND __geo__ ORDER BY "meta-tree-id" LIMIT 5000`;
         if (this.layerConfig['trees'].filter.length > 1) {

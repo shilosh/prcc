@@ -41,6 +41,7 @@ export class MapComponent implements AfterViewInit{
     'prcc-statistical-areas-borders',
     'evyatark-lst-image-30',
     'evyatark-ndv-image-30',
+    'satellite'
   ];
   CLICKS = [
     ['prcc-statistical-areas', 'stat-areas', 'semel_new'],
