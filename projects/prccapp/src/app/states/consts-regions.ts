@@ -115,12 +115,21 @@ export const QP_MUNI_FILTER_PD_MID = 'mid';
 export const QP_MUNI_FILTER_PD_HIGH = 'high';
 export const QP_MUNI_FILTER_PD_ALL = 'all';
 
-const LAYERS_SELECTION = new MultipleSelectFilterItem(
-    QP_MUNI_FILTER_SEI, Label_for_munis_dropdown_2, dropdown_2_option_0, [
-        new FilterOption(QP_MUNI_FILTER_SEI_ALL, dropdown_2_option_1),
-        new FilterOption(QP_MUNI_FILTER_SEI_LOW, dropdown_2_option_2),
-        new FilterOption(QP_MUNI_FILTER_SEI_MID, dropdown_2_option_3),
-        new FilterOption(QP_MUNI_FILTER_SEI_HIGH, dropdown_2_option_4),
+const MUNIS_BG_LAYERS_SELECTION = new MultipleSelectFilterItem(
+    'bglayers', Label_for_munis_dropdown_2, dropdown_2_option_0, [
+        new FilterOption('kll', dropdown_2_option_1),
+        new FilterOption('gush', dropdown_2_option_2),
+        new FilterOption('pst', dropdown_2_option_3),
+        new FilterOption('yaad', dropdown_2_option_4),
+        new FilterOption('bus', dropdown_2_option_5),
+    ]
+)
+const STAT_AREAS_BG_LAYERS_SELECTION = new MultipleSelectFilterItem(
+    'sbglayers', Label_for_munis_dropdown_2, dropdown_2_option_0, [
+        new FilterOption('kll', dropdown_2_option_1),
+        new FilterOption('gush', dropdown_2_option_2),
+        new FilterOption('pst', dropdown_2_option_3),
+        new FilterOption('yaad', dropdown_2_option_4),
         new FilterOption('bus', dropdown_2_option_5),
     ]
 )
@@ -128,7 +137,7 @@ const LAYERS_SELECTION = new MultipleSelectFilterItem(
 // This defines the drop-downs controls in the filter area of header, in state "munis"
 export const MUNIS_FILTER_ITEMS = [
     MUNI_COLORING_OPTIONS,
-    LAYERS_SELECTION
+    MUNIS_BG_LAYERS_SELECTION
 ];
 
 export const MUNI_FILTER_ITEMS = [
@@ -137,7 +146,7 @@ export const MUNI_FILTER_ITEMS = [
 
 export const STAT_AREA_FILTER_ITEMS = [
     STAT_AREA_COLORING_OPTIONS,
-    LAYERS_SELECTION
+    STAT_AREAS_BG_LAYERS_SELECTION
 ];
 
 export const SATELLITE_FILTER_ITEMS = [

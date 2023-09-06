@@ -37,6 +37,10 @@ export class MapComponent implements AfterViewInit{
     'prcc-statistical-areas',
     'prcc-settlements-data-borders',
     'prcc-statistical-areas-borders',
+    'parcels', //?
+    'parcels-labels', //?
+    'trees', //?
+    'il-map-places-final',
     'evyatark-lst-image-30',
     'evyatark-ndv-image-30',
     'satellite'
@@ -153,6 +157,9 @@ export class MapComponent implements AfterViewInit{
         this.map.getStyle().layers.forEach((layer) => {
           if (layer.id.startsWith("prcc") || layer.id.startsWith("evyatark")) {
             console.log(layer);
+          }
+          if (layer.id === 'parcels') {
+            console.log("parcels layer");
           }
           if (this.ownLayer(layer)) {
             if (state.isLayerVisible(layer.id)) {

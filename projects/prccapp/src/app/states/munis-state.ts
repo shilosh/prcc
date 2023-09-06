@@ -58,7 +58,6 @@ export class MunisState extends State {
             'line-color': '#155b2e',
             'line-opacity': 0.4
         };
-        this.layerConfig['trees'] = new LayerConfig(null, null, null);
 
         this.filterItems = MUNIS_FILTER_ITEMS;  // populate filterItems, which in FilterComponent is used to specify the drop-downs controls in the fiters area in the header of page
 
@@ -91,6 +90,116 @@ export class MunisState extends State {
             'line-opacity': 1
         };
 
+        this.layerConfig['il-map-places-final'] = new LayerConfig(null, null, {
+            'visibility': 'visible',
+            // "text-size": {
+            //     "stops": [
+            //         [0, 8],
+            //         [4, 10],
+            //         [12, 12]
+            //     ]
+            // },
+            'text-size': [
+                "interpolate",
+                [
+                  "cubic-bezier",
+                  0.2,
+                  0,
+                  0.9,
+                  1
+                ],
+                ["zoom"],
+                3,
+                [
+                  "step",
+                  ["get", "symbolrank"],
+                  2,
+                  6,
+                  1
+                ],
+                7,
+                [
+                  "step",
+                  ["get", "symbolrank"],
+                  18,
+                  6,
+                  16,
+                  7,
+                  14
+                ],
+                8,
+                [
+                  "step",
+                  ["get", "symbolrank"],
+                  20,
+                  9,
+                  16,
+                  10,
+                  14
+                ],
+                15,
+                [
+                  "step",
+                  ["get", "symbolrank"],
+                  24,
+                  9,
+                  20,
+                  12,
+                  16,
+                  15,
+                  14
+                ]
+              ]
+
+            //'visibility': ["step",["zoom"],'none',18,'visible']
+            // 'text-field': [
+            //     "coalesce",
+            //     ["get", "name_he"],
+            //     ["get", "name"]
+            //   ]
+        });
+
+        const background_layers = [];
+        // this takes from the URL ("http://localhost:4200/munis?sei=all;low") the part "all;low"
+        // and splits it to a list of [all, low] so that it can be processed
+        this.filters.bglayers = (this.filters.bglayers || '').split(';').filter((s: string) => s.length > 0)
+        console.log('list of layers in multi select:', this.filters.bglayers);
+        if (this.filters.bglayers.length > 0) {
+            // here use the list of layers to change visibility of selected layers etc
+            const selectedLayers = this.filters.bglayers;
+            console.log('selected layers:', selectedLayers);    // kll, gush, pst, yaad, bus
+            if (selectedLayers.includes('gush')) {
+                console.log('displaying Gush-Chelka layer');
+                //background_layers.push('parcels');            
+                background_layers.push('parcels-labels');            
+            }
+            if (selectedLayers.includes('yaad')) {
+                console.log('displaying Yaad Trees layer');
+                background_layers.push('trees');            
+            }
+        }
+        // this causes the layers in array 'layers' to be available/visible in trees view:
+        for (const id of background_layers) {
+            this.layerConfig[id] = new LayerConfig(null, null, null);
+            if (id === 'trees') {
+                const TREE_COLOR_INTERPOLATE = [
+                    'case', ['get', 'certainty'],
+                    ['to-color', '#204E37'],
+                    ['to-color', '#64B883'],
+                ];
+                this.layerConfig['trees'].paint = {
+                    'circle-color': TREE_COLOR_INTERPOLATE,
+                    'circle-stroke-width': [
+                        "interpolate",
+                        ["linear"],
+                        ["zoom"],
+                        15, 0,
+                        18, 3
+                    ],
+                    'circle-stroke-color': '#ffffff',
+                };
+            }
+        }
     }
 
     calculate_paint_definition(coloring: string) {

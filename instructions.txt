@@ -133,3 +133,12 @@ curl "https://api.mapbox.com/uploads/v1/evyatark/cllz33r9x0r5a2as3re4bwtd1?acces
     "id":"cllz33r9x0r5a2as3re4bwtd1","name":"NDV 30",
     "complete":true,
     "error":null,"created":"2023-08-31T11:30:05.410Z","modified":"2023-08-31T11:30:05.410Z","tileset":"evyatark.ndv-image-30","owner":"evyatark","progress":1}
+
+
+public layers from Adam
+-----------------------
+treebase.parcels_labels
+treebase.parcels
+treebase.trees
+
+mushon.cl1ozb8t603ie28kreec96kcg-8dowa
