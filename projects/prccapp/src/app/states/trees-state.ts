@@ -13,8 +13,8 @@ export class TreesState extends State {
             filters["rc"] = 'temperature';
         }
         super('trees', undefined, filters);    
+        const layers = [];
         //const layers = ['trees'];
-        const layers = ['trees'];
 
         // decide according to filter selection (2nd drop-down, reflects in the URL queryParams)
         // which of the 2 satellite images will be displayed
@@ -60,85 +60,85 @@ export class TreesState extends State {
             this.layerConfig['evyatark-ndv-image-30'].paint = {'raster-opacity': 0.9};
         }
 
-        this.layerConfig['trees'].paint = {
-            'circle-color': TREE_COLOR_INTERPOLATE,
-            'circle-stroke-width': [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                15, 0,
-                18, 3
-              ],
-            'circle-stroke-color': '#ffffff',
-        };
-        let treeStatusCondition = 'TRUE';
-        this.layerConfig['trees'].filter = [];
-        this.filters[QP_TREE_STATUS] = this.filters[QP_TREE_STATUS] || QP_TREE_STATUS_ALL;
-        if (this.filters[QP_TREE_STATUS] !== QP_TREE_STATUS_ALL) {
-            this.layerConfig['trees'].filter.push(
-                QP_TREE_STATUS_FILTER[this.filters[QP_TREE_STATUS]]
-            );
-            if (this.filters[QP_TREE_STATUS] === QP_TREE_STATUS_CERTAIN) {
-                treeStatusCondition = 'certainty = TRUE';
-            } else if (this.filters[QP_TREE_STATUS] === QP_TREE_STATUS_SUSPECTED) {
-                treeStatusCondition = 'certainty = FALSE';
-            } else if (this.filters[QP_TREE_STATUS] === QP_TREE_STATUS_UNREPORTED) {
-                treeStatusCondition = 'unreported = TRUE';
-            }
-        }
+        // this.layerConfig['trees'].paint = {
+        //     'circle-color': TREE_COLOR_INTERPOLATE,
+        //     'circle-stroke-width': [
+        //         "interpolate",
+        //         ["linear"],
+        //         ["zoom"],
+        //         15, 0,
+        //         18, 3
+        //       ],
+        //     'circle-stroke-color': '#ffffff',
+        // };
+        // let treeStatusCondition = 'TRUE';
+        // this.layerConfig['trees'].filter = [];
+        // this.filters[QP_TREE_STATUS] = this.filters[QP_TREE_STATUS] || QP_TREE_STATUS_ALL;
+        // if (this.filters[QP_TREE_STATUS] !== QP_TREE_STATUS_ALL) {
+        //     this.layerConfig['trees'].filter.push(
+        //         QP_TREE_STATUS_FILTER[this.filters[QP_TREE_STATUS]]
+        //     );
+        //     if (this.filters[QP_TREE_STATUS] === QP_TREE_STATUS_CERTAIN) {
+        //         treeStatusCondition = 'certainty = TRUE';
+        //     } else if (this.filters[QP_TREE_STATUS] === QP_TREE_STATUS_SUSPECTED) {
+        //         treeStatusCondition = 'certainty = FALSE';
+        //     } else if (this.filters[QP_TREE_STATUS] === QP_TREE_STATUS_UNREPORTED) {
+        //         treeStatusCondition = 'unreported = TRUE';
+        //     }
+        // }
         let speciesQuery = 'TRUE';
         this.filters.species = (this.filters.species || '').split(';').filter((s: string) => s.length > 0)
         if (this.filters.species.length > 0) {
             speciesQuery = this.filters.species.map((s: string) => `'${s}'`).join(',');
             speciesQuery = `"attributes-species-clean-en" IN (${speciesQuery})`;
-            this.layerConfig['trees'].filter.push(
-                ['in', ['get', 'species_en'], ['literal', this.filters.species]]
-            );
+            // this.layerConfig['trees'].filter.push(
+            //     ['in', ['get', 'species_en'], ['literal', this.filters.species]]
+            // );
         }
         let barkDiameterQuery = 'TRUE';
         if (!!this.filters[QP_BARK_DIAMETER] && this.filters[QP_BARK_DIAMETER] !== QP_BARK_DIAMETER_ALL) {
             barkDiameterQuery = QP_BARK_DIAMETER_WHERE[this.filters[QP_BARK_DIAMETER]];
-            this.layerConfig['trees'].filter.push(
-                QP_BARK_DIAMETER_FILTERS[this.filters[QP_BARK_DIAMETER]]
-            );
+            // this.layerConfig['trees'].filter.push(
+            //     QP_BARK_DIAMETER_FILTERS[this.filters[QP_BARK_DIAMETER]]
+            // );
         }
 
         let canopyAreaQuery = 'TRUE';
         if (!!this.filters[QP_CANOPY_AREA] && this.filters[QP_CANOPY_AREA] !== QP_CANOPY_AREA_ALL) {
             canopyAreaQuery = QP_CANOPY_AREA_WHERE[this.filters[QP_CANOPY_AREA]];
-            this.layerConfig['trees'].filter.push(
-                QP_CANOPY_AREA_FILTERS[this.filters[QP_CANOPY_AREA]]
-            );
+            // this.layerConfig['trees'].filter.push(
+            //     QP_CANOPY_AREA_FILTERS[this.filters[QP_CANOPY_AREA]]
+            // );
         }
 
         let heightQuery = 'TRUE';
         if (!!this.filters[QP_TREE_HEIGHT] && this.filters[QP_TREE_HEIGHT] !== QP_TREE_HEIGHT_ALL) {
             heightQuery = QP_TREE_HEIGHT_WHERE[this.filters[QP_TREE_HEIGHT]];
-            this.layerConfig['trees'].filter.push(
-                QP_TREE_HEIGHT_FILTERS[this.filters[QP_TREE_HEIGHT]]
-            );
+            // this.layerConfig['trees'].filter.push(
+            //     QP_TREE_HEIGHT_FILTERS[this.filters[QP_TREE_HEIGHT]]
+            // );
         }
         const treePropsQuery = [barkDiameterQuery, canopyAreaQuery, heightQuery].join(' AND ');
 
-        this.sql = [
-            `SELECT count(1) AS count FROM trees_compact WHERE ${this.focusQuery} AND ${treeStatusCondition} AND ${speciesQuery} AND ${treePropsQuery}`,
-            `SELECT jsonb_array_elements("joint-source-type") AS name, count(1) AS count FROM trees_compact WHERE ${this.focusQuery} AND ${treeStatusCondition} AND ${speciesQuery} AND ${treePropsQuery} GROUP BY 1 ORDER BY 2 DESC`,
-            `SELECT "attributes-species-clean-he" AS species_he, "attributes-species-clean-en" AS species_en FROM trees_compact WHERE "attributes-species-clean-he" is not NULL AND ${this.focusQuery} AND ${treeStatusCondition} GROUP BY 1, 2 ORDER BY 1`,
-        ];
+        // this.sql = [
+        //     `SELECT count(1) AS count FROM trees_compact WHERE ${this.focusQuery} AND ${treeStatusCondition} AND ${speciesQuery} AND ${treePropsQuery}`,
+        //     `SELECT jsonb_array_elements("joint-source-type") AS name, count(1) AS count FROM trees_compact WHERE ${this.focusQuery} AND ${treeStatusCondition} AND ${speciesQuery} AND ${treePropsQuery} GROUP BY 1 ORDER BY 2 DESC`,
+        //     `SELECT "attributes-species-clean-he" AS species_he, "attributes-species-clean-en" AS species_en FROM trees_compact WHERE "attributes-species-clean-he" is not NULL AND ${this.focusQuery} AND ${treeStatusCondition} GROUP BY 1, 2 ORDER BY 1`,
+        // ];
         this.legend = TREE_COLOR_LEGEND;
         //this.filterItems = TREE_FILTER_ITEMS;
 
         this.filterItems = SATELLITE_FILTER_ITEMS;
         
-        this.downloadQuery = `SELECT __fields__ FROM trees_processed WHERE "meta-tree-id" in (
-            SELECT "meta-tree-id" FROM trees_compact WHERE ${this.focusQuery} AND ${treeStatusCondition}) AND ${speciesQuery} AND ${treePropsQuery} AND __geo__ ORDER BY "meta-tree-id" LIMIT 5000`;
-        if (this.layerConfig['trees'].filter.length > 1) {
-            this.layerConfig['trees'].filter = ['all', ...this.layerConfig['trees'].filter];
-        } else if (this.layerConfig['trees'].filter.length === 1) {
-            this.layerConfig['trees'].filter = this.layerConfig['trees'].filter[0];
-        } else {
-            this.layerConfig['trees'].filter = null;
-        }
+        // this.downloadQuery = `SELECT __fields__ FROM trees_processed WHERE "meta-tree-id" in (
+        //     SELECT "meta-tree-id" FROM trees_compact WHERE ${this.focusQuery} AND ${treeStatusCondition}) AND ${speciesQuery} AND ${treePropsQuery} AND __geo__ ORDER BY "meta-tree-id" LIMIT 5000`;
+        // if (this.layerConfig['trees'].filter.length > 1) {
+        //     this.layerConfig['trees'].filter = ['all', ...this.layerConfig['trees'].filter];
+        // } else if (this.layerConfig['trees'].filter.length === 1) {
+        //     this.layerConfig['trees'].filter = this.layerConfig['trees'].filter[0];
+        // } else {
+        //     this.layerConfig['trees'].filter = null;
+        // }
 
         // this causes the layer of raster lst-30 to be visible in trees view:
         //this.layerConfig['evyatark-lst-image-30'] = new LayerConfig(null, null, null);
