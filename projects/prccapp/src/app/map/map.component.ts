@@ -40,7 +40,7 @@ export class MapComponent implements AfterViewInit{
     'parcels', //?
     'parcels-labels', //?
     'trees', //?
-    'il-map-places-final',
+    //'il-map-places-final',
     'evyatark-lst-image-30',
     'evyatark-ndv-image-30',
     'satellite'
