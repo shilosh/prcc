@@ -117,20 +117,20 @@ export const QP_MUNI_FILTER_PD_ALL = 'all';
 
 const MUNIS_BG_LAYERS_SELECTION = new MultipleSelectFilterItem(
     'bglayers', Label_for_munis_dropdown_2, dropdown_2_option_0, [
-        new FilterOption('kll', dropdown_2_option_1),
+        //new FilterOption('kll', dropdown_2_option_1),
         new FilterOption('gush', dropdown_2_option_2),
-        new FilterOption('pst', dropdown_2_option_3),
+        //new FilterOption('pst', dropdown_2_option_3),
         new FilterOption('yaad', dropdown_2_option_4),
-        new FilterOption('bus', dropdown_2_option_5),
+        //new FilterOption('bus', dropdown_2_option_5),
     ]
 )
 const STAT_AREAS_BG_LAYERS_SELECTION = new MultipleSelectFilterItem(
     'sbglayers', Label_for_munis_dropdown_2, dropdown_2_option_0, [
-        new FilterOption('kll', dropdown_2_option_1),
+        //new FilterOption('kll', dropdown_2_option_1),
         new FilterOption('gush', dropdown_2_option_2),
-        new FilterOption('pst', dropdown_2_option_3),
+        //new FilterOption('pst', dropdown_2_option_3),
         new FilterOption('yaad', dropdown_2_option_4),
-        new FilterOption('bus', dropdown_2_option_5),
+        //new FilterOption('bus', dropdown_2_option_5),
     ]
 )
 
