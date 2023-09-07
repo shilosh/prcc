@@ -89,6 +89,19 @@ export class StatAreaState extends State {
             'fill-color': color_interpolation_for_cluster,
             'fill-opacity': 0.3
         };
+
+        const color_interpolation_for_rgb = [
+            'rgb', 
+            [ "-", 255, ["*", 21.25, ["-", 42, ['coalesce', ['get', 'median_tem'], 32.0] ]]],   
+            ["*", 255, ['coalesce', ['get', 'VegFrac'], 0.001] ],
+            ["*", 25, ['coalesce', ['get', 'cluster'], 0] ]
+        ];
+
+        const paint_definitions_for_rgb = {
+            'fill-color': color_interpolation_for_rgb,
+            'fill-opacity': 0.6
+        };
+
         let paint_definition = null;
         if (coloring==='vegetation') { 
             paint_definition = paint_definitions_for_vegetation;
@@ -98,6 +111,10 @@ export class StatAreaState extends State {
         }
         else if (coloring==='cluster') {
             paint_definition = paint_definitions_for_cluster;
+        }
+        else if (coloring=== 'all') {
+            // rgb display that uses 3 values
+            paint_definition = paint_definitions_for_rgb;
         }
         return paint_definition;
     }

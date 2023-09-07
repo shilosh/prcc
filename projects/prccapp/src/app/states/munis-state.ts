@@ -171,7 +171,7 @@ export class MunisState extends State {
             if (selectedLayers.includes('gush')) {
                 console.log('displaying Gush-Chelka layer');
                 //background_layers.push('parcels');            
-                background_layers.push('parcels-labels');            
+                background_layers.push('sub-gush-all');            
             }
             if (selectedLayers.includes('yaad')) {
                 console.log('displaying Yaad Trees layer');
@@ -279,6 +279,30 @@ export class MunisState extends State {
             'fill-color': color_interpolation_for_cluster,
             'fill-opacity': 0.3
         };
+
+        
+        // value for Red should be 0-255. temperature is about 30 - 42, (Eilat: 41.03) 
+        // so I take (42-temperature)
+        // and multiply by 255/(42-30). But I want hotter to be redder, so: 255 - (21.25*(42-temperature))
+        // so:             [ "-", 255, ["*", 21.25, ["-", 42, ['get', 'Temperatur']]]]
+        //
+        // Value for Green: VegFrac is 0.001 - 0.95. so 255 * VegFrac : ["*", 255, ['get', 'VegFrac']]
+        //
+        // Value for Blue: cluster is 1-10 (or 0-10?), so 25*cluster
+        //
+        // coalesce means: if value of ['get', 'cluster17'] does not exist, use the supplied default instead.
+        const color_interpolation_for_rgb = [
+            'rgb', 
+            [ "-", 255, ["*", 21.25, ["-", 42, ['coalesce', ['get', 'Temperatur'], 32.0] ]]],   
+            ["*", 255, ['coalesce', ['get', 'VegFrac'], 0.001] ],
+            ["*", 25, ['coalesce', ['get', 'cluster17'], 0] ]
+        ];
+
+        const paint_definitions_for_rgb = {
+            'fill-color': color_interpolation_for_rgb,
+            'fill-opacity': 0.6
+        };
+
         let paint_definition = null;
         if (coloring==='vegetation') { 
             paint_definition = paint_definitions_for_vegetation;
@@ -288,6 +312,10 @@ export class MunisState extends State {
         }
         else if (coloring==='cluster') {
             paint_definition = paint_definitions_for_cluster;
+        }
+        else if (coloring=== 'all') {
+            // rgb display that uses 3 values
+            paint_definition = paint_definitions_for_rgb;
         }
 
         return paint_definition;

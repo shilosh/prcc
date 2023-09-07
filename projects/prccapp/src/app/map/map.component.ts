@@ -14,7 +14,8 @@ import { ApiService } from '../api.service';
 })
 export class MapComponent implements AfterViewInit{
 
-  STYLE = 'mapbox://styles/evyatark/clm4sf5oo00uy01nz1tm04qex/draft';
+  //STYLE = 'mapbox://styles/evyatark/clm4sf5oo00uy01nz1tm04qex/draft'; // ev3
+  STYLE = 'mapbox://styles/evyatark/clm8uwjgw014c01pebv8g5eum/draft' ;  // ev4
 
   OWN_LAYERS = [
     // 'cadaster-label',
@@ -37,9 +38,10 @@ export class MapComponent implements AfterViewInit{
     'prcc-statistical-areas',
     'prcc-settlements-data-borders',
     'prcc-statistical-areas-borders',
-    'parcels', //?
-    'parcels-labels', //?
-    'trees', //?
+    //'parcels', // gush chelka from Adam
+    //'parcels-labels', // gush chelka from Adam
+    'sub-gush-all',
+    'trees', // yaad trees from Adam
     //'il-map-places-final',
     'evyatark-lst-image-30',
     'evyatark-ndv-image-30',
@@ -158,7 +160,7 @@ export class MapComponent implements AfterViewInit{
           if (layer.id.startsWith("prcc") || layer.id.startsWith("evyatark")) {
             console.log(layer);
           }
-          if (layer.id === 'parcels') {
+          if (layer.id === 'sub-gush-all') {  //(layer.id === 'parcels') {
             console.log("parcels layer");
           }
           if (this.ownLayer(layer)) {
