@@ -62,6 +62,54 @@ export class StatAreasState extends State {
             'line-width': ["step",["zoom"],0,11,1,14,2],    // <== this causes area borders to be revealed only in zoom level 11, and become double width only at zoom 14
             'line-opacity': 1
         };
+
+        this.handle_background_layers('sbglayers');
+
+    }
+
+
+    handle_background_layers(layer_query_param_name : string) {
+        const background_layers = [];
+        // this takes from the URL ("http://localhost:4200/munis?bglayers=gush;yaad") the part "all;low"
+        // and splits it to a list of [all, low] so that it can be processed
+        this.filters[layer_query_param_name] = (this.filters[layer_query_param_name] || '').split(';').filter((s: string) => s.length > 0)
+        console.log('list of layers in multi select:', this.filters[layer_query_param_name]);
+        if (this.filters[layer_query_param_name].length > 0) {
+            // here use the list of layers to change visibility of selected layers etc
+            const selectedLayers = this.filters[layer_query_param_name];
+            console.log('selected layers:', selectedLayers);    // kll, gush, pst, yaad, bus
+            if (selectedLayers.includes('gush')) {
+                console.log('displaying Gush-Chelka layer');
+                //background_layers.push('parcels');            
+                background_layers.push('sub-gush-all');            
+            }
+            if (selectedLayers.includes('yaad')) {
+                console.log('displaying Yaad Trees layer');
+                background_layers.push('trees');            
+            }
+        }
+        // this causes the layers in array 'layers' to be available/visible in trees view:
+        for (const id of background_layers) {
+            this.layerConfig[id] = new LayerConfig(null, null, null);
+            if (id === 'trees') {
+                const TREE_COLOR_INTERPOLATE = [
+                    'case', ['get', 'certainty'],
+                    ['to-color', '#204E37'],
+                    ['to-color', '#64B883'],
+                ];
+                this.layerConfig['trees'].paint = {
+                    'circle-color': TREE_COLOR_INTERPOLATE,
+                    'circle-stroke-width': [
+                        "interpolate",
+                        ["linear"],
+                        ["zoom"],
+                        15, 0,
+                        18, 3
+                    ],
+                    'circle-stroke-color': '#ffffff',
+                };
+            }
+        }
     }
 
     calculate_paint_definition(coloring: string) {

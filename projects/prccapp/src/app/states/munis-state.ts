@@ -159,14 +159,18 @@ export class MunisState extends State {
         //     //   ]
         // });
 
+        this.handle_background_layers('bglayers');
+    }
+
+    handle_background_layers(layer_query_param_name : string) {
         const background_layers = [];
-        // this takes from the URL ("http://localhost:4200/munis?sei=all;low") the part "all;low"
+        // this takes from the URL ("http://localhost:4200/munis?bglayers=gush;yaad") the part "all;low"
         // and splits it to a list of [all, low] so that it can be processed
-        this.filters.bglayers = (this.filters.bglayers || '').split(';').filter((s: string) => s.length > 0)
-        console.log('list of layers in multi select:', this.filters.bglayers);
-        if (this.filters.bglayers.length > 0) {
+        this.filters[layer_query_param_name] = (this.filters[layer_query_param_name] || '').split(';').filter((s: string) => s.length > 0)
+        console.log('list of layers in multi select:', this.filters[layer_query_param_name]);
+        if (this.filters[layer_query_param_name].length > 0) {
             // here use the list of layers to change visibility of selected layers etc
-            const selectedLayers = this.filters.bglayers;
+            const selectedLayers = this.filters[layer_query_param_name];
             console.log('selected layers:', selectedLayers);    // kll, gush, pst, yaad, bus
             if (selectedLayers.includes('gush')) {
                 console.log('displaying Gush-Chelka layer');
