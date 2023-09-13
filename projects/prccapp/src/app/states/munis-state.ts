@@ -208,12 +208,12 @@ export class MunisState extends State {
         const paint_definitions_for_temperature = {
             'fill-color': color_step_for_temperature,
             //'fill-color': color_interpolation_for_temperature,
-            'fill-opacity': 0.3
+            'fill-opacity': 0.6
         };
         const paint_definitions_for_vegetation = {
             'fill-color': color_step_for_vegetation,
             //'fill-color': color_interpolation_for_vegetation,
-            'fill-opacity': 0.8
+            'fill-opacity': 0.6
         };
         const paint_definitions_for_cluster = {
             'fill-color': color_interpolation_for_cluster,
