@@ -19,7 +19,8 @@ export class TreesState extends State {
         // decide according to filter selection (2nd drop-down, reflects in the URL queryParams)
         // which of the 2 satellite images will be displayed
         if (this.filters.rc === 'temperature') {
-            layers.push('evyatark-lst-image-30');
+            //layers.push('evyatark-lst-image-30');
+            layers.push('lst-tiles-8-11');
         }
         else if (this.filters.rc === 'vegetation') {
             layers.push('evyatark-ndv-image-30');

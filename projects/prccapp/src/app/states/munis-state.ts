@@ -105,14 +105,16 @@ export class MunisState extends State {
             console.log('selected layers:', selectedLayers);    // kll, gush, pst, yaad, bus
             if (selectedLayers.includes('gush')) {
                 console.log('displaying Gush-Chelka layer');
-                //background_layers.push('parcels');            
-                background_layers.push('sub-gush-all');            
+                background_layers.push('parcels');            
+                background_layers.push('parcels-labels');            
+                //background_layers.push('sub-gush-all');            
             }
             if (selectedLayers.includes('yaad')) {
                 console.log('displaying Yaad Trees layer');
                 background_layers.push('trees');            
             }
         }
+        console.log('bg layers:', background_layers);
         // this causes the layers in array 'layers' to be available/visible in trees view:
         for (const id of background_layers) {
             this.layerConfig[id] = new LayerConfig(null, null, null);
@@ -133,6 +135,9 @@ export class MunisState extends State {
                     ],
                     'circle-stroke-color': '#ffffff',
                 };
+            }
+            if ((id === 'parcels') || (id === 'parcels-labels')) {
+                this.layerConfig[id].layout = {'visibility': 'visible'};
             }
         }
     }

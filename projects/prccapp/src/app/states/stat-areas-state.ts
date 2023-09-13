@@ -80,8 +80,9 @@ export class StatAreasState extends State {
             console.log('selected layers:', selectedLayers);    // kll, gush, pst, yaad, bus
             if (selectedLayers.includes('gush')) {
                 console.log('displaying Gush-Chelka layer');
-                //background_layers.push('parcels');            
-                background_layers.push('sub-gush-all');            
+                background_layers.push('parcels');            
+                background_layers.push('parcels-labels');            
+                //background_layers.push('sub-gush-all');            
             }
             if (selectedLayers.includes('yaad')) {
                 console.log('displaying Yaad Trees layer');
@@ -108,6 +109,9 @@ export class StatAreasState extends State {
                     ],
                     'circle-stroke-color': '#ffffff',
                 };
+            }
+            if ((id === 'parcels') || (id === 'parcels-labels')) {
+                this.layerConfig[id].layout = {'visibility': 'visible'};
             }
         }
     }

@@ -14,8 +14,8 @@ import { ApiService } from '../api.service';
 })
 export class MapComponent implements AfterViewInit{
 
-  //STYLE = 'mapbox://styles/evyatark/clm4sf5oo00uy01nz1tm04qex/draft'; // ev3
-  STYLE = 'mapbox://styles/evyatark/clm8uwjgw014c01pebv8g5eum/draft' ;  // ev4
+  STYLE = 'mapbox://styles/evyatark/clmhlgep5004w01pdg3vu8618/draft'; // ev5
+  //STYLE = 'mapbox://styles/evyatark/clm8uwjgw014c01pebv8g5eum/draft' ;  // ev4
 
   OWN_LAYERS = [
     // 'cadaster-label',
@@ -35,13 +35,14 @@ export class MapComponent implements AfterViewInit{
     'prcc-statistical-areas',
     'prcc-settlements-data-borders',
     'prcc-statistical-areas-borders',
-    //'parcels', // gush chelka from Adam
-    //'parcels-labels', // gush chelka from Adam
-    'sub-gush-all',
+    'parcels', // gush chelka from Adam
+    'parcels-labels', // gush chelka from Adam
+    //'sub-gush-all',
     //'settlement-major-label','settlement-minor-label','settlement-subdivision-label',
     'trees', // yaad trees from Adam
     //'il-map-places-final',
-    'evyatark-lst-image-30',
+    //'evyatark-lst-image-30',
+    'lst-tiles-8-11',
     'evyatark-ndv-image-30',
     'satellite'
   ];
@@ -158,9 +159,9 @@ export class MapComponent implements AfterViewInit{
           if (layer.id.startsWith("prcc") || layer.id.startsWith("evyatark")) {
             console.log(layer);
           }
-          if (layer.id === 'sub-gush-all') {  //(layer.id === 'parcels') {
-            console.log("parcels layer");
-          }
+          // if (layer.id === 'sub-gush-all') {  //(layer.id === 'parcels') {
+          //   console.log("parcels layer");
+          // }
           if (this.ownLayer(layer)) {
             if (state.isLayerVisible(layer.id)) {
               console.log('set visibility of layer', layer.id, 'to visible');
