@@ -90,75 +90,6 @@ export class MunisState extends State {
             'line-opacity': 1
         };
 
-        // this.layerConfig['il-map-places-final'] = new LayerConfig(null, null, {
-        //     'visibility': 'visible',
-        //     // "text-size": {
-        //     //     "stops": [
-        //     //         [0, 8],
-        //     //         [4, 10],
-        //     //         [12, 12]
-        //     //     ]
-        //     // },
-        //     'text-size': [
-        //         "interpolate",
-        //         [
-        //           "cubic-bezier",
-        //           0.2,
-        //           0,
-        //           0.9,
-        //           1
-        //         ],
-        //         ["zoom"],
-        //         3,
-        //         [
-        //           "step",
-        //           ["get", "symbolrank"],
-        //           2,
-        //           6,
-        //           1
-        //         ],
-        //         7,
-        //         [
-        //           "step",
-        //           ["get", "symbolrank"],
-        //           18,
-        //           6,
-        //           16,
-        //           7,
-        //           14
-        //         ],
-        //         8,
-        //         [
-        //           "step",
-        //           ["get", "symbolrank"],
-        //           20,
-        //           9,
-        //           16,
-        //           10,
-        //           14
-        //         ],
-        //         15,
-        //         [
-        //           "step",
-        //           ["get", "symbolrank"],
-        //           24,
-        //           9,
-        //           20,
-        //           12,
-        //           16,
-        //           15,
-        //           14
-        //         ]
-        //       ]
-
-        //     //'visibility': ["step",["zoom"],'none',18,'visible']
-        //     // 'text-field': [
-        //     //     "coalesce",
-        //     //     ["get", "name_he"],
-        //     //     ["get", "name"]
-        //     //   ]
-        // });
-
         this.handle_background_layers('bglayers');
     }
 
@@ -272,16 +203,16 @@ export class MunisState extends State {
         const paint_definitions_for_temperature = {
             'fill-color': color_step_for_temperature,
             //'fill-color': color_interpolation_for_temperature,
-            'fill-opacity': 0.9
+            'fill-opacity': 0.3
         };
         const paint_definitions_for_vegetation = {
             'fill-color': color_step_for_vegetation,
             //'fill-color': color_interpolation_for_vegetation,
-            'fill-opacity': 0.3
+            'fill-opacity': 0.8
         };
         const paint_definitions_for_cluster = {
             'fill-color': color_interpolation_for_cluster,
-            'fill-opacity': 0.3
+            'fill-opacity': 0.6
         };
 
         

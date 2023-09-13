@@ -31,9 +31,6 @@ export class MapComponent implements AfterViewInit{
     // 'parcels-fill',
     // 'roads-border',
     // 'canopies',
-    // 'trees',
-    //'evyatark-ndv-image-30',
-    //'evyatark-lst-image-30',
     'prcc-settlements-data',
     'prcc-statistical-areas',
     'prcc-settlements-data-borders',
@@ -41,6 +38,7 @@ export class MapComponent implements AfterViewInit{
     //'parcels', // gush chelka from Adam
     //'parcels-labels', // gush chelka from Adam
     'sub-gush-all',
+    //'settlement-major-label','settlement-minor-label','settlement-subdivision-label',
     'trees', // yaad trees from Adam
     //'il-map-places-final',
     'evyatark-lst-image-30',

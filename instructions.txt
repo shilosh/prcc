@@ -142,3 +142,22 @@ treebase.parcels
 treebase.trees
 
 mushon.cl1ozb8t603ie28kreec96kcg-8dowa
+
+
+comments
+1. change opacity of cluster and vegFrac (from 0.3 to 0.9?) to see better colors.
+temperature is 0.9 colors are OK
+2. put layer of city names and street names above the colors of polygons
+3. popup on a stat area - איזור סטטיסטי 
+customer should say what data to include in the pop-up 
+color of text VegFrac in color green??
+4. content for the about - customer should supply
+5. from about, link to מדיניות שימוש like YAAD
+6. bg layers - customer will supply Pishtey Hazafa
+7. bg layer trees - legend explaining vadai against meshoar?
+show only vadai?
+display Chupot instead of trees?? ask
+display smaller circles 
+legend should say that trees are Meshoar 
+
+
