@@ -41,13 +41,13 @@ ToDo
 combined RGB - use formula from Shilo
 
 Hila says
-header looks bigger, should be 90%
+V header looks bigger, should be 90%
 
 add gray color for out of polygons!! - how to do it
-map with labels in Hebrew
+V map with labels in Hebrew
 V when entering first time, zoom should be on Israel (but as a consequence, statistical areas are not displayed, until you zoom in!)
 gaps between the text line in the right panel
-color of header should be gray not green
+V color of header should be gray not green
 add favicon
 
 gushChelka layer should be only in stat-areas and Sattelite display (not in Munis!!)
@@ -134,6 +134,16 @@ curl "https://api.mapbox.com/uploads/v1/evyatark/cllz33r9x0r5a2as3re4bwtd1?acces
     "complete":true,
     "error":null,"created":"2023-08-31T11:30:05.410Z","modified":"2023-08-31T11:30:05.410Z","tileset":"evyatark.ndv-image-30","owner":"evyatark","progress":1}
 
+upload: ./LST_Tiles.mbtiles to s3://tilestream-tilesets-production/1c/_pending/3jlhwbddtmh2d1w0zeh2uimlc/evyatark
+curl -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{  "url": "http://tilestream-tilesets-production.s3.amazonaws.com/1c/_pending/3jlhwbddtmh2d1w0zeh2uimlc/evyatark", "tileset": "evyatark.lst-tiles",  "name": "LST Tiles 30"}' 'https://api.mapbox.com/uploads/v1/evyatark?access_token=sk.eyJ1I...'
+{"id":"clmiuksur07kl2lo6rkwlf5zv","name":"LST Tiles 30","complete":false,"error":null,"created":"2023-09-14T07:26:47.587Z","modified":"2023-09-14T07:26:47.587Z","tileset":"evyatark.lst-tiles","own..
+https://api.mapbox.com/uploads/v1/evyatark?access_token=sk.eyJ1I...
+
+check status with:
+evyatar@dell-precision-3551:~/work/prcc/data$ curl "https://api.mapbox.com/uploads/v1/evyatark/clmiuksur07kl2lo6rkwlf5zv?access_token=sk.eyJ1I..."
+response:
+{"id":"clmiuksur07kl2lo6rkwlf5zv","name":"LST Tiles 30","complete":false,"error":"Maxzoom exceeded for mbtiles file. There is a max zoom limit of 16 but tiles up to zoom level 17 were found. If you need support for 1cm tilesets please reach out to support.","created":"2023-09-14T07:26:47.587Z","modified":"2023-09-14T07:26:47.587Z","tileset":"evyatark.lst-tiles","owner":"evyatark","progress":0}
+evyatar@dell-precision-3551:~/work/prcc/data$ 
 
 public layers from Adam
 -----------------------
