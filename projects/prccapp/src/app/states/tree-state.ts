@@ -27,7 +27,7 @@ export class TreeState extends State {
                 ['==', ['get', 'tree-id'], ['literal', this.id]],
             ]
         }
-        this.legend = TREE_COLOR_LEGEND;
+        //this.legend = TREE_COLOR_LEGEND;
         this.filterItems = TREE_FILTER_ITEMS;
     }
 

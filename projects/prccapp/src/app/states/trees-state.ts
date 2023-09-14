@@ -126,7 +126,7 @@ export class TreesState extends State {
         //     `SELECT jsonb_array_elements("joint-source-type") AS name, count(1) AS count FROM trees_compact WHERE ${this.focusQuery} AND ${treeStatusCondition} AND ${speciesQuery} AND ${treePropsQuery} GROUP BY 1 ORDER BY 2 DESC`,
         //     `SELECT "attributes-species-clean-he" AS species_he, "attributes-species-clean-en" AS species_en FROM trees_compact WHERE "attributes-species-clean-he" is not NULL AND ${this.focusQuery} AND ${treeStatusCondition} GROUP BY 1, 2 ORDER BY 1`,
         // ];
-        this.legend = TREE_COLOR_LEGEND;
+        //this.legend = TREE_COLOR_LEGEND;
         //this.filterItems = TREE_FILTER_ITEMS;
 
         this.filterItems = SATELLITE_FILTER_ITEMS;
