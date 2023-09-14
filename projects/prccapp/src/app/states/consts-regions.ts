@@ -73,35 +73,35 @@ REGION_COLORING_INTERPOLATE[QP_REGION_COLORING_CPC] = [
 ];
 
 export const REGION_COLORING_LEGEND: {[key: string]: Legend} = {};
-REGION_COLORING_LEGEND["cluster"] = new Legend('מקרא אשכול כלכלי חברתי', [
-    new LegendItem('#1E1E4D', '10'),
-    new LegendItem('#272361', '9'),
-    new LegendItem('#314177', '8'),
-    new LegendItem('#3C5E91', '7'),
-    new LegendItem('#497DB0', '6'),
-    new LegendItem('#54A4DB', '5'),
-    new LegendItem('#66AFE1', '4'),
-    new LegendItem('#78BBE7', '3'),
-    new LegendItem('#89C8EE', '2'),
-    new LegendItem('#9BD7F5', '1'),
-    new LegendItem('#D9D9D9', 'אין מידע כלל', true),
-], 'אשכול כלכלי חברתי');
+REGION_COLORING_LEGEND["cluster"] = new Legend('אשכול כלכלי חברתי', [
+    new LegendItem('#1E1E4D', '10', false, false, 'row', true),
+    new LegendItem('#272361', '9', false, false, 'row', true),
+    new LegendItem('#314177', '8', false, false, 'row', true),
+    new LegendItem('#3C5E91', '7', false, false, 'row', true),
+    new LegendItem('#497DB0', '6', false, false, 'row', true),
+    new LegendItem('#54A4DB', '5', false, false, 'row', true),
+    new LegendItem('#66AFE1', '4', false, false, 'row', true),
+    new LegendItem('#78BBE7', '3', false, false, 'row', true),
+    new LegendItem('#89C8EE', '2', false, false, 'row', true),
+    new LegendItem('#9BD7F5', '1', false, false, 'row', true),
+    //new LegendItem('#D9D9D9', 'אין מידע כלל', true),
+], 'מקרא: אשכול כלכלי חברתי', true);
 REGION_COLORING_LEGEND['vegetation'] = new Legend('מקרא כיסוי צומח', [
-    new LegendItem('#2B5B34', 'כיסוי גבוה'),
+    new LegendItem('#2B5B34', 'כיסוי גבוה', false, false, 'row-reverse'),
     new LegendItem('#4D734E', ''),
     new LegendItem('#6D8F6E', ''),
     new LegendItem('#90B192', ''),
     new LegendItem('#BBDFC3', 'כיסוי נמוך'),
     new LegendItem('#D9D9D9', 'אין מידע', true),
-], 'לפי מיפוי חופות עצים של מפ״י');
+], 'מקרא: כיסוי צומח');
 REGION_COLORING_LEGEND['temperature'] = new Legend('מקרא טמפרטורה', [
-    new LegendItem('#EC1E26', 'טמפרטורה גבוהה'),
+    new LegendItem('#EC1E26', 'טמפרטורה גבוהה', false, false, 'row-reverse'),
     new LegendItem('#DE5959', ''),
     new LegendItem('#E58586', ''),
     new LegendItem('#EDB1B2', ''),
     new LegendItem('#F7DEDF', 'טמפרטורה נמוכה'),
     new LegendItem('#D9D9D9', 'אין מידע', true),
-], 'כיסוי הצומח מחושב לפי מיפוי חופות עצים של מפ״י, אוכלוסיה לפי נתוני למ״ס 2020');
+], 'מקרא: טמפרטורה');
 // Muni filtering
 export const QP_MUNI_FILTER_SEI = 'sei';
 export const QP_MUNI_FILTER_SEI_LOW = 'low';

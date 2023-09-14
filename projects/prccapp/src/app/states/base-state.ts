@@ -17,11 +17,12 @@ export class Chart {
 }
 
 export class LegendItem {
-    constructor(public color: string, public label: string, public separated=false, public scaled=false) {}
+    constructor(public color: string, public label: string, public separated=false, public scaled=false, public direction='row', public label_on_color=false) {}
+    // change direction to 'row-reverse' if you want label to be to the right of color instead of to the left!
 }
 
 export class Legend {
-    constructor(public title: string, public items: LegendItem[], public tooltip?: string) {}
+    constructor(public title: string, public items: LegendItem[], public tooltip?: string, public displayTitle = false) {}
 }
 
 export class FilterOption {
