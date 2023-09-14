@@ -28,15 +28,74 @@ export class StatAreaState extends State {
             'line-color': '#ff871f',
             'line-opacity': 0.4
         };
-        this.layerConfig['trees'] = new LayerConfig([
-            '==', ['get', 'stat_area_code'], ['literal', this.id]
-        ], null, null);
         this.filterItems = STAT_AREA_FILTER_ITEMS;
 
         const paint_definition = this.calculate_paint_definition(coloring); // <== this defines the colors of the polygons according to the display selected in the drop-down
         const statarea_filter_def = this.calc_filter(); // <== this filter causes map to display only the polygon of the stat-area (whose id is in the URL)
         this.layerConfig['prcc-statistical-areas'] = new LayerConfig(statarea_filter_def, paint_definition, null);
 
+        this.handle_background_layers('sbglayers');
+    }
+
+    handle_background_layers(layer_query_param_name : string) {
+        const background_layers = [];
+        // this takes from the URL ("http://localhost:4200/munis?bglayers=gush;yaad") the part "all;low"
+        // and splits it to a list of [all, low] so that it can be processed
+        this.filters[layer_query_param_name] = (this.filters[layer_query_param_name] || '').split(';').filter((s: string) => s.length > 0)
+        console.log('list of layers in multi select:', this.filters[layer_query_param_name]);
+        if (this.filters[layer_query_param_name].length > 0) {
+            // here use the list of layers to change visibility of selected layers etc
+            const selectedLayers = this.filters[layer_query_param_name];
+            console.log('selected layers:', selectedLayers);    // kll, gush, pst, yaad, bus
+            if (selectedLayers.includes('gush')) {
+                console.log('displaying Gush-Chelka layer');
+                background_layers.push('parcels');            
+                background_layers.push('parcels-labels');            
+                //background_layers.push('sub-gush-all');            
+            }
+            if (selectedLayers.includes('yaad')) {
+                console.log('displaying Yaad Trees layer');
+                background_layers.push('trees');            
+            }
+        }
+        // this causes the layers in array 'background_layers' to be available/visible in stat-area view:
+        for (const layerId of background_layers) {
+            this.layerConfig[layerId] = new LayerConfig(null, null, null);
+            if (layerId === 'trees') {
+                // The filter part causes only trees in the SELECTED stat-area to be displayed
+                // Note that in some areas the trees disappear when area is selected!
+                // (probably because their "stat_area" property has an incorrect value)
+                // commenting the following line will cause trees of all areas to be displayed
+                this.layerConfig['trees'].filter = ['==', ['get', 'stat_area'], ['literal', this.id] ];
+
+                const TREE_COLOR_INTERPOLATE = [
+                    'case', ['get', 'certainty'],
+                    ['to-color', '#204E37'],
+                    ['to-color', '#64B883'],
+                ];
+                this.layerConfig['trees'].paint = {
+                    'circle-color': TREE_COLOR_INTERPOLATE,
+                    'circle-radius': [
+                        "interpolate",
+                        ["linear"],
+                        ["zoom"],
+                        15, 2,  // zoom is 15 (or less) -> circle radius will be 2px
+                        18, 5   // zoom is 18 (or greater) -> circle radius will be 5px
+                    ],
+                    'circle-stroke-width': [
+                        "interpolate",
+                        ["linear"],
+                        ["zoom"],
+                        15, 0,
+                        18, 3
+                    ],
+                    'circle-stroke-color': '#ffffff',
+                };
+            }
+            if ((layerId === 'parcels') || (layerId === 'parcels-labels')) {
+                this.layerConfig[layerId].layout = {'visibility': 'visible'};
+            }
+        }
     }
 
     calc_filter() {

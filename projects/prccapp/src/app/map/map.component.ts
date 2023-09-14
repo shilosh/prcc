@@ -39,7 +39,7 @@ export class MapComponent implements AfterViewInit{
     'parcels-labels', // gush chelka from Adam
     //'sub-gush-all',
     //'settlement-major-label','settlement-minor-label','settlement-subdivision-label',
-    'trees', // yaad trees from Adam
+    'trees', // yaad trees
     //'il-map-places-final',
     //'evyatark-lst-image-30',
     'lst-tiles-8-11',

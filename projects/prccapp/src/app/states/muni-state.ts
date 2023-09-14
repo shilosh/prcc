@@ -3,6 +3,15 @@ import { MUNI_FILTER_ITEMS, QP_REGION_COLORING, QP_REGION_COLORING_CAR, REGION_C
 
 export class MuniState extends State {
     constructor(id: string, filters: any) {
+        // hack: if you manually add "opacity=0.6" or any other value to URL, we use that value for opacity
+        let manual_opacity = -1;
+        if (filters["opacity"]) {
+            manual_opacity = Number(filters["opacity"]);
+            if (!(manual_opacity > 0 && manual_opacity <= 1)) {
+                manual_opacity = -1;
+            }
+        }
+        
         super('muni', id, filters);
         console.log('MuniState constructor STARTED');
         this.sql = [
@@ -25,17 +34,78 @@ export class MuniState extends State {
             'line-color': '#ff871f',
             'line-opacity': 0.4
         };
-        this.layerConfig['trees'] = new LayerConfig([
-            '==', ['get', 'muni'], ['literal', this.id]
-        ], null, null);
         this.legend = REGION_COLORING_LEGEND[coloring];
         this.filterItems = MUNI_FILTER_ITEMS;
 
-        const paint_definition = this.calculate_paint_definition(coloring); // <== this defines the colors of the polygons according to the display selected in the drop-down
+        const paint_definition = this.calculate_paint_definition(coloring, manual_opacity); // <== this defines the colors of the polygons according to the display selected in the drop-down
         const muni_filter_def = this.calc_filter(); // <== this filter causes map to display only the polygon of the city (whose id is in the URL)
         this.layerConfig['prcc-settlements-data'] = new LayerConfig(muni_filter_def, paint_definition, null);
+
+        this.handle_background_layers('bglayers');
     }
     
+    handle_background_layers(layer_query_param_name : string) {
+        const background_layers = [];
+        // this takes from the URL ("http://localhost:4200/munis?bglayers=gush;yaad") the part "all;low"
+        // and splits it to a list of [all, low] so that it can be processed
+        this.filters[layer_query_param_name] = (this.filters[layer_query_param_name] || '').split(';').filter((s: string) => s.length > 0)
+        console.log('list of layers in multi select:', this.filters[layer_query_param_name]);
+        if (this.filters[layer_query_param_name].length > 0) {
+            // here use the list of layers to change visibility of selected layers etc
+            const selectedLayers = this.filters[layer_query_param_name];
+            console.log('selected layers:', selectedLayers);    // kll, gush, pst, yaad, bus
+            if (selectedLayers.includes('gush')) {
+                console.log('displaying Gush-Chelka layer');
+                background_layers.push('parcels');            
+                background_layers.push('parcels-labels');            
+                //background_layers.push('sub-gush-all');            
+            }
+            if (selectedLayers.includes('yaad')) {
+                console.log('displaying Yaad Trees layer');
+                background_layers.push('trees');            
+            }
+        }
+        console.log('bg layers:', background_layers);
+        // this causes the layers in array 'layers' to be available/visible in trees view:
+        for (const layerId of background_layers) {
+            this.layerConfig[layerId] = new LayerConfig(null, null, null);
+            if (layerId === 'trees') {
+                this.layerConfig['trees'].filter = [
+                    '==', ['get', 'muni'], ['literal', this.id]
+                    ];
+                const TREE_COLOR_INTERPOLATE = [
+                    'case', ['get', 'certainty'],
+                    ['to-color', '#204E37'],
+                    ['to-color', '#64B883'],
+                ];
+                this.layerConfig['trees'].paint = {
+                    'circle-color': TREE_COLOR_INTERPOLATE,
+                    // note that circle-radius expression here is a bit different from munis, stat-areas, stat-area view
+                    // (this displays a bit larger circles in zoom 10-15)
+                    'circle-radius': [
+                        "interpolate",
+                        ["linear"],
+                        ["zoom"],
+                        10, 2,  // zoom is 10 (or less) -> circle radius will be 2px
+                        15, 3,  // zoom is 15           -> circle radius will be 3px
+                        18, 5   // zoom is 18 (or greater) -> circle radius will be 5px
+                    ],
+                    'circle-stroke-width': [
+                        "interpolate",
+                        ["linear"],
+                        ["zoom"],
+                        15, 0,
+                        18, 3
+                    ],
+                    'circle-stroke-color': '#ffffff',
+                };
+            }
+            if ((layerId === 'parcels') || (layerId === 'parcels-labels')) {
+                this.layerConfig[layerId].layout = {'visibility': 'visible'};
+            }
+        }
+    }
+
     calc_filter() {
         const filter = [
             '==', ['get', 'CODE'], Number(this.id)
@@ -43,7 +113,7 @@ export class MuniState extends State {
         return filter;
     }
 
-    calculate_paint_definition(coloring: string) {
+    calculate_paint_definition(coloring: string, manual_opacity : number) {
         const color_interpolation_for_vegetation = [
             'interpolate', ['exponential', 0.01], ['get', 'VegFrac'],
             0, ['to-color', '#ccc'],
@@ -74,6 +144,12 @@ export class MuniState extends State {
                     ['to-color', '#1E1E4D'],
                 ];
 
+        let opacity = 0.6;
+        if (manual_opacity !== -1) {
+            console.log('overriding opacity with', manual_opacity);
+            opacity = manual_opacity;
+        }
+        console.log('using opacity ', opacity);
         const paint_definitions_for_temperature = {
             'fill-color': color_interpolation_for_temperature,
             'fill-opacity': 0.3

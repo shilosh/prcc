@@ -36,7 +36,7 @@ export class StateService {
   // with segments[0]="munis". this segments[0] decides the "mode". 
   // The State object is created according to the mode.
   // queryParams usually holds info about the filters (drop-downs in the <filter> area in the <header>) -
-  // selecting a value in thedrop-downs causes a routing to a "new" URL which includes 
+  // selecting a value in the drop-downs causes a routing to a "new" URL which includes 
   // a query param representing that drop-down selection!
   initFromUrl(segments: any[], queryParams: any) {
     console.log('initFromUrl STARTED, segments=', segments, 'queryParams=', queryParams);

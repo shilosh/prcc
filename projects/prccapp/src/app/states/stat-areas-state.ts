@@ -100,6 +100,13 @@ export class StatAreasState extends State {
                 ];
                 this.layerConfig['trees'].paint = {
                     'circle-color': TREE_COLOR_INTERPOLATE,
+                    'circle-radius': [
+                        "interpolate",
+                        ["linear"],
+                        ["zoom"],
+                        15, 2,  // zoom is 15 (or less) -> circle radius will be 2px
+                        18, 5   // zoom is 18 (or greater) -> circle radius will be 5px
+                    ],
                     'circle-stroke-width': [
                         "interpolate",
                         ["linear"],
