@@ -150,6 +150,7 @@ public layers from Adam
 treebase.parcels_labels
 treebase.parcels
 treebase.trees
+treebase.canopies
 
 mushon.cl1ozb8t603ie28kreec96kcg-8dowa
 
@@ -171,3 +172,49 @@ display smaller circles
 legend should say that trees are Meshoar 
 
 
+
+
+uploading
+get an access token
+
+evyatar@dell-precision-3551:~/work/prcc/data$ curl -X POST "https://api.mapbox.com/uploads/v1/evyatark/credentials?access_token=sk.eyJ1IjoiZXZ5YXRhcmsiLCJhIjoiY2xsejB5eG5sMnA0dTNkcHY4M3R3a29iYyJ9.lcFx6pN17fVdcmBNPRyJPg"
+
+response:
+{
+    "bucket":"tilestream-tilesets-production",
+    "key":"d7/_pending/brf0w8ejati2of00s2jo43nlc/evyatark",
+    "accessKeyId":"ASIATNLVGLR2A63UPFMJ",
+    "secretAccessKey":"Nk/4VNj4OtypjtMlaA5h2pbOe5Wl1a0AW3wyxqKD",
+    "sessionToken":"FwoGZXIvYXdzEL7//////////wEaDIZp9kiEMd7iGawnuyKVAhA4NV21fc5fpMUEpkDB+7JUMdKDbCwHCsckMFoqEDnWaG5kVIqqody5wRyOoDRoPD18HS/2eBcw2gfwipwWGu7MGCnSBARcb4yajz7ahoohbjZrBli7B0OsQlFqxblHBZMdUDtSqW1CHl3R1ESxn0IAoXh2lykKzPrLMwoMiX3N0HE4kZbWel0rLp4eBWxozHS4jAQyxgRAdzBCXswQGhZD7331ZkDcCOSQylxp2F1mq/UfR+yroiTGZzh0XwrxsjpB2L9c8mm68xjl6BzNHFbjyYle39Fj76EoMpxVuhek1Hm1JtjapPjic9OHiHC0ax9MAyzs3n9CBt0DtBS8Dc1Sn3aLEfMwJWuaYue5tjlG8iLBzhwo7dfVqAYyKU3nglbixr4QJa5+y/o2ZSZym9bPTgPnvUMQXZ878+CjGKT7Z73+8jtL",
+    "url":"https://tilestream-tilesets-production.s3.amazonaws.com/d7/_pending/brf0w8ejati2of00s2jo43nlc/evyatark"}
+    
+evyatar@dell-precision-3551:~/work/prcc/data$ ^C
+
+export AWS_ACCESS_KEY_ID=ASIATNLVGLR2A63UPFMJ
+export AWS_SECRET_ACCESS_KEY=Nk/4VNj4OtypjtMlaA5h2pbOe5Wl1a0AW3wyxqKD
+export AWS_SESSION_TOKEN=FwoGZXIvYXdzEL7//////////wEaDIZp9kiEMd7iGawnuyKVAhA4NV21fc5fpMUEpkDB+7JUMdKDbCwHCsckMFoqEDnWaG5kVIqqody5wRyOoDRoPD18HS/2eBcw2gfwipwWGu7MGCnSBARcb4yajz7ahoohbjZrBli7B0OsQlFqxblHBZMdUDtSqW1CHl3R1ESxn0IAoXh2lykKzPrLMwoMiX3N0HE4kZbWel0rLp4eBWxozHS4jAQyxgRAdzBCXswQGhZD7331ZkDcCOSQylxp2F1mq/UfR+yroiTGZzh0XwrxsjpB2L9c8mm68xjl6BzNHFbjyYle39Fj76EoMpxVuhek1Hm1JtjapPjic9OHiHC0ax9MAyzs3n9CBt0DtBS8Dc1Sn3aLEfMwJWuaYue5tjlG8iLBzhwo7dfVqAYyKU3nglbixr4QJa5+y/o2ZSZym9bPTgPnvUMQXZ878+CjGKT7Z73+8jtL
+
+copy to aws bucket:
+-------------------
+aws s3 cp /home/evyatar/work/prcc/data/LST_Tiles_8_16.mbtiles s3://tilestream-tilesets-production/d7/_pending/brf0w8ejati2of00s2jo43nlc/evyatark --region us-east-1
+
+response:
+upload: ./LST_Tiles_8_16.mbtiles to s3://tilestream-tilesets-production/d7/_pending/brf0w8ejati2of00s2jo43nlc/evyatark
+
+start processing: (Mapbox will take file from S3, process it and create a tileset)
+-----------------
+curl -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{ "url": "https://tilestream-tilesets-production.s3.amazonaws.com/d7/_pending/brf0w8ejati2of00s2jo43nlc/evyatark",    "tileset": "evyatark.lst_tiles_8_16",      "name": "LST_8_16"    }' 'https://api.mapbox.com/uploads/v1/evyatark?access_token=sk.eyJ1IjoiZXZ5YXRhcmsiLCJhIjoiY2xsejB5eG5sMnA0dTNkcHY4M3R3a29iYyJ9.lcFx6pN17fVdcmBNPRyJPg'
+
+response:
+{"id":"cln350s4y1nii2imef8lbzpry","name":"LST_8_16","complete":false,"error":null,"created":"2023-09-28T12:14:32.829Z","modified":"2023-09-28T12:14:32.829Z","tileset":"evyatark.lst_tiles_8_16","owner":"evyatark","progress":0}
+
+
+check status:  (to see if Mapbox completed processing)
+------------
+curl "https://api.mapbox.com/uploads/v1/evyatark/cln350s4y1nii2imef8lbzpry?access_token=sk.eyJ1IjoiZXZ5YXRhcmsiLCJhIjoiY2xsejB5eG5sMnA0dTNkcHY4M3R3a29iYyJ9.lcFx6pN17fVdcmBNPRyJPg"
+
+response if processing is in progress:
+{"id":"cln350s4y1nii2imef8lbzpry","name":"LST_8_16","complete":false,"error":null,"created":"2023-09-28T12:14:32.829Z","modified":"2023-09-28T12:14:32.829Z","tileset":"evyatark.lst_tiles_8_16","owner":"evyatark","progress":0}
+
+response when processing is completed:
+{"id":"cln350s4y1nii2imef8lbzpry","name":"LST_8_16","complete":true,"error":null,"created":"2023-09-28T12:14:32.829Z","modified":"2023-09-28T12:14:32.829Z","tileset":"evyatark.lst_tiles_8_16","owner":"evyatark","progress":1}

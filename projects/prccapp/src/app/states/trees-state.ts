@@ -20,10 +20,11 @@ export class TreesState extends State {
         // which of the 2 satellite images will be displayed
         if (this.filters.rc === 'temperature') {
             //layers.push('evyatark-lst-image-30');
-            layers.push('lst-tiles-8-11');
+            layers.push('evyatark-lst-tiles-8-16');
+            //layers.push('lst-tiles-8-11');
         }
         else if (this.filters.rc === 'vegetation') {
-            layers.push('evyatark-ndv-image-30');
+            //layers.push('evyatark-ndv-image-30');
         }
         else if (this.filters.rc === 'satellite') {
             layers.push('satellite');
@@ -48,17 +49,25 @@ export class TreesState extends State {
 
         // this causes the layers in array 'layers' to be available/visible in trees view:
         for (const id of layers) {
+            console.log('trees state, add layer', id);
             this.layerConfig[id] = new LayerConfig(null, null, null);
         }
         // if (canopiesFilter) {
         //     this.layerConfig['canopies'].filter = canopiesFilter;
         // }
 
-        if (this.layerConfig['evyatark-lst-image-30']) {
-            this.layerConfig['evyatark-lst-image-30'].paint = {'raster-opacity': 0.9};
-        }
-        if (this.layerConfig['evyatark-ndv-image-30']) {
-            this.layerConfig['evyatark-ndv-image-30'].paint = {'raster-opacity': 0.9};
+        // for (const id in layers) {
+        //     if ((id === 'evyatark-lst-image-30') || (id === 'evyatark-ndv-image-30')
+        //     || (id === 'evyatark-lst-tiles-8-16')
+        //     ) {
+        //         if (this.layerConfig[id]) {
+        //             this.layerConfig[id].paint = {'raster-opacity': 0.3};
+        //         }
+        //     }
+        // }
+        if (this.layerConfig['evyatark-lst-tiles-8-16']) {
+            console.log('trees state, lst-tiles-8-16 layer, set raster-opacity');
+            this.layerConfig['evyatark-lst-tiles-8-16'].paint = {'raster-opacity': 0.7};
         }
 
         // this.layerConfig['trees'].paint = {
