@@ -64,6 +64,10 @@ export class MuniState extends State {
                 console.log('displaying Yaad Trees layer');
                 background_layers.push('trees');            
             }
+            if (selectedLayers.includes('hupot')) {
+                console.log('displaying Yaad Canopies layer');
+                background_layers.push('canopies');            
+            }
         }
         console.log('bg layers:', background_layers);
         // this causes the layers in array 'layers' to be available/visible in trees view:
@@ -100,7 +104,7 @@ export class MuniState extends State {
                     'circle-stroke-color': '#ffffff',
                 };
             }
-            if ((layerId === 'parcels') || (layerId === 'parcels-labels')) {
+            if ((layerId === 'parcels') || (layerId === 'parcels-labels') || (layerId === 'canopies')) {
                 this.layerConfig[layerId].layout = {'visibility': 'visible'};
             }
         }

@@ -57,6 +57,10 @@ export class StatAreaState extends State {
                 console.log('displaying Yaad Trees layer');
                 background_layers.push('trees');            
             }
+            if (selectedLayers.includes('hupot')) {
+                console.log('displaying Yaad Canopies layer');
+                background_layers.push('canopies');            
+            }
         }
         // this causes the layers in array 'background_layers' to be available/visible in stat-area view:
         for (const layerId of background_layers) {
@@ -92,7 +96,7 @@ export class StatAreaState extends State {
                     'circle-stroke-color': '#ffffff',
                 };
             }
-            if ((layerId === 'parcels') || (layerId === 'parcels-labels')) {
+            if ((layerId === 'parcels') || (layerId === 'parcels-labels') || (layerId === 'canopies')) {
                 this.layerConfig[layerId].layout = {'visibility': 'visible'};
             }
         }

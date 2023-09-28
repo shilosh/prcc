@@ -88,6 +88,10 @@ export class StatAreasState extends State {
                 console.log('displaying Yaad Trees layer');
                 background_layers.push('trees');            
             }
+            if (selectedLayers.includes('hupot')) {
+                console.log('displaying Yaad Canopies layer');
+                background_layers.push('canopies');            
+            }
         }
         // this causes the layers in array 'layers' to be available/visible in trees view:
         for (const id of background_layers) {
@@ -117,7 +121,7 @@ export class StatAreasState extends State {
                     'circle-stroke-color': '#ffffff',
                 };
             }
-            if ((id === 'parcels') || (id === 'parcels-labels')) {
+            if ((id === 'parcels') || (id === 'parcels-labels') || (id === 'canopies')) {
                 this.layerConfig[id].layout = {'visibility': 'visible'};
             }
         }

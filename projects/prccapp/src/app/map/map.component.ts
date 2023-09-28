@@ -30,16 +30,15 @@ export class MapComponent implements AfterViewInit{
     // 'parcels-border',
     // 'parcels-fill',
     // 'roads-border',
-    // 'canopies',
     'prcc-settlements-data',
     'prcc-statistical-areas',
     'prcc-settlements-data-borders',
     'prcc-statistical-areas-borders',
     'parcels', // gush chelka from Adam
     'parcels-labels', // gush chelka from Adam
-    //'sub-gush-all',
     //'settlement-major-label','settlement-minor-label','settlement-subdivision-label',
     'trees', // yaad trees
+    'canopies', // yaad chupot
     //'il-map-places-final',
     //'evyatark-lst-image-30',
     'lst-tiles-8-11',

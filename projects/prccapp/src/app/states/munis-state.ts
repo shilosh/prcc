@@ -103,7 +103,7 @@ export class MunisState extends State {
 
     handle_background_layers(layer_query_param_name : string) {
         const background_layers = [];
-        // this takes from the URL ("http://localhost:4200/munis?bglayers=gush;yaad") the part "all;low"
+        // this takes from the URL ("http://localhost:4200/munis?bglayers=gush;yaad") the part "gush;yaad"
         // and splits it to a list of [all, low] so that it can be processed
         this.filters[layer_query_param_name] = (this.filters[layer_query_param_name] || '').split(';').filter((s: string) => s.length > 0)
         console.log('list of layers in multi select:', this.filters[layer_query_param_name]);
@@ -115,11 +115,14 @@ export class MunisState extends State {
                 console.log('displaying Gush-Chelka layer');
                 background_layers.push('parcels');            
                 background_layers.push('parcels-labels');            
-                //background_layers.push('sub-gush-all');            
             }
             if (selectedLayers.includes('yaad')) {
                 console.log('displaying Yaad Trees layer');
                 background_layers.push('trees');            
+            }
+            if (selectedLayers.includes('hupot')) {
+                console.log('displaying Yaad Canopies layer');
+                background_layers.push('canopies');            
             }
         }
         console.log('bg layers:', background_layers);
@@ -152,6 +155,9 @@ export class MunisState extends State {
                 };
             }
             if ((id === 'parcels') || (id === 'parcels-labels')) {
+                this.layerConfig[id].layout = {'visibility': 'visible'};
+            }
+            if (id === 'canopies') {
                 this.layerConfig[id].layout = {'visibility': 'visible'};
             }
         }

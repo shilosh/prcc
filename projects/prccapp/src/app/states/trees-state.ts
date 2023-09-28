@@ -28,17 +28,17 @@ export class TreesState extends State {
         else if (this.filters.rc === 'satellite') {
             layers.push('satellite');
         }
-        let canopiesFilter: any[] | null = null;
-        if (this.filters[QP_CANOPIES] !== QP_CANOPIES_NONE) {
-            layers.push('canopies');
-            if (this.filters[QP_CANOPIES] === QP_CANOPIES_MATCHED) {
-                canopiesFilter = ['==', ['get', 'kind'], ['literal', 'matched']];
-            } else if (this.filters[QP_CANOPIES] === QP_CANOPIES_LIKELY) {
-                canopiesFilter = ['==', ['get', 'kind'], ['literal', 'likely']];
-            } else if (this.filters[QP_CANOPIES] === QP_CANOPIES_MATCHED_LIKELY) {
-                canopiesFilter = ['!=', ['get', 'kind'], ['literal', 'unknown']];
-            }
-        }
+        // let canopiesFilter: any[] | null = null;
+        // if (this.filters[QP_CANOPIES] !== QP_CANOPIES_NONE) {
+        //     layers.push('canopies');
+        //     if (this.filters[QP_CANOPIES] === QP_CANOPIES_MATCHED) {
+        //         canopiesFilter = ['==', ['get', 'kind'], ['literal', 'matched']];
+        //     } else if (this.filters[QP_CANOPIES] === QP_CANOPIES_LIKELY) {
+        //         canopiesFilter = ['==', ['get', 'kind'], ['literal', 'likely']];
+        //     } else if (this.filters[QP_CANOPIES] === QP_CANOPIES_MATCHED_LIKELY) {
+        //         canopiesFilter = ['!=', ['get', 'kind'], ['literal', 'unknown']];
+        //     }
+        // }
         if (this.filters.cadaster !== '0') {
             layers.push('cadaster-label', 'cadaster-border');
         }
@@ -50,9 +50,9 @@ export class TreesState extends State {
         for (const id of layers) {
             this.layerConfig[id] = new LayerConfig(null, null, null);
         }
-        if (canopiesFilter) {
-            this.layerConfig['canopies'].filter = canopiesFilter;
-        }
+        // if (canopiesFilter) {
+        //     this.layerConfig['canopies'].filter = canopiesFilter;
+        // }
 
         if (this.layerConfig['evyatark-lst-image-30']) {
             this.layerConfig['evyatark-lst-image-30'].paint = {'raster-opacity': 0.9};

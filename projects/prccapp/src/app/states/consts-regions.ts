@@ -22,6 +22,7 @@ const dropdown_2_option_2 = 'גוש חלקה';
 const dropdown_2_option_3 = 'פשטי הצפה';
 const dropdown_2_option_4 = 'עצי יעד';
 const dropdown_2_option_5 = 'תחנות אוטובוס';
+const dropdown_2_option_6 = 'חופות';
 // Region Colorings
 // this defines the drop-down of display modes for the "munis" display
 export const MUNI_COLORING_OPTIONS = new SelectFilterItem(
@@ -122,6 +123,7 @@ const MUNIS_BG_LAYERS_SELECTION = new MultipleSelectFilterItem(
         //new FilterOption('pst', dropdown_2_option_3),
         new FilterOption('yaad', dropdown_2_option_4),
         //new FilterOption('bus', dropdown_2_option_5),
+        new FilterOption('hupot', dropdown_2_option_6),
     ]
 )
 const STAT_AREAS_BG_LAYERS_SELECTION = new MultipleSelectFilterItem(
@@ -131,6 +133,7 @@ const STAT_AREAS_BG_LAYERS_SELECTION = new MultipleSelectFilterItem(
         //new FilterOption('pst', dropdown_2_option_3),
         new FilterOption('yaad', dropdown_2_option_4),
         //new FilterOption('bus', dropdown_2_option_5),
+        new FilterOption('hupot', dropdown_2_option_6),
     ]
 )
 
