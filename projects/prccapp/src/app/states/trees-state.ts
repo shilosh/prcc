@@ -19,12 +19,10 @@ export class TreesState extends State {
         // decide according to filter selection (2nd drop-down, reflects in the URL queryParams)
         // which of the 2 satellite images will be displayed
         if (this.filters.rc === 'temperature') {
-            //layers.push('evyatark-lst-image-30');
             layers.push('evyatark-lst-tiles-8-16');
-            //layers.push('lst-tiles-8-11');
         }
         else if (this.filters.rc === 'vegetation') {
-            //layers.push('evyatark-ndv-image-30');
+            layers.push('evyatark-ndvi-tiles-8-16');
         }
         else if (this.filters.rc === 'satellite') {
             layers.push('satellite');
@@ -68,6 +66,10 @@ export class TreesState extends State {
         if (this.layerConfig['evyatark-lst-tiles-8-16']) {
             console.log('trees state, lst-tiles-8-16 layer, set raster-opacity');
             this.layerConfig['evyatark-lst-tiles-8-16'].paint = {'raster-opacity': 0.7};
+        }
+        if (this.layerConfig['evyatark-ndvi-tiles-8-16']) {
+            console.log('trees state, ndvi-tiles-8-16 layer, set raster-opacity');
+            this.layerConfig['evyatark-ndvi-tiles-8-16'].paint = {'raster-opacity': 0.7};
         }
 
         // this.layerConfig['trees'].paint = {

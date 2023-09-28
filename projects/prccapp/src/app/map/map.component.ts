@@ -15,8 +15,6 @@ import { ApiService } from '../api.service';
 export class MapComponent implements AfterViewInit{
 
   STYLE = 'mapbox://styles/evyatark/cln35bpaw035j01pjexdw4yt6/draft'; // ev6
-  //STYLE = 'mapbox://styles/evyatark/clmhlgep5004w01pdg3vu8618/draft'; // ev5
-  //STYLE = 'mapbox://styles/evyatark/clm8uwjgw014c01pebv8g5eum/draft' ;  // ev4
 
   OWN_LAYERS = [
     // 'cadaster-label',
@@ -41,10 +39,9 @@ export class MapComponent implements AfterViewInit{
     'trees', // yaad trees
     'canopies', // yaad chupot
     //'il-map-places-final',
-    //'evyatark-lst-image-30',
     'lst-tiles-8-11',
     'evyatark-lst-tiles-8-16',
-    'evyatark-ndv-image-30',
+    'evyatark-ndvi-tiles-8-16',
     'satellite'
   ];
   CLICKS = [

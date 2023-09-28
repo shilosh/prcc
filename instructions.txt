@@ -177,7 +177,8 @@ legend should say that trees are Meshoar
 uploading
 get an access token
 
-evyatar@dell-precision-3551:~/work/prcc/data$ curl -X POST "https://api.mapbox.com/uploads/v1/evyatark/credentials?access_token=sk.eyJ1IjoiZXZ5YXRhcmsiLCJhIjoiY2xsejB5eG5sMnA0dTNkcHY4M3R3a29iYyJ9.lcFx6pN17fVdcmBNPRyJPg"
+evyatar@dell-precision-3551:~/work/prcc/data$ 
+curl -X POST "https://api.mapbox.com/uploads/v1/evyatark/credentials?access_token=sk.eyJ1IjoiZXZ5YXRhcmsiLCJhIjoiY2xsejB5eG5sMnA0dTNkcHY4M3R3a29iYyJ9.lcFx6pN17fVdcmBNPRyJPg"
 
 response:
 {
@@ -218,3 +219,21 @@ response if processing is in progress:
 
 response when processing is completed:
 {"id":"cln350s4y1nii2imef8lbzpry","name":"LST_8_16","complete":true,"error":null,"created":"2023-09-28T12:14:32.829Z","modified":"2023-09-28T12:14:32.829Z","tileset":"evyatark.lst_tiles_8_16","owner":"evyatark","progress":1}
+
+
+
+{
+    "bucket":"tilestream-tilesets-production",
+    "key":"3c/_pending/1zwvivz5bpn25ng1qz9j63nlc/evyatark",
+    "accessKeyId":"ASIATNLVGLR2GFSY3HE7",
+    "secretAccessKey":"E+n1gEQ8wQIyI2b5rHORTqzFHVinMnCHMM7E53JF",
+    "sessionToken":"FwoGZXIvYXdzEL7//////////wEaDF4n8Dw7+sJt+BRgFiKVAkm8NsCjmUVwrGcvuviIkFJfApFdFBUdSkadAh1C4tW0alDnh8cbF12apAn7AIC+py7BmqQgX/gMn+wqFv8VTM+i420bLsilHfKmbEqNGDQWwuroRMX8/nwUAUmXeJ9KnyVyNTjHCYdB2rxgpol4cWHIKK3W0Q9tr1QnC8LVIY7qijkndaO741Rh+J9WJ/udBoHrBkqjzup9LDbBEz0vt0RQ3KaN/96yeURy7V5cNcNAa3thC2h7ju61853tV32WsO69DERq8/V5e334qIX84qgaoodQ34A7bP1hNJKF0Byz/jVDZ0ok5HD8x4zTLlbaqUkgfvs2SUFniS+wNBCDB0xa8x680OSWjl4teVMpY5j+iHE4S0wol/DVqAYyKeN4UkZx3VKyN7cb0zcG4ZkZh0pCA4NlsXA51Cz32DZRwj83neyzgbPd",
+    "url":"https://tilestream-tilesets-production.s3.amazonaws.com/3c/_pending/1zwvivz5bpn25ng1qz9j63nlc/evyatark"
+}
+export AWS_ACCESS_KEY_ID=ASIATNLVGLR2GFSY3HE7
+export AWS_SECRET_ACCESS_KEY=E+n1gEQ8wQIyI2b5rHORTqzFHVinMnCHMM7E53JF
+export AWS_SESSION_TOKEN=FwoGZXIvYXdzEL7//////////wEaDF4n8Dw7+sJt+BRgFiKVAkm8NsCjmUVwrGcvuviIkFJfApFdFBUdSkadAh1C4tW0alDnh8cbF12apAn7AIC+py7BmqQgX/gMn+wqFv8VTM+i420bLsilHfKmbEqNGDQWwuroRMX8/nwUAUmXeJ9KnyVyNTjHCYdB2rxgpol4cWHIKK3W0Q9tr1QnC8LVIY7qijkndaO741Rh+J9WJ/udBoHrBkqjzup9LDbBEz0vt0RQ3KaN/96yeURy7V5cNcNAa3thC2h7ju61853tV32WsO69DERq8/V5e334qIX84qgaoodQ34A7bP1hNJKF0Byz/jVDZ0ok5HD8x4zTLlbaqUkgfvs2SUFniS+wNBCDB0xa8x680OSWjl4teVMpY5j+iHE4S0wol/DVqAYyKeN4UkZx3VKyN7cb0zcG4ZkZh0pCA4NlsXA51Cz32DZRwj83neyzgbPd
+
+curl -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{ "url": "https://tilestream-tilesets-production.s3.amazonaws.com/3c/_pending/1zwvivz5bpn25ng1qz9j63nlc/evyatark", "tileset": "evyatark.ndvi_tiles_8_16",      "name": "NDVI_8_16"    }' 'https://api.mapbox.com/uploads/v1/evyatark?access_token=sk.eyJ1IjoiZXZ5YXRhcmsiLCJhIjoiY2xsejB5eG5sMnA0dTNkcHY4M3R3a29iYyJ9.lcFx6pN17fVdcmBNPRyJPg'
+
+curl "https://api.mapbox.com/uploads/v1/evyatark/cln36oymr0ov72bpm80fyyrkr?access_token=sk.eyJ1IjoiZXZ5YXRhcmsiLCJhIjoiY2xsejB5eG5sMnA0dTNkcHY4M3R3a29iYyJ9.lcFx6pN17fVdcmBNPRyJPg"
