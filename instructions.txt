@@ -18,6 +18,10 @@ to deploy
 ---------
 First, MAKE SURE everything is committed and pushed to git (otherwise you will loose your work!!!)
 
+then, before running deploy.sh, make sure npm is available.
+if not, do again:
+nvm use v20.5.0
+
 in console run:
 ./deploy.sh
 (currently it deploys to github of evyatark, so all links are to that project)
