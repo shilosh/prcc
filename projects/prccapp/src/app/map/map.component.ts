@@ -14,7 +14,9 @@ import { ApiService } from '../api.service';
 })
 export class MapComponent implements AfterViewInit{
 
-  STYLE = 'mapbox://styles/evyatark/cln35bpaw035j01pjexdw4yt6/draft'; // ev6
+  // if changing to a different account you need to change also the ACCESS TOKEn in MapboxService
+  //STYLE = 'mapbox://styles/evyatark/cln35bpaw035j01pjexdw4yt6/draft'; // ev6
+  STYLE = 'mapbox://styles/evyatark3108/clnljjtd7003i01plcccdek9h/draft'; // evyatark3108 prcc01
 
   OWN_LAYERS = [
     // 'cadaster-label',

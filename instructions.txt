@@ -183,3 +183,75 @@ legend should say that trees are Meshoar
 
 
 
+
+uploading from evyatark3108:
+
+- in Mapbox Studio, in your account, create access token with permissions Upload:*
+
+ACCESS_TOKEN=sk.eyJ1IjoiZXZ5YXRhcmszMTA4IiwiYSI6ImNsbm16ZHZ3YzAxOHUya2xqanV0OTQzZG8ifQ...
+
+
+curl -X POST "https://api.mapbox.com/uploads/v1/evyatark3108/credentials?access_token=sk.eyJ1IjoiZXZ5YXRhcmszMTA4IiwiYSI6ImNsbm16ZHZ3YzAxOHUya2xqanV0OTQzZG8ifQ."
+
+response is:
+{
+    "bucket":"tilestream-tilesets-production",
+    "key":"1a/_pending/910p6um95sh2le20t6qszmnlc/evyatark3108",
+    "accessKeyId":"ASIATNLVGLR2MV3TGWFR",
+    "secretAccessKey":"OOvr2qBxx/Hg6V4huZzkubqYvcsu3U/BO8F72phJ",
+    "sessionToken":"FwoGZXIvYXdzEAsaDEt6BkjygzIsq5DqmCKeAn6/9s4UO3hWkgdCf3idUpCOAtKw3hteQQ4A1HVSmiXzADBAwFwyCsn8iVevJJtXaFpgcF3ty4PPfngHX4RwFir8bHJWrfqGDb/8c8iH8nZzW7wNz8lLkILjwEX+D8HB9zBdzFxnSrR5xOUPhtwgRaPfQ32Y+FQxFRoK0XywA3NbLCIkeryz+f78pgypd34/XMW5kK5M0jK4JkY1k66L/bCGYEMIG8yQg2y0iT4CuzvpIw5eKlAfmynJPZjadV5RGw8S7VdASRy8KwiHX64YCwBXSmGEHTPPzJrOwKJAAY07pfxTJpP4yHQy1qERd49KFFwlJ/Bd3J0z+AHKoPCHVfdLF8VRo/7lCA1EfJa54iwNDO+WnhTzXcB1Z11Fp2Aozv+eqQYyKWrXlJqxC08IfM59EBAfO7fhFbLOjbAesRZZyEcRx3g5rpLEieLP4J1b",
+    "url":"https://tilestream-tilesets-production.s3.amazonaws.com/1a/_pending/910p6um95sh2le20t6qszmnlc/evyatark3108"
+}
+
+- copy from the response the relevant parts to these terminal commands.
+- for the 4th command (aws s3 ...) you need to install aws command line if you don't already have it.
+- paste the commands in terminal:
+export AWS_ACCESS_KEY_ID=ASIATNLVGLR2MV3TGWFR
+export AWS_SECRET_ACCESS_KEY=OOvr2qBxx/Hg6V4huZzkubqYvcsu3U/BO8F72phJ
+export AWS_SESSION_TOKEN=FwoGZXIvYXdzEAsaDEt6BkjygzIsq5DqmCKeAn6/9s4UO3hWkgdCf3idUpCOAtKw3hteQQ4A1HVSmiXzADBAwFwyCsn8iVevJJtXaFpgcF3ty4PPfngHX4RwFir8bHJWrfqGDb/8c8iH8nZzW7wNz8lLkILjwEX+D8HB9zBdzFxnSrR5xOUPhtwgRaPfQ32Y+FQxFRoK0XywA3NbLCIkeryz+f78pgypd34/XMW5kK5M0jK4JkY1k66L/bCGYEMIG8yQg2y0iT4CuzvpIw5eKlAfmynJPZjadV5RGw8S7VdASRy8KwiHX64YCwBXSmGEHTPPzJrOwKJAAY07pfxTJpP4yHQy1qERd49KFFwlJ/Bd3J0z+AHKoPCHVfdLF8VRo/7lCA1EfJa54iwNDO+WnhTzXcB1Z11Fp2Aozv+eqQYyKWrXlJqxC08IfM59EBAfO7fhFbLOjbAesRZZyEcRx3g5rpLEieLP4J1b
+aws s3 cp /home/evyatar/work/prcc/data/new/LST_Tiles_8_16.mbtiles s3://tilestream-tilesets-production/1a/_pending/910p6um95sh2le20t6qszmnlc/evyatark3108 --region us-east-1
+
+after the 4th command, the terminal will display an updating status line while the upload is hapenning
+(might take a long time, depending on the file size and your internet connection.
+for large files, you should prefer a symmetric internet connection with high upload, like in University or Hi-Tech company)
+
+the 4th command completes, you will get this response:
+upload: work/prcc/data/new/LST_Tiles_8_16.mbtiles to s3://tilestream-tilesets-production/1a/_pending/910p6um95sh2le20t6qszmnlc/evyatark3108
+
+after upload is complete, create the following request 
+(paste correct "key" and "access token" and change "tileset" and "name" to have meaningful values because you will use them later as layer name in the mapbox style)
+
+curl -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{  "url": "http://tilestream-tilesets-production.s3.amazonaws.com/1a/_pending/910p6um95sh2le20t6qszmnlc/evyatark3108",    "tileset": "evyatark3108.lst-image-30",  "name": "LST 30"}' 'https://api.mapbox.com/uploads/v1/evyatark3108?access_token=sk.eyJ1IjoiZXZ5YXRhcmszMTA4IiwiYSI6ImNsbm16ZHZ3YzAxOHUya2xqanV0OTQzZG8ifQ.'
+
+you are supposed to get an immediate response like this:
+{"id":"clnn0foio2wtn2opfbyo7nbw5","name":"LST 30","complete":false,"error":null,"created":"2023-10-12T10:01:33.423Z","modified":"2023-10-12T10:01:33.423Z","tileset":"evyatark3108.lst-image-30","owner":"evyatark3108","progress":0}
+(if you get {"message":"Not Found"} it means that something is wrong with how you created the request text. check again all parts, especially the user name and the key and the access token)
+
+now you should use the id from the response to check progress of the processing:
+
+curl "https://api.mapbox.com/uploads/v1/evyatark3108/clnn0foio2wtn2opfbyo7nbw5?access_token=sk.eyJ1IjoiZXZ5YXRhcmszMTA4IiwiYSI6ImNsbm16ZHZ3YzAxOHUya2xqanV0OTQzZG8ifQ."
+run this url until you get a response like this with a progress=1 !! (progress=0 means it is still processing!!)
+{"id":"clnn0foio2wtn2opfbyo7nbw5","name":"LST 30","complete":true,"error":null,"created":"2023-10-12T10:01:33.423Z","modified":"2023-10-12T10:01:33.423Z","tileset":"evyatark3108.lst-image-30","owner":"evyatark3108","progress":1}
+
+after that, in Mapbox Studio, add a layer with this source (LST 30), set opacity to 0.69.
+rest of parameters are controled by code.
+
+
+{"bucket":"tilestream-tilesets-production","key":"0f/_pending/w8246xa62ta2ajo2cxcj1nnlc/evyatark3108",
+"accessKeyId":"ASIATNLVGLR2F2TKTDMF","secretAccessKey":"aO4TgS7xIcImhrUPXexBOKzrs9SRjXC7Bg1ZU1Lm","sessionToken":"FwoGZXIvYXdzEAwaDP8Or+pBfEi00MU2miKeAiEusMGI+RGAToAUFyGTIox2PoXjZc97Xi6H8WUybN7++hwjREtmvZK+uQhX/QQdbyB1mGB79es/DsW0J0hWnX1LZ784ShXcK3o09lgJ8bidNAdf+MaScX4wM4sYHdUq5bYL5bgCc3FepCiYqgEqlmIcMMmHNFPlIPI/ZoMwj7SvrbhWj5rjJY6uDuT08P9LdXujzbs0g9Dml9YtRY9G4yM9B6YUn04I6b5X68UlnxmGA1mWonZCJkKtA4pUitcTgua7eiVqJIkJ7xlAfiqUIs4rMem5kTaBlXUJgbgQvCS+ild257oWELt6or8PFRshwmJUgsfRawTLN21IedSS/NBfjOO3+d8/0fopHg0chtF4CmZERQZKvhaCfMxXBJ4ouJafqQYyKf5KpXvYpc025xghFt84Qfx1XKKR+Kg/NzqmvhNBeOmvr8cDf034oViB",
+"url":"https://tilestream-tilesets-production.s3.amazonaws.com/0f/_pending/w8246xa62ta2ajo2cxcj1nnlc/evyatark3108"}
+
+export AWS_ACCESS_KEY_ID=ASIATNLVGLR2F2TKTDMF
+export AWS_SECRET_ACCESS_KEY=aO4TgS7xIcImhrUPXexBOKzrs9SRjXC7Bg1ZU1Lm
+export AWS_SESSION_TOKEN=FwoGZXIvYXdzEAwaDP8Or+pBfEi00MU2miKeAiEusMGI+RGAToAUFyGTIox2PoXjZc97Xi6H8WUybN7++hwjREtmvZK+uQhX/QQdbyB1mGB79es/DsW0J0hWnX1LZ784ShXcK3o09lgJ8bidNAdf+MaScX4wM4sYHdUq5bYL5bgCc3FepCiYqgEqlmIcMMmHNFPlIPI/ZoMwj7SvrbhWj5rjJY6uDuT08P9LdXujzbs0g9Dml9YtRY9G4yM9B6YUn04I6b5X68UlnxmGA1mWonZCJkKtA4pUitcTgua7eiVqJIkJ7xlAfiqUIs4rMem5kTaBlXUJgbgQvCS+ild257oWELt6or8PFRshwmJUgsfRawTLN21IedSS/NBfjOO3+d8/0fopHg0chtF4CmZERQZKvhaCfMxXBJ4ouJafqQYyKf5KpXvYpc025xghFt84Qfx1XKKR+Kg/NzqmvhNBeOmvr8cDf034oViB
+aws s3 cp /home/evyatar/work/prcc/data/new/NDVI_Tiles_8_16.mbtiles s3://tilestream-tilesets-production/0f/_pending/w8246xa62ta2ajo2cxcj1nnlc/evyatark3108 --region us-east-1
+
+response:
+upload: work/prcc/data/new/NDVI_Tiles_8_16.mbtiles to s3://tilestream-tilesets-production/0f/_pending/w8246xa62ta2ajo2cxcj1nnlc/evyatark3108
+
+curl -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{ "url": "http://tilestream-tilesets-production.s3.amazonaws.com/0f/_pending/w8246xa62ta2ajo2cxcj1nnlc/evyatark3108", "tileset": "evyatark3108.ndvi-image-30",  "name": "NDVI 30"}' 'https://api.mapbox.com/uploads/v1/evyatark3108?access_token=sk.eyJ1IjoiZXZ5YXRhcmszMTA4IiwiYSI6ImNsbm16ZHZ3YzAxOHUya2xqanV0OTQzZG8ifQ.'
+response:
+{"id":"clnn1z2eg15ko2coqosz21gv2","name":"NDVI 30","complete":false,"error":null,"created":"2023-10-12T10:44:37.493Z","modified":"2023-10-12T10:44:37.493Z","tileset":"evyatark3108.ndvi-image-30","owner":"evyatark3108","progress":0}
+
+check status:
+curl "https://api.mapbox.com/uploads/v1/evyatark3108/clnn1z2eg15ko2coqosz21gv2?access_token=sk.eyJ1IjoiZXZ5YXRhcmszMTA4IiwiYSI6ImNsbm16ZHZ3YzAxOHUya2xqanV0OTQzZG8ifQ."

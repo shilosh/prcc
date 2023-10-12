@@ -7,7 +7,8 @@ import { ReplaySubject } from 'rxjs';
 })
 export class MapboxService {
 
-  ACCESS_TOKEN = 'pk.eyJ1IjoiZXZ5YXRhcmsiLCJhIjoiY2xpdTM5NjlhMWtvNjNlbnhnYjM5bzFjcyJ9.sbPN3nwHUem6QtmtJpnXXw';
+  //ACCESS_TOKEN = 'pk.eyJ1IjoiZXZ5YXRhcmsiLCJhIjoiY2xpdTM5NjlhMWtvNjNlbnhnYjM5bzFjcyJ9.sbPN3nwHUem6QtmtJpnXXw';  // ek
+  ACCESS_TOKEN = 'pk.eyJ1IjoiZXZ5YXRhcmszMTA4IiwiYSI6ImNsbmxqZmk2NzB2ZDMyanMzc2p3YTlpajMifQ.dmZ__h8Jz5hVfXxUquNULw';  // evyatark3108
 
   public init = new ReplaySubject<void>(1);
   public map: mapboxgl.Map;
