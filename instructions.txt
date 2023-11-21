@@ -10,6 +10,26 @@ ng serve
 then browse to
 http://localhost:4200/
 
+On Windows:
+1. install git (including git bash)
+
+2. install npm
+then:
+npm --version (to make sure you have npm installed)
+
+3. clone git repo:
+cd /c/Users/Evyatar/work
+git clone https://github.com/evyatark/prcc.git
+
+4. run:
+
+cd /c/Users/Evyatar/work/prcc
+npm install
+npm run start
+
+then browse to http://localhost:4200/
+
+
 
 browse to this to see the Figma:
 https://www.figma.com/file/Ty4mQXA9tULeEIHd53Q7cC/Digital-Forest?type=design&node-id=845-18699&mode=design&t=UNnTzTZ5aGZeuXz8-0
