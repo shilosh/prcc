@@ -232,27 +232,44 @@ export class MapComponent implements AfterViewInit{
   }
 
   createPopupHtmlContentStatistical(feature: any) {
-    const content = '<div dir="ltr">' + '<strong>' + feature.properties['SHEM_YISHU'] + 
-    ' ' + 'איזור' + ' ' + feature.properties['STAT11'] + '</strong><br/>' +
+    const content = '<div dir="rtl">' + '<strong>' + feature.properties['SHEM_YISHU'] + 
+    //' ' + 'איזור' + ' ' + feature.properties['STAT11'] + 
+    '</strong><br/>' +
     //'<strong>muni: </strong>' + feature.properties['SHEM_YIS_1'] + '<br/>' +
-    '<strong>population: </strong>' + feature.properties['Pop_Total'] + '<br/>' +
-    '<strong>city code: </strong>' + feature.properties['semel_yesu'] + '<br/>' +
-    '<strong>area code: </strong>' + feature.properties['STAT11'] + '<br/>' +
-    '<strong>temperature: </strong>' + this.round(feature.properties['median_tem']) + '<br/>' +
-    '<strong>VegFrac: </strong>' + this.round(feature.properties['VegFrac'], 4) + '<br/>' +
-    '<strong>cluster: </strong>' + feature.properties['cluster'] + 
+    // '<strong>population: </strong>' + feature.properties['Pop_Total'] + '<br/>' +
+    // '<strong>city code: </strong>' + feature.properties['semel_yesu'] + '<br/>' +
+    // '<strong>area code: </strong>' + feature.properties['STAT11'] + '<br/>' +
+    // '<strong>temperature: </strong>' + this.round(feature.properties['median_tem']) + '<br/>' +
+    // '<strong>VegFrac: </strong>' + this.round(feature.properties['VegFrac'], 4) + '<br/>' +
+    // '<strong>cluster: </strong>' + feature.properties['cluster'] + 
+    // '<br>'+
+    '<strong>איזור סטטיסטי: </strong>' + feature.properties['STAT11'] + '<br/>' +
+    '<strong>אוכלוסיה: </strong>' + feature.properties['Pop_Total'] + '<br/>' +
+    // '<strong>city code: </strong>' + feature.properties['semel_yesu'] + '<br/>' +
+    '<strong>דירוג כלכלי חברתי: </strong>' + feature.properties['cluster'] + '<br/>' +
+    '<strong>טמפרטורה: </strong>' + this.round(feature.properties['median_tem']) + '<br/>' +
+    '<strong>כיסוי צומח: </strong>' + this.round(feature.properties['VegFrac'], 4) + '<br/>' +
+
     '</div>';
     return content;
   }
   createPopupHtmlContentSettlements(feature: any) {
-    const content = '<div dir="ltr">' + '<strong>' + feature.properties['Muni_Heb'] + '</strong><br/>' +
+    const content = '<div dir="rtl">' + '<strong>' + feature.properties['Muni_Heb'] + '</strong><hr/>' +
     //'<strong>muni: </strong>' + feature.properties['FIRST_Muni'] + '<br/>' +
-    '<strong>population: </strong>' + this.round(feature.properties['pop17'], 0) + '<br/>' +
-    '<strong>city code: </strong>' + feature.properties['CODE'] + '<br/>' +
-    '<strong>cluster: </strong>' + feature.properties['cluster17'] + '<br/>' +
-    '<strong>temperature: </strong>' + this.round(feature.properties['Temperatur']) + '<br/>' +
-    '<strong>VegFrac: </strong>' + this.round(feature.properties['VegFrac'], 4) +
+    '<strong>אוכלוסיה: </strong>' + this.round(feature.properties['pop17'], 0) + '<br/>' +
+    //'<strong>city code: </strong>' + feature.properties['CODE'] + '<br/>' +
+    '<strong>דירוג כלכלי חברתי: </strong>' + feature.properties['cluster17'] + '<br/>' +
+    '<strong>טמפרטורה: </strong>' + this.round(feature.properties['Temperatur']) + '<br/>' +
+    '<strong>כיסוי צומח: </strong>' + this.round(feature.properties['VegFrac'], 4) +
     '</div>';
+    // const content = '<div dir="ltr">' + '<strong>' + feature.properties['Muni_Heb'] + '</strong><br/>' +
+    // //'<strong>muni: </strong>' + feature.properties['FIRST_Muni'] + '<br/>' +
+    // '<strong>population: </strong>' + this.round(feature.properties['pop17'], 0) + '<br/>' +
+    // '<strong>city code: </strong>' + feature.properties['CODE'] + '<br/>' +
+    // '<strong>cluster: </strong>' + feature.properties['cluster17'] + '<br/>' +
+    // '<strong>temperature: </strong>' + this.round(feature.properties['Temperatur']) + '<br/>' +
+    // '<strong>VegFrac: </strong>' + this.round(feature.properties['VegFrac'], 4) +
+    // '</div>';
     return content;
   }
 

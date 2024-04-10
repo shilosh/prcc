@@ -81,13 +81,25 @@
             align-items: flex-start;
             justify-content: space-between;
             flex: 1 1 100%;
+            position: relative;
 
+            .row {
+                display: flex;
+                flex-flow: row-reverse;
+                align-items: flex-start;
+                justify-content: space-between;
+                height: 50%;
+                position: absolute;
+                bottom: 0;
+            }
             .column {
                 display: flex;
                 flex-flow: column;
                 align-items: flex-start;
                 justify-content: space-between;
                 height: 100%;    
+                position: absolute;
+                bottom: 0;
             }
         }
 

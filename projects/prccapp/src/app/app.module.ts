@@ -20,6 +20,7 @@ import { SummaryComponent } from './summary/summary.component';
 import { LegendComponent } from './legend/legend.component';
 import { ContentComponent } from './content/content.component';
 import { FilterComponent } from './filter/filter.component';
+import { TreeLegendComponent } from './tree-legend/tree-legend.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { FilterComponent } from './filter/filter.component';
     RegionComponent,
     SummaryComponent,
     LegendComponent,
-    LayoutComponent
+    LayoutComponent,
+    TreeLegendComponent
   ],
   imports: [
     BrowserModule,

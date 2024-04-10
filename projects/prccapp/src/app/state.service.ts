@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { ApiService } from './api.service';
-import { State, StateMode } from './states/base-state';
+import { Legend, State, StateMode } from './states/base-state';
 import { MuniState } from './states/muni-state';
 import { MunisState } from './states/munis-state';
 import { StatAreaState } from './states/stat-area-state';
 import { StatAreasState } from './states/stat-areas-state';
 import { TreeState } from './states/tree-state';
 import { TreesState } from './states/trees-state';
+import { TREE_COLOR_LEGEND } from './states/consts-trees';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,12 @@ export class StateService {
   public sidebarOpened = true;
 
   lastFeature : any = null;
+  treeLegend: Legend;
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService) { 
+    this.treeLegend = TREE_COLOR_LEGEND;
+
+  }
   //constructor() { }
 
   saveLastFeature(feature: any) {

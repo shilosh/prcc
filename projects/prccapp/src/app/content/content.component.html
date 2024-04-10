@@ -18,5 +18,11 @@
                 <app-legend [legend]='state_.legend'></app-legend>
             </ng-container>    
         </div>
+        <div class='row'>
+            <ng-container *ngIf='stateSvc.treeLegend && state_.isLayerVisible("trees")'>
+                <div></div>
+                <app-tree-legend [legend]='stateSvc.treeLegend'></app-tree-legend>
+            </ng-container>    
+        </div>
     </div>    
 </div>

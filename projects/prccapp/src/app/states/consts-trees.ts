@@ -47,7 +47,7 @@ export const TREE_COLOR_INTERPOLATE = [
     ['to-color', '#204E37'],
     ['to-color', '#64B883'],
 ];
-export const TREE_COLOR_LEGEND = new Legend('מקרא וודאות זיהוי', [
+export const TREE_COLOR_LEGEND = new Legend('עצי יע"ד - וודאות זיהוי', [
     new LegendItem('#204E37', 'עץ מזוהה'),
     new LegendItem('#64B883', 'חשד לעץ'),
 ]);
